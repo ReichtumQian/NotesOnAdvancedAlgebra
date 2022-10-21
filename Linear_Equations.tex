@@ -1,0 +1,319 @@
+
+\chapter{线性方程组}
+
+
+\section{线性方程组解的判定定理}
+
+\subsection{解存在判定定理}
+
+\begin{theorem}[解存在充要条件]
+  $K$上线性方程组$Ax = b$有解的充要条件为$r(A) = r(\overline{A})$，
+  这里$\overline{A} := [A,b]$
+\end{theorem}
+
+
+\subsection{线性方程组同解}
+
+\begin{theorem}[同解定理]
+  $A_{s \times n}, B_{m \times n}$为两个矩阵，
+  则$AX = 0, BX = 0$同解当且仅当$A,B$行向量等价
+\end{theorem}
+
+~
+
+\begin{exercise}[具体应用]
+  (1)已知下面两个线性方程组同解，求$a,b,c$的值，且求通解
+  \begin{equation*}
+    \begin{cases}
+      x_1 + 2x_2 + 3x_3 = 0\\
+      2x_1 + 3x_2 + 5x_3=0\\
+      x_1 + x_2 + ax_3 = 0
+    \end{cases}
+    \quad
+    \begin{cases}
+      x_1 + bx_2 + cx_3 = 0\\
+      2x_1 + b^2x_2 + (c+1)x_3 = 0
+    \end{cases}
+  \end{equation*}
+
+  (2)$A_{s \times n}, B_{t \times n}$为两个矩阵，$AX = 0, BX=0$的解空间分别为$V_1,V_2$，
+  证明：$V_1 \subseteq V_2$当且仅当存在矩阵$C_{t \times s}$使得$B = CA$
+\end{exercise}
+
+\begin{proof}
+  (1)设方程组为$AX = 0, BX = 0$，
+  即$AX = 0$与$\left(
+    \begin{array}{c}
+      A\\
+      B
+    \end{array}
+  \right)X = 0$同解，做初等行变换即可。
+
+  (2)$V_1 \subseteq V_2$当且仅当$AX=0$与$\left(
+    \begin{array}{c}
+      A\\
+      B
+    \end{array}
+  \right)X = 0$同解。
+\end{proof}
+
+\subsection{解个数判定定理}
+
+\begin{theorem}[解个数判定定理]
+  若$K$上$Ax = b$满足$r(A) = r(\overline{A})$：
+  \begin{itemize}
+  \item 若$r(A) = n$：则$Ax = b$有唯一解
+  \item 若$r(A) < n$：则$Ax = b$有无穷解
+  \end{itemize}
+\end{theorem}
+
+
+
+\section{线性方程组的求解}
+
+\subsection{$Ax = 0$求解}
+
+\begin{definition}[自由未知量]
+  消元后多余的$0 = 0$位置对应的变量$x_{r+1},\cdots,x_n$称为方程组自由未知量
+\end{definition}
+
+\begin{theorem}[自由变量的个数]
+  自由变量的个数为$n - r(A)$
+\end{theorem}
+
+\begin{definition}[基础解系]
+  让自由未知量$x_{r-1+i}$取$1$，其余取$0$，构造解向量$\eta_i$称为基础解系：
+  \begin{equation*}
+    \begin{cases}
+      \eta_1 = (*,\cdots,*,1,0,\cdots,0)\\
+      \eta_2 = (*,\cdots,*,0,1,\cdots,0)\\
+      \quad \vdots\\
+      \eta_{n-r} = (*,\cdots,*,0,0,\cdots,1)\\
+    \end{cases}
+  \end{equation*}
+\end{definition}
+
+\begin{note}
+  如果只有一个自由未知数，则一般取$1$而非$0$，
+  否则无法表示出基础解系，只是要给特解。
+\end{note}
+
+\begin{theorem}[齐次线性方程组的解]
+  齐次线性方程组$Ax = 0$的任意解是其基础解系的线性组合
+\end{theorem}
+
+\subsection{$Ax = b$求解}
+
+\begin{theorem}[非齐次线性方程组的解]
+  非齐次线性方程组$Ax = b$的任意解是其特解$\gamma_0$加上齐次方程组$Ax = 0$基础解系线性组合，
+  即$x = \gamma_0 + L\{\eta_1,\cdots,\eta_{n-r}\}$
+\end{theorem}
+
+~
+
+\begin{exercise}[求解非齐次线性方程组]
+  (1)讨论以下线性方程组解的情况
+  \begin{equation*}
+    \begin{cases}
+      x_1 + x_2 - x_3 = 1\\
+      2x_1 + 3x_2 +kx_3 = 3\\
+      x_1 + kx_2 + 3x_3 = 2
+    \end{cases}
+  \end{equation*}
+
+  (2)已知$A = \left(
+    \begin{array}{ccc}
+      1&-1&-1\\
+      4&t&1\\
+      -2&2&t
+    \end{array}
+  \right), b = \left(
+    \begin{array}{c}
+      1\\
+      2\\
+      -t
+    \end{array}
+  \right)$，当$t$为何值时，$AX = b$无解，
+  有唯一解，有无穷多解，并给出有解时对应的解。
+\end{exercise}
+
+\begin{solution}
+  (1)对增广矩阵做初等变换得到
+  \begin{equation*}
+  \left[
+    \begin{array}{cccc}
+      1&1&-1&1\\
+      0&1&k+2&1\\
+      0&0&(k+3)(k-2)&k-2
+    \end{array}
+  \right]
+  \end{equation*}
+  先讨论解的情况：
+  有解当且仅当$r(A) = r(\overline{A})$，
+  $k = -3$无解，
+  $k = 2$有无穷多解。
+  其余情况有唯一解。
+  $k = 2$时特解以及齐次基础解系：
+  \begin{equation*}
+    \gamma = \left(
+      \begin{array}{c}
+        0\\
+        1\\
+        0
+      \end{array}
+    \right), y = \left(
+      \begin{array}{c}
+        5\\
+        -4\\
+        1
+      \end{array}
+    \right) \Rightarrow x = \gamma + k_1y
+  \end{equation*}
+  唯一解情况直接解出结果即可。
+
+  (2)做增广矩阵初等变换得到
+  \begin{equation*}
+    \left[
+      \begin{array}{cccc}
+        1&-1&-1&1\\
+        0&t+4&5&-2\\
+        0&0&t-2&2-t
+      \end{array}
+    \right]
+  \end{equation*}
+  $t = -4$时无解。
+  $t = 2$无穷多解，其他情况有唯一解。
+  具体求解略去。
+\end{solution}
+
+
+
+\subsection{线性方程组公共解的计算}
+
+\begin{exercise}[公共解的情况]
+  (1)线性方程组I的通解为$(1,1,0,0)^T + k_1(1,0,-1,0)^T+k_2(2,3,0,1)^T$，
+  线性方程组II如下，
+  若两个方程组有无穷组公共解，求$a,b$的值并表示出所有公共解
+  \begin{equation*}
+    \begin{cases}
+      7x_1 - 6x_2 + 3x_3 = b\\
+      8x_1 - 9x_2 + ax_4 = 7
+    \end{cases}
+  \end{equation*}
+\end{exercise}
+
+\begin{solution}
+  由于有无穷多组解，因此有无穷组$k_1,k_2$使得$(1+k_1+2k_2,1+3k_2,-k_1,k_2)$为方程组II的解。
+  代入方程化简得到
+  \begin{equation*}
+    \begin{cases}
+      4k_1 - 4k_2 = b-1\\
+      8k_1+(a-11)k_2 = 8
+    \end{cases} \Rightarrow
+    \begin{cases}
+      4k_1 - 4k_2 = b-1\\
+      0k_1 + (a - 3)k_2 = 10-2b
+    \end{cases}
+  \end{equation*}
+  需要有无穷多解，得有自由位置量，
+  因此$a = 3, b = 5$，$k_1 = k_2 + 1$，
+  解系为$(2,1,-1,0)^T + k_2(3,3,-1,1)^T$
+\end{solution}
+
+\begin{note}
+  若给两个完整的线性方程组，则先求出一个的基础解系，
+  再往另一个方程中代。
+\end{note}
+
+
+
+\section{最小二乘解}
+
+\subsection{$A^TA$的研究}
+
+\begin{theorem}[$A^TA$与$A$的秩]
+  设$A$是$m \times n$的实矩阵，则$r(A^TA) = r(A)$。复数域有$r(A\overline{A}^T) = r(\overline{A}^TA) = r(A)$，
+  但不一定有$r(A^TA) = r(A)$。
+\end{theorem}
+
+\begin{proof}
+  (1)只需要考虑$AX = 0$和$A^TAX = 0$解的情况。
+  首先根据$AX = 0$可以推出$A^TAX = 0$。
+  其次$A^TAX = 0$可推出$X^TA^TAX = (AX)^T(AX) = 0$，
+  而$AX$是一个实向量，$\alpha^T\alpha = 0$当且仅当$\alpha = 0$，
+  因此$AX = 0$。
+  故它们同解，$n - r(A) = n - r(A^TA)$得到$r(A) = r(A^TA)$
+
+  (2)若$AX = 0$，则$\overline{A}^T AX = 0$。
+  若$\overline{A}^TAX = 0$，则$\overline{X}^T\overline{A}^TAX = (\overline{AX})^T AX = 0 $，
+  得到$AX = 0$
+\end{proof}
+
+\begin{note}
+  该定理最重要的结论是最小二乘解一定存在。
+\end{note}
+
+~
+
+\begin{exercise}[$A^TA$与$A$性质]
+  (1)$A$是$\mathbb{R}$上任意$s \times n$矩阵，
+  证明：$r(AA^TA) = r(A)$
+\end{exercise}
+
+\begin{proof}
+  (1)$r(AA^TA)\leq r(A)$，
+  而$r(AA^TA) \geq r(A^TAA^TA) = r(A^TA) = r(A)$
+\end{proof}
+
+
+
+\subsection{正规方程组}
+
+
+\begin{definition}[最小二乘解]
+  对一个无解的线性方程组(矛盾方程组)$AX = b$，
+  若向量$(x_1,\cdots,x_s) \in \mathbb{R}^s$使得距离
+  \begin{equation*}
+    d = \sum\limits_{i = 1}^n (a_{i1}x_1 + \cdots + a_{is}x_s - b_i)^2
+  \end{equation*}
+  最小，则称该向量为最小二乘解。
+\end{definition}
+
+\begin{theorem}[正规方程组]
+  对于任一方程组$AX = b$，最小二乘解一定存在，
+  且$X_0$是最小二乘解当且仅当$A^TAX = A^Tb$
+\end{theorem}
+
+\begin{proof}
+  设$\alpha_1,\cdots,\alpha_s$是$A$的列向量，
+  定义$W = L(\alpha_1,\cdots,\alpha_s)$，
+  $X_0$是最小二乘解当且仅当$AX_0$是$b$在上的投影，
+  即$(b - AX_0) \perp \alpha_i$，
+  因此
+  \begin{equation*}
+    \alpha_i^T(b - AX_0) \Rightarrow A^T(b - AX_0) = 0  \Rightarrow A^TAX_0 = A^Tb
+  \end{equation*}
+\end{proof}
+
+
+\begin{theorem}[正规方程组解的存在性]
+  方程组$A^TAX = A^Tb$一定有解。
+\end{theorem}
+
+\begin{proof}
+  因为$r(A^TA) = r(A)$，先将增广矩阵拆开得到$r([A^TA,A^Tb]) = r(A^T[A,b])$，
+  用秩不等式得到$r(A^T[A,b]) \leq r(A^T) = r(A) = r(A^TA)$，
+  而显然$r([A^TA,A^Tb]) \geq r(A^TA)$，
+  因此增广矩阵的秩等于系数矩阵的秩，综上得到最小二乘法解存在。
+\end{proof}
+
+\begin{theorem}[凸闭集最佳逼近元的唯一性]
+  $\mathcal{H}$是Hilbert空间，$M \subset \mathcal{H}$是凸闭集，
+  则$\forall x \in \mathcal{H}$在$M$中存在唯一最佳逼近。
+\end{theorem}
+
+\begin{note}
+  一般而言最小二乘解不唯一，除非是凸闭集。
+\end{note}
+
+

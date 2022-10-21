@@ -1,0 +1,1072 @@
+
+
+
+\chapter{多项式}
+
+\section{一元多项式}
+
+\subsection{整除理论}
+
+\begin{definition}[整除]
+  $g(x),f(x)$是$\mathbb{P}$上的多项式，
+  若$\exists h(x)$使得$f(x) = g(x)h(x)$，
+  则称$g(x)$整除$f(x)$，记为$g(x)|f(x)$。
+  称$g(x)$是$f(x)$的因式，
+  $f(x)$是$g(x)$的倍式。
+\end{definition}
+
+\begin{theorem}[整除的数域不变性]
+  $\mathbb{P},\mathbb{F}$为两个数域，
+  $\mathrm{P} \subseteq \mathbb{F}$，$f(x), g(x) \in \mathbb{P}[x]$(在小数域中)，
+  则$\mathbb{P}$中$g(x)|f(x)$当且仅当$\mathbb{F}$中$g(x)|f(x)$
+\end{theorem}
+
+\begin{note}
+  该定理的意义在于可以在最大的数域(方便因式分解)中证明整除，即可证明小数域中整除。
+\end{note}
+
+\begin{theorem}[带余除法]
+  对于$\forall f(x),g(x) \in \mathbb{P}[x]$，
+  存在唯一$q(x),r(x) \in \mathbb{P}[x]$使得$f(x) = q(x)g(x) + r(x)$。
+  这里$r(x) = 0$或者$\partial (r(x)) < \partial(g(x))$
+\end{theorem}
+
+~
+
+\begin{exercise}[带余除法的计算]
+  (1)$f(x) = x^4 + 2x^3 - 5x + 7, g(x) = x^2 - 3x + 1$，
+  求$g(x)$除$f(x)$的商式与余式
+\end{exercise}
+
+\begin{solution}
+  (1)商为$x^2 + 5x + 14$，余式为$32x - 7$
+\end{solution}
+
+~
+
+\begin{exercise}[带余除法的应用]
+  (1)设$g(x) = ax + b$，$f(x) \in \mathbb{P}[x]$，
+  证明：$g(x) | f^2(x)$当且仅当$g(x) | f(x)$
+
+  (2)$f(x),h(x),g(x)$为三个非零多项式，
+  证明：$h(x)|(f(x) - g(x))$当且仅当$f(x),g(x)$除以$h(x)$的余式相同
+
+  (3)$f(x),g(x)$为多项式，证明：$g^m(x)|f^m(x)$当且仅当$g(x)|f(x)$
+\end{exercise}
+
+\begin{proof}
+  (1)右推左显然。左推右：$f^2(x) = g(x)h(x)$，
+  若$f(x) = q(x) g(x) + r(x)$，
+  则$f^2(x) = q^2(x)g^2(x) + 2q(x)g(x)r(x) + r^2(x)$，
+  根据$g(x)|f(x)$得到$g(x)|r^2(x)$，
+  显然$r(x) = 0$
+
+  (2)设$f(x) = q_1(x)h(x)+r_1(x), g(x) = q_1(x)h(x) + r_2(x)$，
+  相减得到
+  \begin{equation*}
+    f(x) - g(x) = h(x)[q_1(x) - q_2(x)] + r_1(x) - r_2(x)
+  \end{equation*}
+  显然$\partial(r_1(x) - r_2(x)) < \partial(h(x))$，
+  而$h(x) |(r_1(x) - r_2(x))$，
+  因此当且仅当$r_1(x) = r_2(x)$
+
+  (3)右推左：用$f(x) = h(x)g(x)$，两侧取$m$次方即可。
+
+  左推右：设$f(x) = c_1p_1^{r_1}(x) \cdots p_s^{r_s}(x), g(x) = c_2p_1^{t_1}(x) \cdots p_s^{t_s}(x)$，
+  其中$p_1(x) \sim p_s(x)$两两不可约且互素，$r_i$可以为$0$或非负整数。
+  根据条件可知$mt_i \leq m r_i$，
+  因此$t_i \leq r_i$，因此$g(x) | f(x)$
+
+  注意本题用带余除法可能不好说，因此稳妥起见还是用因式分解更好。
+\end{proof}
+
+
+~
+
+
+\subsection{最大公因式}
+
+\begin{definition}[最大公因式]
+  $f(x),g(x),d(x) \in \mathbb{P}[x]$，
+  若$d(x)$同时整除$f(x),g(x)$，则称其为公因式。
+  若没有可以整除$d(x)$的公因式存在，则称其为最大公因式，
+  记为
+  \begin{equation*}
+    d(x) = (f(x),g(x))
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}[最大公因式表示定理]
+  $\forall f(x),g(x) \in \mathbb{P}[x]$，
+  均存在$d(x) = (f(x),g(x)) \in \mathbb{P}[x]$，
+  且$\exists u(x),v(x) \in \mathbb{P}[x]$满足$d(x) = u(x)f(x) + v(x)g(x)$(反之不可，互素时才可)
+\end{theorem}
+
+\begin{proof}
+  假设通过辗转相除法得到：
+  \begin{equation*}
+    \begin{cases}
+      f(x) = q_1(x) g(x) + r_1(x)\\
+      g(x) = q_2(x)r_1(x) + r_2(x)\\
+      r_1(x) = q_3(x) r_2(x) + r_3(x)\\
+      \quad \vdots\\
+      r_{s-3}(x) = q_{s-1}(x)r_{s-2}(x) + r_{s-1}(x)\\
+      r_{s-2}(x) = q_s(x) r_{s-1}(x) + r_s(x)\\
+      r_{s-1}(x) = q_{s+1}(x) r_s(x) + 0
+    \end{cases}
+  \end{equation*}
+  则此时可以得到$r_s(x)$是$f(x),g(x)$的最大公因式，并且从倒数第二个等式开始往回推，得到
+  \begin{align*}
+    r_s(x) &= r_{s-2}(x) - q_s(x)r_{s-1}(x)\\
+           &= r_{s-2}(x) - q_s(x) (r_{s-3}(x) - q_{s-1}(x) r_{s-2}(x))\\
+    &= \cdots \cdots\\
+    &= u(x)f(x) + v(x)g(x)
+  \end{align*}
+  即逐个将前面的等式代入方程，
+  逐个消去$r_{s-2}(x),\cdots,r_2(x),r_1(x)$，最终只剩下$g(x),f(x)$
+\end{proof}
+
+\begin{note}
+  最大公因式$d(x) = u(x)f(x) + v(x)g(x)$的$u(x)$和$v(x)$不是唯一的，如果要唯一则需要加上额外的限制条件。
+\end{note}
+
+~
+
+\begin{exercise}[辗转相除法]
+  (1)$f(x) = x^4 + 3x^3 - x^2 - 4x -3, g(x) = 3x^3 + 10x^2 + 2x - 3$，求$(f(x),g(x))$，
+  并求$u(x),v(x)$使得$u(x)f(x) + v(x) g(x) = (f(x),g(x))$
+
+  (2)已知$f(x) = x^4 + x^3 - 3x^2 - 4x -1$，$g(x) = x^3 + x^2 - x - 1$，
+  求满足$u(x)f(x) + v(x)g(x) = x + 1$的$u(x),v(x)$
+\end{exercise}
+
+\begin{solution}
+  (1)第一题过程如下图所示。(2)可先求出最大公因式，再提取
+\end{solution}
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{辗转相除法2.png}
+\end{figure}
+
+~
+
+\begin{theorem}[保最大公因式]
+  $f(x),g(x) \in P[x]$，若$a,b,c,d \in P$满足$ad - bc \neq 0$，则
+  \begin{equation*}
+    (f(x),g(x)) = (af(x) + bg(x), cf(x) + dg(x))
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  假设左侧为$d(x)$，右侧为$d_1(x)$，下面要证$d(x) = d_1(x)$，不妨证明$d(x)|d_1(x), d_1(x)|d(x)$。
+
+  (1)$d(x)|d_1(x)$：$d(x)$是左侧最大公因式，其是右侧每个部分的最大公因式，因此$d(x)|d_1(x)$
+
+  (2)$d_1(x)|d(x)$：由于$ad - bc \neq 0$，从方程组角度$f(x),g(x)$也可以用$af(x) + bg(x), cf(x) + dg(x)$线性表出，
+  具体用cramer法则求出即可，如$f(x) = \frac{df_1(x) - bg_1(x)}{ad - bc}, g(x) = \frac{ag_1(x) - cf_1(x)}{ad - bc}$，因此与(1)同理
+\end{proof}
+
+\begin{corollary}[加减保最大公因式]
+  $(f(x),f(x) - g(x)) = (f(x),f(x) + g(x)) = (f(x),g(x))$
+\end{corollary}
+
+~
+
+\begin{theorem}[最小公倍式的表示]
+  $f(x),g(x)$的首1最小公倍式$[f(x),g(x)] = \frac{f(x)g(x)}{(f(x),g(x))}$
+\end{theorem}
+
+\begin{proof}
+  设$(f(x),g(x)) = d(x), f(x) = d(x) f_1(x), g(x) = d(x)g_1(x)$，且$(f_1(x),g_1(x)) = 1$，
+  记$s(x) = \frac{f(x)g(x)}{d(x)} = d(x)f_1(x)g_1(x) = f(x)g_1(x) = f_1(x)g(x)$，
+  下面说明$s(x)$是最小公倍式：
+  (1)是公倍式：显然
+  (2)最小：设$h(x)$也是公倍式，
+  设$h(x) = f(x)m(x)$，根据$g(x)|h(x)$得到$d(x)g_1(x) |d(x)f_1(x)m(x)$，
+  根据$g_1(x)$与$f_1(x)$互素，
+  得到$g_1(x)|m(x)$，
+  因此$g_1(x)f(x)|f(x)m(x)$，得到$s(x)|h(x)$，因此$s(x)$是最小的。
+\end{proof}
+
+\subsection{互素}
+
+\begin{definition}[互素]
+  若$f(x),g(x) \in \mathbb{P}[x]$的最大公因式为$1$，
+  则称它们互素。
+\end{definition}
+
+\begin{theorem}[互素充要条件]
+  $f(x),g(x) \in \mathbb{P}[x]$互素当且仅当$\exists u(x),v(x) \in \mathbb{P}[x]$使得$u(x)f(x) + v(x)g(x) = 1$
+\end{theorem}
+
+\begin{proof}
+  左推右显然(根据最大公因式定理)。
+  右推左：设$(f(x),g(x)) = d(x)$，
+  则$d(x)|f(x), d(x)|g(x)$，
+  设$f(x) = d(x)f_1(x), g(x) = d(x)g_1(x)$，
+  从而
+  \begin{equation*}
+    d(x) |[u(x)f_1(x) + v(x)g_1(x)] = 1
+  \end{equation*}
+  因此$d(x), u(x)f_1(x) + v(x)g_1(x)$均为常数，故$f(x),g(x)$互素
+\end{proof}
+
+\begin{note}
+  上述$u(x),v(x)$在无条件限制下也是不一定唯一的。
+\end{note}
+
+~
+
+\begin{exercise}[互素相关应用]
+  (1)若$f(x),g(x)$互素，证明：$f(x^m),g(x^m)$互素
+
+  (2)重点：若$(f(x),g(x)) = d(x)$，证明：$(f(x^m),g(x^m)) = d(x^m)$
+
+  (3)设$(f(x),g(x)) = 1, (f(x),h(x)) = 1$，证明：$(f(x),g(x)h(x)) = 1$
+\end{exercise}
+
+\begin{proof}
+  (1)由于$f(x),g(x)$互素，得到$u(x)f(x)+v(x)g(x) = 1$，
+  从而$u(x^m)f(x^m) + v(x^m)g(x^m) = 1$，
+  由于是互素充要条件，因此$f(x^m), g(x^m)$互素
+
+  (2)不能直接用最大公因式表示，因为不是充要条件，要转到互素上。
+  设$f(x) = d(x)m(x), g(x) = d(x)n(x)$，
+  则$(m(x),n(x)) = 1$，因此
+  \begin{equation*}
+    u(x^k)m(x^k) + v(x^k)n(x^k) = 1
+  \end{equation*}
+  得到$m(x^k), n(x^k)$互素，
+  而$f(x^k) = d(x^k)m(x^k), g(x^k) = d(x^k)n(x^k)$，因此$(f(x^k),g(x^k)) = d(x^k)$
+
+  (3)根据互素，有$u_1(x)f(x)+v_1(x)g(x) = 1, u_2(x)f(x) + v_2(x)h(x) = 1$，
+  两式相乘得到
+  \begin{equation*}
+    \left[ u_1(x)u_2(x)f(x) + v_1(x)g(x) + v_2(x)h(x) \right]f(x) + v_1(x)v_2(x)g(x)h(x) = 1
+  \end{equation*}
+  因此根据充要条件得到$(f(x),g(x)h(x)) = 1$
+\end{proof}
+
+
+~
+
+\begin{exercise}[互素充要条件推广]
+  $f(x),g(x)$是次数大于$0$的互素多项式，
+  则存在唯一的$u(x),v(x)$使得$u(x)f(x) + v(x)g(x) = 1$，
+  这里$\partial(u(x)) < \partial(g(x)), \partial(v(x)) < \partial(f(x))$
+\end{exercise}
+
+\begin{proof}
+  (1)存在性：由于$f(x),g(x)$互素，故存在$a(x),b(x)$使得$a(x)f(x) + b(x)g(x) = 1$，
+  显然$a(x),g(x)$也互素，
+  作带余除法
+  $a(x) = q(x)g(x) + u(x)$，
+  代入公式得到
+  \begin{equation*}
+    (q(x)g(x) + u(x))f(x) + b(x)g(x) = 1 \Rightarrow u(x)f(x) + (b(x) + q(x)f(x))g(x) = 1
+  \end{equation*}
+  记$v(x) = b(x) + q(x)f(x)$，下面证明$\partial(v(x)) < \partial(f(x))$。
+  反设$\partial(v(x)) \geq \partial(f(x))$，根据$\partial(u(x)) < \partial(g(x))$可知
+  $\partial(v(x)g(x)) > \partial(u(x)f(x))$，
+  显然它们的和不为$1$，矛盾。
+  
+  (2)唯一性：假设还有$u_1(x)f(x) + v_1(x)g(x) = 1$，
+  那么有$(u(x) - u_1(x))f(x) + (v(x) - v_1(x))g(x) = 0$，
+  即
+  \begin{equation*}
+    (u(x) - u_1(x))f(x) = (v_1(x) - v(x))g(x)
+  \end{equation*}
+  由于$f(x),g(x)$互素，得到$f(x) \big| (v_1(x) - v(x))$，
+  而后者次数低于前者，只能$v_1(x) = v(x)$
+\end{proof}
+
+
+\subsection{不可约多项式与因式分解}
+
+\begin{definition}[不可约多项式]
+  设$p(x) \in \mathbb{P}[x]$且$\partial(p(x)) \geq 1$，若$p(x)$不能表示成$\mathbb{P}[x]$中两个次数小于$p(x)$的多项式的乘积，
+  则称$p(x)$为$\mathbb{P}[x]$中的不可约多项式。
+\end{definition}
+
+\begin{theorem}[不可约多项式的性质]
+  若$p(x) \in \mathbb{P}[x]$是不可约多项式，则
+  \begin{itemize}
+  \item $p(x)$与$\forall f(x) \in \mathbb{P}[x]$要么互素，要么$p(x) \big| f(x)$
+  \item 若$p(x)|f(x)g(x)$，则要么$p(x)|f(x)$要么$p(x)|g(x)$
+  \end{itemize}
+\end{theorem}
+
+\begin{note}
+  不可约多项式经常用于证明乘积形式$(h(x),f(x)g(x)) = 1$的命题。
+  例如反设$(h(x), f(x)g(x)) = d(x)$，
+  不可约多项式$p(x) | d(x)$，
+  则$p(x)$要么整除$f(x)$，要么整除$g(x)$
+\end{note}
+
+~
+
+\begin{exercise}[利用不可约多项式性质+反证法]
+  (1)重点：已知$(f(x),g(x)) = 1$，证明$(f(x)g(x), f(x) + g(x)) = 1$
+
+  (2)已知$f_1(x),f_2(x),\cdots,f_s(x)$两两互素，记$F_i(x) = f_1(x) \cdots f_{i-1}(x)f_{i+1}(x) \cdots f_s(x)$，
+  证明$F_1(x),F_2(x),\cdots,F_s(x)$互素
+
+  (3)稍加变化：复数域上的多项式$f(x)$没有重因式，证明$(f(x) + 2f^{\prime}(x), 3f^2(x)) = 1$
+\end{exercise}
+
+\begin{proof}
+  (1)反设有不可约多项式$q(x)$作为公因式，则$q(x)$同时是$f(x)g(x), f(x) + g(x)$因式。
+  根据前者得到$q(x)$至少整除$f(x),g(x)$之一，
+  不妨设$q(x) \big| f(x)$，根据第二个式子得到$q(x)$也一定整除$g(x)$，否则无法得到多项式。
+  因此矛盾。
+
+  (2)同种方法，随便挑$F_i(x),F_j(x)$说一说就行
+
+  (3)同样设不可约$q(x)$，根据$3f^2(x)$可知$q(x) \big| f(x)$，
+  再根据$q(x) \big| f(x) + 2f^{\prime}(x)$可知$q(x) \big| f^{\prime}(x)$(否则$\frac{f(x)+2f^{\prime}(x)}{q(x)}$不是多项式)，
+  根据重因式充要条件可知。
+\end{proof}
+
+~
+
+\begin{exercise}[证明不可约多项式]
+  (1)$p(x)$是次数大于$0$的多项式，若对任意多项式$f(x),g(x)$，根据$p(x) \big| f(x)g(x)$可以得到
+  $p(x) \big| f(x)$或者$p(x) \big| g(x)$，则$p(x)$是不可约多项式。
+\end{exercise}
+
+\begin{proof}
+  (1)反设$p(x)$不是不可约多项式，则存在$f(x),g(x)$使得$p(x) = f(x)g(x)$，此时$p(x) \big| f(x)g(x)$，
+  但是$p(x) \nmid f(x), p(x) \nmid g(x)$
+\end{proof}
+
+~
+
+\begin{theorem}[因式分解唯一性]
+  $f(x)$是$\mathbb{P}$上次数大于等于$1$的多项式，则
+  $f(x)$可唯一分解为$\mathbb{P}$上有限个不可约多项式乘积：
+  \begin{equation*}
+    f(x) = cp_1^{r_1}(x) p_2^{r_2}(x) \cdots p_s^{r_s}(x)
+  \end{equation*}
+\end{theorem}
+
+
+\subsection{余数定理及其应用}
+
+\begin{theorem}[余数定理]
+  $f(x) \in \mathbb{P}[x]$，
+  对$\forall \alpha \in \mathbb{P}$，
+  总有
+  \begin{equation*}
+    f(x) = (x - \alpha)q(x) + f(\alpha)
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  用带余除法得到$f(x) = (x - \alpha)q(x) + c$，
+  而代入$x = \alpha$得到$f(\alpha) = 0 + c$，即$c = f(\alpha)$，
+  因此
+  \begin{equation*}
+    f(x) = (x - \alpha)q(x) + f(\alpha)
+  \end{equation*}
+\end{proof}
+
+\begin{corollary}
+  $\alpha \in \mathbb{P}$是多项式$f(x)$的根当且仅当$(x-\alpha)\mid f(x)$
+\end{corollary}
+
+\begin{note}
+  余数定理的主要价值在于$\mathbb{P}$上的因式等价于$\mathbb{P}$上的根，
+  两者可以灵活互换。
+  判断重根可以转换为判断重因式，
+  判断整除可以转换为根。
+\end{note}
+
+~
+
+\begin{exercise}[余数定理的应用]
+  (1)若$(x - 1)\mid f(x^m)$，证明$(x^m - 1) \mid f(x^m)$
+
+  (2)证明$x^2 + x + 1 \mid x^{3m} + x^{3n+1} + x^{3p+2}$
+
+  (3)已知$x^2 + x + 1 \mid f_1(x^3) + xf_2(x^3)$，证明$(x - 1)\mid f_1(x)$且$(x - 1)\mid f_2(x)$
+
+  (4)已知$x^2 + 1 \mid f_1(x^4) + xf_2(x^4)$，证明$1$是$f_1(x),f_2(x)$的公共根。
+\end{exercise}
+
+\begin{proof}
+  (1)由于$(x - 1) \mid f(x^m)$，
+  因此$x = 1$是$f(x^m)$的根，
+  故$x = 1$是$f(x)$的根，
+  因此$(x - 1) \mid f(x)$，故$(x^m - 1) \mid f(x^m)$
+
+  (2)放到$\mathbb{C}$上考虑：$\omega = e^{i\frac{2\pi}{3}}$，则$x^2 + x + 1 = (x - \omega)(x - \omega^2)$，
+  代入$\omega$则$\omega^{3m} + \omega^{3n+1} + \omega^{3p+2} = 1 + \omega + \omega^2 = 0$，
+  代入$\omega^2$则$\omega^{6m} + \omega^{6n + 2} + \omega^{6p + 4} = 1 + \omega^2 + \omega^4 = 1 + \omega^2 + \omega = 0$，
+  根据余数定理可知成立
+
+  (4)$x^2 + 1$复数根为$x = i$，
+  根据$(x^2 + 1) \mid f_1(x^4) + x f_2(x^4)$可知$f_1(1) + i f_2(1) = 0$，从而为公共根。
+\end{proof}
+
+
+
+\subsection{重因式与重根}
+
+\begin{theorem}[重因式性质汇总]
+  $f(x)$是次数大于$0$的多项式，$p(x)$是不可约多项式，则
+  \begin{itemize}
+  \item 核心：若$p(x)$是$f(x)$的$k$重因式，则其是$f^{\prime}(x)$的$k - 1$重因式。
+  \item 无重因式充要： $f(x)$没有重因式当且仅当$f(x),f^{\prime}(x)$互素。
+  \item 不可约因式：$\frac{f(x)}{(f(x),f^{\prime}(x))}$是$f(x)$所有不可约因式(重数均为1)乘积的常数倍
+  \end{itemize}
+\end{theorem}
+
+\begin{note}
+  重因式与重根的关系：重因式不随数域而改变，而重根会随着数域而改变。
+  例如$(x^2 + 1)^2$，其在$\mathbb{C},\mathbb{R},\mathbb{Q}$上都有重因式，
+  但是只在$\mathbb{C}$上有重根。
+  因此有重根一定有重因式，有重因式不一定有重根。
+\end{note}
+
+~
+
+\begin{exercise}[用根判断因式]
+  (1)重点：设$h(x),f(x),g(x)$为实系数多项式满足以下等式，证明$x^2 + 1 |f(x), x^2 + 1|g(x)$
+  \begin{equation*}
+    \begin{cases}
+      (x^2 + 1)h(x) + (x+1)f(x) + (x-2)g(x) = 0\\
+      (x^2 + 1)k(x) + (x-1)f(x) + (x+2)g(x) = 0
+    \end{cases}
+  \end{equation*}
+\end{exercise}
+
+\begin{proof}
+  (1)要证明$\mathbb{R}$上$(x^2 + 1)|f(x)$，只需要证明$\mathbb{C}$上$(x - i)|f(x), (x + i)|f(x)$，
+  等价于$x = \pm i$在$\mathbb{C}$上为$f(x)$的根。
+  代入$x = i$得到：
+  \begin{equation*}
+    \begin{cases}
+      (i+1)f(i) + (i-2)g(i) = 0\\
+      (i-1)f(i) + (i+2)g(i) = 0
+    \end{cases}
+  \end{equation*}
+  解得$f(i) = g(i) = 0$。
+  同理可证$f(-i) = g(-i) = 0$
+\end{proof}
+
+~
+
+\begin{theorem}[重根性质汇总]
+  $f(x)$是$\mathbb{P}[x]$上次数大于$0$的多项式，则
+  \begin{itemize}
+  \item 重根：$x_0$是$f(x)$的$k$重根当且仅当$f(x_0) = f^{\prime}(x_0) = \cdots = f^{(k-1)}(x_0) = 0$，而$f^{(k)}(x_0) \neq 0$
+  \item 重根判定定理：
+    $p(x)$是$f(x)$重因式当且仅当其是$f(x),f^{\prime}(x)$公因式。
+  \end{itemize}
+\end{theorem}
+
+\begin{note}
+  $\mathbb{C}$上的重根问题等价于$\mathbb{C}$上的重因式问题，
+  因此判断多项式是否有重根时，可判断其在$\mathbb{C}$上是否有重因式。
+  重因式的好处是可以用多项式理论，重根的好处是可以带进去算，要相互补充。
+\end{note}
+
+
+
+~
+
+\begin{exercise}[判定重根存在性]
+  (1)证明$f(x) = 1 + x + \frac{x^2}{2!} + \cdots + \frac{x^n}{n!}$没有重根
+
+  (2)证明$f(x) = x^n + nx^{n-1} + n(n-1)x^{n-2} + \cdots + n!$无重根
+\end{exercise}
+
+\begin{proof}
+  (1)直接证重根不好证，转换为重因式，若在$\mathbb{C}$上无重因式则肯定无重根。
+  根据$f^{\prime}(x) = 1 + x + \frac{x^2}{2!} + \cdots + \frac{x^{n-1}}{(n-1)!}$得到
+  \begin{equation*}
+    (f(x),f^{\prime}(x)) = (f(x),f(x) - f^{\prime}(x)) = (f(x),\frac{x^n}{n!}) = (f(x),x^n) 
+  \end{equation*}
+  由于$x^n$项的原因，$(f(x),f^{\prime}(x)) = x^k, k \geq 0$。
+  而$f(0) = 1$，
+  这说明$x$不是$f(x)$的因式，从而$k = 0$，
+  因此$f(x),f^{\prime}(x)$互素，无重根。
+
+  (2)也用无重因式证明
+\end{proof}
+
+
+
+~
+
+\begin{exercise}[重根、重因式相互转化]
+  (1)求$x^5 + x^4 - 6x^3 - 14 x^2 - 11 x - 3$的重根和重数
+
+  (2)重点：求$A,B$使得$(x - 1)^2 | Ax^4 + Bx^2 + 1$
+
+  (3)重点：求$t$使得$f(x) = x^3 - 3x^2 + tx - 1$有重根
+
+  (4)重点ZJU2018.2：证明$x^3 + px + q$有重根的充要条件$4p^3 + 27q^2 = 0$
+
+  (5)ZJU2021：求$t$为何值时，$f(x) = x^3 + 6x^2 + tx + 8$有重根，并求重根
+\end{exercise}
+
+\begin{solution}
+  (1)可以尝试猜。一般用辗转相除法算$f(x),f^{\prime}(x)$的最大公因式，最终答案为$(x + 1)^4(x - 3)$
+
+  (2)
+  根据重根与重因式关系，在$\mathbb{C}$上必有$f(1) = 0, f^{\prime}(1) = 0$，
+  因此得出$A + B + 1 = 0, 4A + 2B = 0$，
+  得到$A = -2, B = 1$
+
+  (3)同理考虑$\mathbb{C}$上的因式分解，
+  $f^{\prime}(x) = 3x^2 - 6x + t$，
+  因此考虑$f(x)$与$\frac{1}{3}f^{\prime}(x) = x^2 - 2x + \frac{t}{3}$辗转相除法，
+  第一步得出$f(x) = \frac{1}{3}f^{\prime}(x) (x - 1) + (\frac{2}{3}t - 2)x + (\frac{t}{3} - 1)$，
+  如果$t = 3$则直接整除有重根，如果$t \neq 3$，
+  则接着算，$\frac{1}{3}f^{\prime} = (\frac{1}{\frac{2}{3}t - 2})r_1(x)(x - \frac{5}{2}) + \frac{t}{3} + \frac{5}{4}$，
+  则需要$\frac{t}{3} + \frac{5}{4} = 0$，得到$t = -\frac{15}{4}$
+
+  (4)在$\mathbb{C}$上考虑，有重根即有重因式，
+  $f^{\prime}(x) = 3x^2 + p$，
+  先有$f(x) = \frac{1}{3}f^{\prime}(x)x + \frac{2}{3}px + q$，若$p = q = 0$，则成立，下面考虑$p \neq 0$。
+  得到$r_1(x) = \frac{3}{2p}r_1(x)(x - \frac{3q}{2p}) + \frac{p}{3} + \frac{9q^2}{4p^2}$，
+  因此得到$4p^3 + 27q^2 = 0$
+
+  (5)$t = 12$时有$3$重$x = -2$根，
+  $t = -15$时有$2$重$x = 1$根。
+\end{solution}
+
+
+~
+
+\begin{exercise}[导数重根反推函数重根？]
+  $x_0$是$f^{\prime}(x)$的$k$重根，
+  举例说明其不能推出$x_0$是$f(x)$的$k+1$重根，
+  该命题需要$x_0$是$f(x)$的根。
+\end{exercise}
+
+\begin{solution}
+  例如$f(x) = x^{k+1} + 1$，$x_0 = 0$
+\end{solution}
+
+\begin{note}
+  上面的结论非常重要，在利用导数验证根的重数时，一定要验证其是$f(x)$本身的根。
+\end{note}
+
+
+
+
+\subsection{整数与多项式}
+
+
+\begin{theorem}[整数与多项式]
+  $m,n$为正整数，$(m,n) = d$的充要条件是$(x^m - 1, x^n - 1) = x^d - 1$
+\end{theorem}
+
+\begin{proof}
+  (1)左推右是公因式：设$m = kd$，则$x^m - 1 = (x^d)^k - 1 = (x^d - 1)(1 + x^d + \cdots + x^{(k-1)d})$，
+  这说明$x^d - 1| x^m - 1$，另一侧同理，因此是公因式
+
+  (2)最大：设$p(x)$是$x^n - 1, x^m - 1$的公因式，下面证明$p(x) | x^d - 1$。
+  由于$x^n - 1$在$\mathbb{C}$上无重根(因为和导数互素)，
+  因此$p(x)$也没有重根，从而$p(x) = a(x - x_1) \cdots (x - x_s)$，
+  这里$x_1 \sim x_s$是互异复数，
+  由于$x_i^n = x_i^m = 1$，得到$x_i^d = x_i^{um + vn} = (x_i^m)^u(x_i^n)^v = 1$，
+  因此$x - x_i | x^d - 1$，
+  $(x-x_1) \cdots (x - x_s) | x^d - 1$，因此$p(x) | x^d - 1$
+
+  (3)右推左：若$(m,n) = d_1$，则根据前面的结论$(x^m - 1, x^n - 1) = x^{d_1} - 1 = x^d - 1$，
+  因此$d_1 = d$
+\end{proof}
+
+~
+
+\begin{exercise}[整除与多项式]
+  (1)$d,n \in \mathbb{N}^+$，证明$x^d - 1| x^n - 1$的充要条件为$d | n$
+
+  (2)$m,n$是大于$1$的自然数，
+  证明：$m,n$互素的充要条件是$1 + x + x^2 + \cdots + x^{m-1}$与$1 + x + x^2 + \cdots + x^{n-1}$互素
+
+  (3)$g(x) = 1 + x + x^2 + \cdots + x^n, f(x) = g(x^k)$，$(k,n+1) = 1$，证明：$g(x) | f(x)$
+
+\end{exercise}
+
+\begin{proof}
+  (1)本题即前面题目的特例。
+
+  右推左：设$x^d - 1 = (x - x_1)\cdots(x - x_d)$($\mathbb{C}$上)，
+  因此$x_i^d = 1$，由于$n = dk$，因此$x_i^n = (x_i^d)^k = 1$，因此$x^d - 1 | x^n - 1$。
+
+  左推右：设$x^d - 1 = (x - x_1) \cdots (x - x_d)$，
+  由于$x^d - 1 | x^n - 1$，$x_i^d = x_i^n = 1$，
+  假设$n = kd + r, r \neq 0$，则$x_i^n = x_i^{kd + r} = x_i^r$，
+  由于$x_i = 1$只有一重，其他$x_i \neq 1$，
+  对于这些$x_i$有$x_i^r \neq 1$，因此矛盾。
+
+  (2)$m,n$互素当且仅当$(x^m - 1, x^n - 1) = x - 1$，
+  等价于$(1 + x + x^2 + \cdots + x^{m-1}, 1 + x + \cdots + x^{n-1}) = 1$
+
+  (3)根据$g(x) = \frac{x^{n+1} - 1}{x - 1}, f(x) = \frac{x^{k(n+1)} - 1}{x^k - 1}$，
+  此时$g(x)|f(x)$等价于$(x^k - 1)(x^{n+1} - 1)| (x - 1)(x^{k(n+1)}-1)$，
+  由于$(k,n+1) = 1$，因此$x^k - 1$与$x^{n+1}$的最大公因为$(x - 1)$，
+  而$(x^{k(n+1)} - 1)$是$(x^k - 1)(x^{n+1} - 1)$，因此根据最小公倍式的性质显然可知。
+\end{proof}
+
+
+\section{特殊数域上的一元多项式理论}
+
+% \subsection{$x^n \pm 1$的分解}
+
+% \begin{theorem}[$x^n - 1 = 0$在$\mathbb{C}$上的分解]
+%   记$\omega = e^{i(\frac{2k\pi}{n})}, k = 0,1,\cdots,n$，
+%   则$x^n - 1 = (x - 1)(x - \omega)(x - \omega^2)\cdots(x - \omega^n)$
+% \end{theorem}
+
+% \begin{theorem}[$x^n - 1 = 0$在$\mathbb{R}$上的分解]
+%   只考虑奇数情况，偶数用平方差展开：
+%   \begin{equation*}
+%     x^{2m+1} - 1 = (x - 1)(1 + x + x^2 + \cdots + x^{2m})
+%   \end{equation*}
+% \end{theorem}
+
+\subsection{复数域上的一元多项式}
+
+\begin{theorem}[代数学基本定理]
+  任意次数大于等于$1$的多项式在$\mathbb{C}$上至少有一个根。
+\end{theorem}
+
+\begin{theorem}[复数域因式分解]
+  $\mathbb{C}$上任意次数大于等于$1$的多项式可唯一地分解为一次因式的乘积，
+  因此$n$次多项式在$\mathbb{C}$上恰有$n$个复根。
+\end{theorem}
+
+\subsection{实数域上的一元多项式}
+
+\begin{theorem}[实数域因式分解]
+  $\mathbb{R}$上的多项式总能唯一地分解为一次因式和不可约二次因式的乘积。
+\end{theorem}
+
+
+\subsection{有理数域上一元多项式因式分解}
+
+复不可约多项式是一次的，实不可约多项式是一次或二次的，
+下面将说明有理不可约多项式的次数可以是任意的。
+
+\begin{definition}[本原多项式]
+  若整系数多项式$g(x) = b_nx^n + \cdots + b_1 x + b_0$的系数$b_0 \sim b_n$是互素的(整体互素而非两两互素)，
+  即
+  \begin{equation*}
+    (b_1,\cdots,b_n) = 1
+  \end{equation*}
+  则称$g(x)$是一个本原多项式
+\end{definition}
+
+\begin{theorem}[Gauss引理]
+两个本原多项式的乘积仍为本原多项式
+\end{theorem}
+
+\begin{proof}
+  设$f(x) = \sum\limits_{k = 0}^n a_kx^k, g(x) = \sum\limits_{k = 0}^m b_kx^k$，
+  设$h(x) = f(x)g(x) = \sum\limits_{k = 0}^{n+m}d_kx^k$。
+  假设$h(x)$不是本原多项式，则存在素数$p$整除所有$d_k$，
+  由于$f(x),g(x)$本原，因此从常数项开始搜索，存在$i,j$，
+  使得
+  \begin{equation*}
+    \begin{cases}
+      p \mid a_0 , \cdots, p \mid a_{i-1}, p \nmid a_i\\
+      p \mid b_0,\cdots, p \mid b_{j-1}, p \nmid b_j
+    \end{cases}
+  \end{equation*}
+  而$d_{i+j} = a_ib_j + \sum\limits_{k = 0, k \neq i}^{i + j} a_k b_{i+j - k}$，
+  除了第一项外均至少有一项被$p$整除，
+  第一项不被$p$整除，因此$p \nmid d_{i+j}$，
+  这与假设矛盾。
+\end{proof}
+
+\begin{theorem}[有理多项式变本原多项式]
+  设$f(x)$是有理多项式，$g(x)$为本原多项式，则$f(x)$可表示为有理数$r$与本原多项式$g(x)$的乘积
+\end{theorem}
+
+\begin{note}
+  有理多项式分解说明了有理多项式的因式分解问题完全可以转换成本原多项式的因式分解，
+  而下面的定理说明了本原多项式能否分解为两个有理多项式之积与
+  能否分解为整系数多项式之积是等价的。
+\end{note}
+
+~
+
+\begin{exercise}[本原多项式]
+  (1)$f(x),g(x)$是本原多项式，$g(x) \mid f(x)$，
+  证明：$\frac{f(x)}{g(x)}$也是本原多项式
+
+  (2)$f(x)$是本原多项式，
+  证明：$f(x+1)$也是本原多项式。
+\end{exercise}
+
+\begin{proof}
+  (1)设$f(x) = g(x)q(x)$，
+  由于$f(x),g(x)$为本原多项式，$q(x)$必然是有理系数的，设$q(x) = rq_1(x)$，
+  这里$q_1(x)$为本原多项式，因此
+  \begin{equation*}
+    f(x) = rg(x)q_1(x)
+  \end{equation*}
+  根据Gauss引理可知$g(x)q_1(x)$仍为本原多项式，
+  因此$r = \pm 1$，
+  因此$q(x) = \pm q_1(x)$是本原多项式。
+
+  (2)直接展开得到$f(x+1) = b_nx^n + \cdots + b_1x + b_0$，
+  其中$b_i = \sum\limits_{k = i}^n {k \choose i}a_k$。
+  下面证明互素，
+  假设$(b_0,b_1,\cdots,b_n) = d$，则
+  \begin{equation*}
+    \begin{cases}
+      d \mid b_n \Rightarrow d \mid a_n\\
+      d \mid b_{n-1} \Rightarrow d \mid {n \choose 1}a_n + a_{n-1} \Rightarrow d \mid a_{n-1}
+    \end{cases}
+  \end{equation*}
+  同理可以得到$d \mid a_{n-2},\cdots,d \mid a_1, d \mid a_0$，
+  这与$f(x)$是本原多项式矛盾。
+\end{proof}
+
+~
+
+\begin{theorem}[整系数多项式因式分解]
+  整系数多项式若能分解为两个较低次有理多项式乘积，则一定也能分解为两个较低次整系数多项式乘积
+\end{theorem}
+
+\begin{proof}
+  设$f(x) = g(x)h(x)$，这里$g(x),h(x) \in \mathbb{Q}[x]$，则存在本原多项式$f_1(x),h_1(x),g_1(x)$使得
+  \begin{equation*}
+    f(x) = af_1(x), g(x) = rg_1(x), h(x) = sh_1(x), a \in \mathbb{Z}, r,s \in \mathbb{Q}
+  \end{equation*}
+  从而$af_1(x) = rsg_1(x)h_1(x)$，根据Gauss引理可知$g_1(x)h_1(x)$是本原多项式，
+  不妨设最高项系数均正，
+  则$f_1(x) = g_1(x)h_1(x), a = rs$，得到$rs \in \mathbb{Z}$，
+  于是
+  \begin{equation*}
+    f(x) = (rsg_1(x))h_1(x)
+  \end{equation*}
+  其中$rsg_1(x),h_1(x)$都是整系数多项式。
+\end{proof}
+
+~
+
+\begin{exercise}[整系数多项式整数根]
+  (1)若$\alpha \neq \pm 1$为整系数多项式$f(x)$的整数根，证明：$\frac{f(1)}{\alpha - 1}, \frac{f(-1)}{\alpha + 1}$都是整数
+  
+  (2)ZJU2017.1：$f(x)$为整系数多项式，$f(0),f(1)$为奇数，证明：$f(x)$无整数根
+
+  (3)ZJU2019.4：$a_1,\cdots,a_n$为互不相同的整数，$a_1\cdots a_n + 1$不是某个整数的平方，
+  证明$f(x) = (x+a_1)\cdots (x+a_n) + 1$不能表示为$\mathbb{Q}$上两个次数大于等于$1$的多项式的乘积。
+\end{exercise}
+
+\begin{proof}
+  (1)由于$\alpha$是$f(x)$的根，因此$f(x) = (x - \alpha)(b_{n-1}x^{n-1} + \cdots + b_1x + b_0)$，
+  这里$b_0,\cdots,b_{n-1}$也都是整数，因此
+  \begin{equation*}
+    f(1) = (1 - \alpha)(b_{n-1} + \cdots + b_1 + b_0) \Rightarrow \frac{f(1)}{\alpha - 1} = -b_0 - \cdots - b_{n-1} \in \mathbb{Z}
+  \end{equation*}
+  
+  (2)若$f$有整数根，则$f(x) = (x - a)f_0(x)$，这里$f_0(x)$为整系数多项式，
+  而$f(0) = (-a)f_0(0), f(1) = (1 - a)f_0(1)$，
+  而根据$f(0),f(1)$为奇数得到$-a,1-a$同时为奇数，矛盾。
+
+  (3)若$f(x)$在$Q[x]$上可约，则$f(x)$在$\mathbb{Z}[x]$也可约，不妨设$f(x) = g(x)h(x), g(x),h(x) \in \mathbb{Z}[x]$，
+  则$f(-a_i) = g(-a_i)h(-a_i) = 1$，
+  这说明$g(-a_i) = h(-a_i) = \pm 1$，
+  因此$g(x) - h(x)$有$n$个不同的根，而$\partial(g(x) - h(x)) < n$，
+  因此$g(x) \equiv h(x)$，
+  根据条件$f(x) = g^2(x)$，常数项为整数的平方，这与条件不是平方矛盾。
+\end{proof}
+
+
+\subsection{一元有理多项式的根}
+
+\begin{theorem}[有理多项式的根]
+  $f(x) = a_nx^n + \cdots + a_1x + a_0$是整系数多项式，
+  若既约分数$\alpha = \frac{q}{p}$是$f(x)$的有理根，则必有$q \mid a_0, p \mid a_n$
+\end{theorem}
+
+\begin{proof}
+  假设$\frac{q}{p}$是解，则代入多项式得到：
+  \begin{equation*}
+    a_n \frac{q^n}{p^n} + \cdots + a_1 \frac{q}{p} + a_0 = 0
+  \end{equation*}
+  两边乘上$p^n$并移项得到：
+  \begin{equation*}
+    \begin{cases}
+      a_n q^n = p(-a_{n-1} q^{n-1} - a_{n-2}pq^{n-2}- \cdots - a_0 p^{n-1})\\
+      a_0 p^n = q(-a_n q^{n-1} - a_{n-1}pq^{n-2} - \cdots - a_{n-1}p^{n-1})
+    \end{cases}
+  \end{equation*}
+  因为$(p,q) = 1$，因此$(p,q^n) = 1, (q,p^n) = 1$，
+  因此根据上面两个式子得到
+  \begin{equation*}
+    p \mid a_0, q \mid a_n
+  \end{equation*}
+\end{proof}
+
+~
+
+\begin{exercise}[计算有理根]
+  (1)证明：$f(x) = x^3 + 2x^2 + x + 1$在有理数域上不可约
+
+  (2)求$f(x) = 3x^4 + 5x^3 + x^2 + 5x - 2$的有理根
+\end{exercise}
+
+\begin{proof}
+  (1)有理数域不可约即无有理根。
+  而有理根只可能是$\pm 1$，$f(\pm 1) \neq 0$，因此不可约。
+
+  (2)全部列出来验证，
+  结果为$\frac{1}{3}, -2$
+\end{proof}
+
+
+~
+
+\begin{theorem}[Eisenstein判别法]
+  $f(x) = a_nx^n + \cdots + a_1x + a_0$是整系数多项式，
+  若存在素数$p$使得：
+  (1)$p \nmid a_n$(2)$p \mid a_{n-1},\cdots,a_0$(3)$p^2 \nmid a_0$，
+  则$f(x)$在有理数域上是不可约多项式。
+\end{theorem}
+
+~
+
+\begin{exercise}[使用Eisenstein判别法]
+  证明在$\mathbb{Q}$不可约
+
+  (1)$f(x) = 2x^4 + 3x^3 - 9x^2 -3x + 6$
+
+  (2)$f(x) = x^n + 2x + 2$
+\end{exercise}
+
+\begin{proof}
+  (1)取$p = 3$即可
+
+  (2)取$p = 2$
+\end{proof}
+
+\section{多元多项式}
+
+\subsection{基本概念}
+
+\begin{definition}[字典排序]
+  对于多元多项式$p(x_1,x_2,\cdots,x_n)$的乘积项，
+  先按$x_1$次数由高到低排序，再根据$x_2,x_3,\cdots$次数排序，
+  将字典排序得到的第一项称为首项。
+\end{definition}
+
+\begin{theorem}[乘积保首项]
+  $f(x_1,\cdots,x_n), g(x_1,\cdots,x_n)$为多元多项式，
+  则它们乘积的首项等于首项的乘积。
+\end{theorem}
+
+\subsection{对称多项式}
+
+\begin{definition}[对称多项式]
+  若多元多项式$f(x_1,\cdots,x_n)$互换任意$x_i,x_j$后多项式保持不变，
+  则称其为对称多项式
+\end{definition}
+
+
+\begin{theorem}[对称多项式的性质]
+  对称多项式的和、差、乘积、多项式复合仍为对称多项式。
+\end{theorem}
+
+\begin{definition}[初等对称多项式]
+  将形如$\sigma_i = \sum \limits_{k_1 < k_2 < \cdots < k_i}x_{k_1}x_{k_2}\cdots x_{k_i}$的对称多项式称为初等对称多项式：
+  \begin{equation*}
+    \begin{cases}
+      \sigma_{1} = x_1 + x_2 + \cdots + x_n\\
+      \sigma_2 = x_1x_2 + x_1x_3 + \cdots + x_{n-1}x_n\\
+      \quad \vdots\\
+      \sigma_n = x_1x_2 \cdots x_n
+    \end{cases}
+  \end{equation*}
+\end{definition}
+
+
+\begin{theorem}[Vieta定理]
+  对于$f(x) = x^n + a_{n-1}x^{n-1} + \cdots + a_0$，
+  假设其解为$x_1,\cdots,x_n$，则
+  \begin{equation*}
+    \begin{cases}
+      a_{n-1} = -\sigma_1\\
+      a_{n-2} = \sigma_2\\
+      \quad \vdots\\
+      a_{n-i} = (-1)^i\sigma_i\\
+      \quad \vdots\\
+      a_0 = (-1)^n\sigma_n
+    \end{cases}
+  \end{equation*}
+\end{theorem}
+
+\begin{theorem}[复合定理]
+  任意对称多项式$f(x_1,\cdots,x_n)$可唯一地写成初等多项式的多项式$\varphi(\sigma_1,\cdots,\sigma_n)$
+\end{theorem}
+
+\begin{proof}
+  设$f(x_1,\cdots,x_n)$的首项为$ax_1^{l_1}x_2^{l_2}\cdots x_n^{l_n}$，
+  且$l_1 \geq l_2 \geq \cdots l_n$(根据对称多项式可交换性可知该性质)，
+  做多项式$\varphi_1 = a\sigma_1^{l_1 - l_2} \sigma_2^{l_2 - l_3}\cdots \sigma_n^{l_n}$，
+  得到$\varphi_1$的首项为$ax_1^{l_1 - l_2}(x_1x_2)^{l_2 - l_3}\cdots (x_1\cdots x_n)^{l_n} = ax_1^{l_1} \cdots x_n^{l_n}$，
+  取$f_1(x) = f(x) - \varphi_1$，以此类推可以得到结果。
+\end{proof}
+
+~
+
+\begin{exercise}
+  (1)将$f(x_1,x_2,x_3) = x_1^3 + x_2^3 + x_3^3$表达为$\sigma_1,\sigma_2,\sigma_3$的多项式
+\end{exercise}
+
+\begin{solution}
+  (1)根据首项可知$l_1 = 3, l_2 = l_3 = 0$，
+  $\varphi_1 = \sigma_1^{l_1}\sigma_2^{l_2}\sigma_3^{l_3} = (x_1+x_2+x_3)^3$，
+  得到
+  \begin{equation*}
+    f_1(x) = f(x) - \varphi_1 = -3(x_1^2 x_2 + x_1^2 x_3 + \cdots) - 6x_1x_2x_3
+  \end{equation*}
+  $f_1(x)$首项为$-3x_1^2 x_2$，因此$\varphi_2 = -3 \sigma_1^{2-1}\sigma_2 = -3(x_1^2x_2 + x_2^2 x_1 + \cdots) - 9 x_1x_2x_3$，
+  因此$f_2(x_1,x_2,x_3) = 3 \sigma_3$。
+  综上$f(x_1,x_2,x_3) = 3 \sigma_3 - 3 \sigma_1 \sigma_2 + \sigma_1^3$
+\end{solution}
+
+~
+
+\subsection{判别式}
+
+对称多项式理论可应用于判断一元高次多项式重根的存在性，这就导出了判别式的概念。
+
+\begin{definition}[判别式]
+  给定多项式$f(x) = x^n + a_{n-1}x^{n-1} + \cdots + a_0 \in \mathbb{C}[x]$，
+  设$x_1,\cdots,x_n$是$f(x)$的根，则定义判别式为
+  \begin{equation*}
+    D(f) := \prod \limits_{1 \leq i < j \leq n}(x_i - x_j)^n
+  \end{equation*}
+  显然$f(x)$有重根当且仅当$D(f) = 0$
+\end{definition}
+
+
+\begin{theorem}[判别式的计算]
+  由于$D(f)$是$x_1,\cdots,x_n$的对称多项式，
+  因此可以表示为初等对称多项式的多项式，再根据Vieta定理即可表达为$a_0,\cdots,a_{n-1}$的多项式
+\end{theorem}
+
+~
+
+\begin{exercise}[判别式的计算]
+  (1)计算$f(x) = x^2 + px + q$的判别式
+\end{exercise}
+
+\begin{solution}
+  (1)设$g(x_1,x_2) = (x_1 - x_2)^2$，可以将$g(x_1,x_2)$表达为初等对称多项式的多项式：
+  \begin{equation*}
+    g(x_1,x_2) = \sigma_1^2 - 4\sigma_2
+  \end{equation*}
+  而根据Vieta定理，$p = -\sigma_1, q = \sigma_2$，
+  因此$D(f) = p^2 - 4q$
+\end{solution}
+
+\subsection{结式}
+
+给定多项式$f(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_0, g(x) = b_mx^m + \cdots + b_0$，
+虽然可以用辗转相除法计算它们的最大公因式，
+但判断它们是否互素有更好的解决办法，这就是结式
+
+\begin{definition}[结式]
+  考虑两个多项式$f(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_0, g(x) = b_mx^m + b_{m-1}x^{m-1} + \cdots + b_0$，
+  则定义两个矩阵：
+  \begin{equation*}
+    A = \left[
+      \begin{array}{cccccccc}
+        a_n&a_{n-1}&a_{n-2}&\cdots&a_0&0&\cdots&0 \\
+           0&a_n&a_{n-1}&a_{n-2}&\cdots&a_0&\cdots&0 \\
+           \vdots&\vdots&\ddots&\ddots&\ddots&&\ddots&\vdots \\
+           0&0&\cdots&a_n&a_{n-1}&a_{n-2}&\cdots&a_0
+      \end{array}
+    \right]_{m \times (n + m)}
+  \end{equation*}
+  \begin{equation*}
+    B = \left[
+      \begin{array}{cccccccc}
+        b_m&b_{m-1}&b_{m-2}&\cdots&b_0&0&\cdots&0 \\
+        0&b_m&b_{m-1}&b_{m-2}&\cdots&b_0&\cdots&0 \\
+        \vdots&\vdots&\ddots&\ddots&\ddots&&\ddots&\vdots \\
+        0&0&\cdots&b_m&b_{m-1}&b_{m-2}&\cdots&b_0
+      \end{array}
+    \right]_{n \times (n + m)}
+  \end{equation*}
+  则定义它们的结式$R(f,g) = \left|
+    \begin{array}{c}
+      A\\
+      B
+    \end{array}
+  \right|$
+\end{definition}
+
+\begin{theorem}[结式判定定理]
+  给定$f(x) = a_nx^n + \cdots + a_0, g(x) = b_mx^m + \cdots + b_0$，
+  $a_n,b_m \neq 0$，
+  则$f,g$不互素的充要条件为$R(f,g) = 0$
+\end{theorem}
+
+\begin{proof}
+  设$\partial(f) = n, \partial(g) = m$，
+  首先$f(x),g(x)$不互素当且仅当$\exists u(x),v(x)$满足$\partial(u) < \partial(g), \partial(v) < \partial(f)$，
+  使得$u(x)f(x) = v(x)g(x)$，不妨设
+  \begin{equation*}
+    \begin{cases}
+      u(x) = u_{m-1}x^{m-1} + \cdots + u_0\\
+      v(x) = v_{n-1}x^{n-1} + \cdots + v_0
+    \end{cases}
+  \end{equation*}
+  将$u(x)f(x) = v(x)g(x)$展开对比系数得到
+  \begin{equation*}
+    \begin{cases}
+      a_n u_{m-1} = b_mv_{n-1}\\
+      a_{n-1}u_{m-1} + a_nu_{m-2} = b_{m-1}v_{n-1} + b_m v_{n-2}\\
+      \quad \vdots\\
+      a_0u_0 = b_0v_0
+    \end{cases}
+  \end{equation*}
+  将上述线性方程组看成$u_0,\cdots,u_{m-1},v_0,\cdots,v_{n-1}$的线性方程组，
+  则系数矩阵的转置$C^T$为结式定义中的矩阵：
+  \begin{equation*}
+    C^T = \left(
+      \begin{array}{c}
+        A\\
+        -B
+      \end{array}
+    \right)
+  \end{equation*}
+  因此有解当且仅当$|C^T| = 0$，
+  也等价于$R(f,g) = 0$
+\end{proof}
+
+\begin{theorem}[结式计算公式]
+  给定前面的$f(x),g(x)$，
+  $\alpha_1,\cdots,\alpha_n$和$\beta_1,\cdots,\beta_m$分别是$f(x),g(x)$的复根，则
+  \begin{equation*}
+    R(f,g) = a_n^m b_m^n \prod \limits_{i = 1}^n \prod \limits_{j = 1}^m (\alpha_i - \beta_i)
+  \end{equation*}
+\end{theorem}
+
+\begin{theorem}[判别式计算公式]
+  $\mathbb{C}[x]$中多项式$f(x) = a_nx^n + a_{n-1}x^{n-1} + \cdots + a_0$，
+  $a_n \neq 0$，
+  则$f(x)$的判别式
+  \begin{equation*}
+    D(f) = (-1)^{\frac{n(n-1)}{2}} a_0^{-(2n - 1)}R(f,f^{\prime})
+  \end{equation*}
+\end{theorem}
+
+
+
+
+
+
+

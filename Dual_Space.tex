@@ -1,0 +1,90 @@
+
+
+\chapter{对偶空间}
+
+\section{对偶空间与对偶基}
+
+\begin{definition}[对偶空间]
+  $V$是$K$上的线性空间，
+  将定义于$V$上的所有有界线性泛函组成的空间称为对偶空间$V^{*}$。
+\end{definition}
+
+\begin{definition}[对偶基]
+  给定$V$的一组基$\epsilon_1,\cdots,\epsilon_n$，
+  定义线性泛函$f_i$满足：
+  \begin{equation*}
+    f_i(\epsilon_j) =
+    \begin{cases}
+      1, & i = j\\
+      0, & i \neq j
+    \end{cases}
+  \end{equation*}
+  则$\{f_1,\cdots,f_n\}$是$V^{*}$的一组基，称其为$\epsilon_1,\cdots,\epsilon_n$的对偶基。
+\end{definition}
+
+\begin{note}
+  计算对偶基时，
+  将$f_i$视为一个向量，
+  即$f_i(\alpha) = f_{i1}x_1 + \cdots + f_{in}x_n = f_i^T \alpha$。
+  计算$\epsilon_1, \cdots, \epsilon_n$的对偶基只需要满足：
+  \begin{equation*}
+    \left[
+      \begin{array}{c}
+        f_1^T\\
+        f_2^T\\
+        \vdots\\
+        f_n^T
+      \end{array}
+    \right] \left[
+      \begin{array}{cccc}
+        \epsilon_1&\epsilon_2&\cdots&\epsilon_n
+      \end{array}
+    \right] = E
+  \end{equation*}
+\end{note}
+
+~
+
+\begin{exercise}
+  给定$\epsilon_1 = [1,1,0]^T, \epsilon_2 = [0,1,1]^T, \epsilon_3 = [0,1,-1]^T$，
+  求其对偶基
+\end{exercise}
+
+\begin{solution}
+  显然$f_1,f_2,f_3$都是三个系数组成的线性函数，
+  不妨记$A = [f_1, f_2,f_3]^T, P = [\epsilon_1,\epsilon_2,\epsilon_3]$，则
+  \begin{equation*}
+    AP = \left[
+      \begin{array}{c}
+        f_1^T\\
+        f_2^T\\
+        f_3^T
+      \end{array}
+    \right] \left[ \epsilon_1, \epsilon_2, \epsilon_3 \right] = E
+  \end{equation*}
+  因此$A = P^{-1}$，只需求出$P^{-1}$即可。
+  最终求出：
+  \begin{equation*}
+    P^{-1} = \left[
+      \begin{array}{ccc}
+        1&0&0 \\
+         - \frac{1}{2}& \frac{1}{2}& \frac{1}{2} \\
+         - \frac{1}{2}& \frac{1}{2}&- \frac{1}{2}
+      \end{array}
+    \right]
+    \Rightarrow
+    \begin{cases}
+      f_1^T = (1,0,0)\\
+      f_2^T = (- \frac{1}{2}, \frac{1}{2}, \frac{1}{2})\\
+      f_3^T = (- \frac{1}{2}, \frac{1}{2}, - \frac{1}{2})
+    \end{cases}
+  \end{equation*}
+\end{solution}
+
+
+
+
+
+
+
+

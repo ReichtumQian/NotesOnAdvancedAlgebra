@@ -1,0 +1,233 @@
+
+\chapter{行列式}
+
+\section{行列式基本概念与性质}
+
+\begin{theorem}[行列式初等变换]
+  矩阵初等变换相对行列式的变换为：
+  \begin{itemize}
+  \item 互换两行/列：取反号
+  \item 同行/列可同时提出公因式
+  \item 倍加：不改变行列式大小
+  \end{itemize}
+\end{theorem}
+
+\begin{theorem}[行列式分拆]
+  行列式可以关于一行或者一列进行分拆，即
+  \begin{equation*}
+    \left|\begin{array}{cccc}
+            a_{11} & a_{12} & \cdots & a_{1 n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            b_{s 1}+c_{s 1} & b_{s 2}+c_{s 2} & \cdots & b_{s n}+c_{s n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            a_{n 1} & a_{n 2} & \cdots & a_{n n}
+          \end{array}\right|=\left|\begin{array}{cccc}
+                                     a_{11} & a_{12} & \cdots & a_{1 n} \\
+                                     \vdots & \vdots & \ddots & \vdots \\
+                                     b_{s 1} & b_{s 2} & \cdots & b_{s n} \\
+                                     \vdots & \vdots & \ddots & \vdots \\
+                                     a_{n 1} & a_{n 2} & \cdots & a_{n n}
+                                   \end{array}\right|+\left|\begin{array}{cccc}
+                                                              a_{11} & a_{12} & \cdots & a_{1 n} \\
+                                                              \vdots & \vdots & \ddots & \vdots \\
+                                                              c_{s 1} & c_{s 2} & \cdots & c_{s n} \\
+                                                              \vdots & \vdots & \ddots & \vdots \\
+                                                              a_{n 1} & a_{n 2} & \cdots & a_{n n}
+                                                            \end{array}\right| .
+  \end{equation*}
+\end{theorem}
+
+
+
+\section{行列式展开}
+
+\begin{definition}[余子式与代数余子式]
+  将矩阵$A$去除第$i$行，第$j$列后矩阵的行列式称为$a_{ij}$的余子式$M_{ij}$，
+  代数余子式$A_{ij} := (-1)^{i+j}M_{ij}$
+\end{definition}
+
+
+\begin{theorem}[行列式展开]
+  固定列$j$，则按列展开为$|A| = \sum\limits_{i = 1}^n a_{ij}A_{ij}$。
+  固定行$i$，则按行展开为$|A| = \sum\limits_{j = 1}^n a_{ij}A_{ij}$
+\end{theorem}
+
+
+\begin{theorem}[不同行相乘为0]
+  $A$的第$i$行元素与$k$行的代数余子式乘积和为$0$：
+  $\sum\limits_{j = 1}^n a_{ij}A_{kj} = 0$
+\end{theorem}
+
+
+
+\section{特殊的行列式}
+
+\subsection{爪型行列式}
+
+\begin{theorem}[正爪型行列式]
+  正爪型行列式通过对角消去一条直边，再按三角行列式展开
+\end{theorem}
+
+\begin{theorem}[异爪型行列式]
+  异爪型行列式(一横两斜)分以下几种情况：
+  \begin{itemize}
+  \item 行和为$0$型：全部加到第一行，按第一列展开
+  \item 两对角各自相等型：按斜直夹边展开，获得递推公式
+  \end{itemize}
+\end{theorem}
+
+\begin{exercise}[异爪型行列式]
+  (1)计算$|A| = \left|
+    \begin{array}{cccccc}
+      0&-1&-1&\cdots&-1&-1 \\
+       1&1&0&\cdots&0&0 \\
+       0&1&1&\cdots&0&0 \\
+       \vdots&\vdots&\vdots&&\vdots&\vdots \\
+       0&0&0&\cdots&1&1
+    \end{array}
+  \right|$
+
+  (2)设$s(x) =
+  \begin{cases}
+    \frac{x}{|x|}, & x \neq 0\\
+    0, & x = 0
+  \end{cases}
+  $，已知$A = (a_{ij})$，
+  $a_{ij }= s(i-j)$，求$|A|$
+\end{exercise}
+
+\begin{solution}
+  (1)按最后一列展开，得到$D_n = (-1)^{n+2} + D_{n-1}$，因此$n$为奇数时$D_n = 0$，$n$为偶数时$D_n = 1$
+
+  (2)上下相减后变为(1)
+\end{solution}
+
+\subsection{大对角型(三斜线)}
+
+
+\subsection{行和相同型}
+
+\begin{theorem}[行和相同型]
+  行和相同型行列式分以下两种情况：
+  \begin{itemize}
+  \item 内部大量相同：加到第一列，提出公因式，消去内部大量元素
+  \item 循环型：上下相减(例题见循环型一节)
+  \end{itemize}
+\end{theorem}
+
+~
+
+\begin{exercise}[内部大量相同型]
+  计算行列式$\left|
+    \begin{array}{ccccc}
+      a&b&b&\cdots&b \\
+       b&a&b&\cdots&b \\
+       b&b&a&\cdots&b \\
+       \vdots&\vdots&&&\vdots \\
+       b&b&b&\cdots&a
+    \end{array}
+  \right|$
+\end{exercise}
+
+\begin{solution}
+  加到第一列，提出$[a + (n-1)b]$，用第一列消去其他元素，最终得到答案$(a-b)^{n-1}[a + (n-1)b]$
+\end{solution}
+
+
+
+
+\subsection{循环型}
+
+循环型一般无论形态都是上下相减，一般只有行和相同型和反对称型两种。
+
+\begin{exercise}[循环型]
+  计算$|A|,|B|$
+  \begin{equation*}
+    |A| = \left|
+      \begin{array}{cccccc}
+        0&1&2&\cdots&n-2&n-1 \\
+        1&0&1&\cdots&n-3&n-2 \\
+        2&1&0&\cdots&n-4&n-3 \\
+        \vdots&\vdots&\vdots&&\vdots&\vdots \\
+        n-2&n-3&n-4&\cdots&0&1 \\
+        n-1&n-2&n-3&\cdots&1&0
+      \end{array}
+    \right| \quad
+    |B| = \left|
+      \begin{array}{cccccc}
+        1&2&3&\cdots&n-1&n \\
+         n&1&2&\cdots&n-2&n-1 \\
+         n-1&n&1&\cdots&n-3&n-2 \\
+         \vdots&\vdots&\vdots&&\vdots&\vdots \\
+         3&4&5&\cdots&1&2 \\
+         2&3&4&\cdots&n&1
+      \end{array}
+    \right|
+  \end{equation*}
+\end{exercise}
+
+\begin{solution}
+  (1)依次上面一行减下面一行，变成如下行列式，再每一列加上第一列即可
+  \begin{equation*}
+    \left|
+      \begin{array}{cccccc}
+        -1&1&1&\cdots&1&1\\
+        -1&-1&1&\cdots&1&1\\
+        -1&-1&-1&\cdots&1&1\\ 
+          \vdots&\vdots&\vdots&&\vdots&\vdots \\
+        -1&-1&-1&\cdots&-1&1\\ 
+        n-1&n-2&n-3&\cdots&1&0
+      \end{array}
+    \right|
+  \end{equation*}
+
+  (2)依次上面一行减下面一行，然后将最后一列的$-1$倍加到每一列。
+\end{solution}
+
+
+\subsection{行列式加边法}
+
+\begin{theorem}[行列式加边法]
+  计算矩阵$A$的行列式$|A|$时，可加上一边：
+  \begin{equation*}
+    |A| = \left|
+      \begin{array}{cccc}
+        a_{11}&a_{12}&\cdots&a_{1n}\\
+        a_{21}&a_{22}&\cdots&a_{2n} \\
+              \vdots&\vdots&&\vdots \\
+              a_{n1}&a_{n2}&\cdots&a_{nn}
+      \end{array}
+    \right| = \left|
+      \begin{array}{ccccc}
+        1&1&1&1&1\\
+        0&a_{11}&a_{12}&\cdots&a_{1n}\\
+        0&a_{21}&a_{22}&\cdots&a_{2n} \\
+        \vdots&\vdots&\vdots&&\vdots \\
+        0&a_{n1}&a_{n2}&\cdots&a_{nn}
+      \end{array}
+    \right|
+  \end{equation*}
+\end{theorem}
+
+\begin{note}
+  行列式加边法往往在内部元素大量相同，但行和不同的情况。
+\end{note}
+
+
+\section{Cramer法则}
+
+\begin{theorem}[Cramer法则]
+  $n$个方程的$n$元线性方程组$AX = B$，系数矩阵行列式$|A| \neq 0$，
+  则其唯一解为
+  \begin{equation*}
+    \left( \frac{|B_1|}{|A|}, \frac{|B_2|}{|A|},\cdots, \frac{|B_n|}{|A|} \right)
+  \end{equation*}
+  其中$B_i$为$A$将第$i$列换为$B$组成的矩阵。
+\end{theorem}
+
+
+
+
+
+
+

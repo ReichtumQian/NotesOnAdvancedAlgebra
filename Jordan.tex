@@ -1,0 +1,1231 @@
+
+
+
+\chapter{Jordan标准型}
+
+
+\section{Jordan标准形：空间分解法}
+
+\subsection{空间第二分解定理：循环不变子空间分解}
+
+\begin{definition}[幂零线性变换]
+  $\mathcal{A}$是$V$内的线性变换，若$\exists m$使得$\mathcal{A}^m = 0$，
+  则$\mathcal{A}$是幂零线性变换。
+\end{definition}
+
+\begin{lemma}[幂零基]
+  $\mathcal{A}$是幂零变换，$\forall \alpha \in V$若$\mathcal{A}^{k-1}\alpha \neq 0, \mathcal{A}^k \alpha = 0$，
+  则$\alpha, \mathcal{A}\alpha , \cdots, \mathcal{A}^{k-1}\alpha$线性无关。
+\end{lemma}
+
+\begin{proof}
+  设$a_0 \alpha + a_1 \mathcal{A}\alpha + \cdots + a_{k-1} \mathcal{A}^{k-1}\alpha = 0$，
+  若从左至右第一个非零的是$a_i$，即$a_i \mathcal{A}^i \alpha + \cdots + a_k \mathcal{A}^{k-1} \alpha = 0$，
+  两侧同时作用$\mathcal{A}^{k-1-i}$，上式变为$a_i \mathcal{A}^{k-1}\alpha = 0$，
+  而$\mathcal{A}^{k-1}\alpha \neq 0$，故$a_i = 0$，与假设矛盾。
+\end{proof}
+
+\begin{definition}[循环不变子空间]
+  对$\forall \alpha \in V$，$\exists k$使得$\mathcal{A}^k = \mathbf{0}, \mathcal{A}^{k-1} \neq \mathbf{0}$，
+  则$I(\alpha) := L(\alpha, \mathcal{A}\alpha,\cdots, \mathcal{A}^{k-1}\alpha)$称为$\alpha$生成的$\mathcal{A}$的循环不变子空间。
+\end{definition}
+
+\begin{theorem}[循环不变子空间分解]
+  对于$V$内的幂零变换$\mathcal{A}$，$\exists v_1,\cdots,v_n \in V$，$m_1,\cdots,m_n \in \mathbb{N}$使得$V = I(v_1) \oplus I(v_2) \oplus \cdots \oplus I(v_n)$。
+  其中$I(v_i) = L( v_i, \mathcal{A}v_i \cdots, \mathcal{A}^{m_i} v_i)$，且$\mathcal{A}^{m_i + 1} v_i = 0$。
+\end{theorem}
+
+\begin{proof}
+  采用数归与核像分解。(1)若$dim V = 1$，则显然可分解。
+  (2)若$dim V > 1$，则用归纳法。
+  由于$\mathcal{A}$不是单射(因为将不同的向量均映射到$0$)，因此$\mathcal{A}$不是满射(因为线性映射是满射当且仅当是双射)，因此$\mathcal{A}$的像维数低于$dim V$。
+  对$Im \mathcal{A}$用归纳假设，得到$Im \mathcal{A}$的一组基$\mathcal{A}^{m_1} v_1,\cdots, \mathcal{A}v_1,v_1, \cdots, \mathcal{A}^{m_n}v_n,\cdots,v_n$，
+  由于上述向量组是$Im \mathcal{A}$的一组基，对$\forall j$存在$V$中向量$u_j$使得$v_j = \mathcal{A}u_j$。
+
+  下面说明下面的向量组线性无关：
+  \begin{equation} \label{equ:循环不变子空间分解1}
+    \mathcal{A}^{m_1 + 1}u_1, \cdots, \mathcal{A}u_1,u_1,\cdots, \mathcal{A}^{m_n+1}u_n ,\cdots,u_n
+  \end{equation}
+
+  原因:可设上述向量的一个线性组合为$0$，
+  两侧同时作用$\mathcal{A}$，则仅有$\mathcal{A}^{m_1+1}u_1, \cdots, \mathcal{A}^{m_n + 1}u_n$的系数可以非零(因为它们被作用后为0)。
+  去除其他项后，相当于设上面这组向量的某个线性组合等于$0$，由于它们也是$Im \mathcal{A}$基的一部分，彼此线性无关，所以它们的系数也必须为零。
+
+  于是将(\ref{equ:循环不变子空间分解1})扩成$V$的一组基$\mathcal{A}^{m_1 + 1}u_1,\cdots,u_1,\cdots, \mathcal{A}^{m_n+1}u_n ,\cdots, u_n, w_1, \cdots, w_p$，
+  由于$\mathcal{A} w_j \in Im \mathcal{A}$，因此存在(\ref{equ:循环不变子空间分解1})张成空间中元素$x_j$，使得$\mathcal{A} w_j = \mathcal{A} x_j$。
+  令$u_{n+j} = w_j - x_j$，则有$\mathcal{A} u_{n+j} = 0$，
+  从而(\ref{equ:循环不变子空间分解1})配上$u_{n+1},\cdots,u_{n+p}$是所需$V$的一组基。
+\end{proof}
+
+\subsection{核像升链与根子空间}
+
+设$\mathcal{A}$是$V$上的线性变换，
+定义$M_0 = \{0\}, M_i = \text{Ker} \mathcal{A}^i$，
+$N_0 = V, N_i = \text{Im}( \mathcal{A}^i)$，
+下面来研究它们的性质。
+
+\begin{lemma}[核像空间升链] \label{lemma:M和N的包含关系}
+  上述空间有：$\{0\} = M_0 \subseteq M_1 \subseteq M_2 \subseteq \cdots$，
+  $V = N_0 \supseteq N_1 \supseteq N_2 \supseteq \cdots$
+\end{lemma}
+
+\begin{proof}
+  (1)对$\forall \alpha \in M_i$，由定义有$\mathcal{A}^i\alpha = 0$，
+  显然$\mathcal{A}^{i+1}\alpha =0$，因此$M_i \subseteq M_{i+1}$。
+
+  (2)对于$\alpha \in N_i$，由定义$\exists \beta \in V$使得$\alpha = \mathcal{A}^i \beta$，
+  从而$\alpha = \mathcal{A}^{i-1}( \mathcal{A} \beta) \in N_{i-1}$。
+  由$\alpha$任意性可知$N_i \subseteq N_{i-1}$。
+\end{proof}
+
+\begin{lemma}[核空间增长]
+  核空间$M_i$的增长满足以下性质：
+  \begin{itemize}
+  \item 若$M_k = M_{k+1}$，则$M_k = M_{k+1} = M_{k+2} = \cdots$
+  \item 若$dim V = n$，则$M_n = M_{n+1} = M_{n+2} = \cdots$。
+  \end{itemize}
+\end{lemma}
+
+\begin{proof}
+  (1)显然有$M_{k+1} \subseteq M_{k+2}$，只需要证明$M_{k+2} \subseteq M_{k+1}$。
+  对于$\forall \alpha \in M_{k+2}$，有$\mathcal{A}^{k+2}\alpha = 0$，即$\mathcal{A}^{k+1}( \mathcal{A}\alpha) = 0$，
+  因此$\mathcal{A} \alpha \in M_{k+1} = M_k$，即$\mathcal{A}^{k+1}\alpha = 0 \rightarrow \alpha \in M_{k+1}$，
+  由任意性可知$M_{k+2} \subseteq M_{k+1}$，故$M_{k+1} = M_{k+2}$，后续类似。
+
+  (2)只需要证明$M_n = M_{n+1}$，假设不然，
+  则$\{0\} = M_0 \subset M_1 \subset \cdots \subset M_n \subset M_{n+1}$，$dim M_{n+1} > n$，与$M_{n+1} \subseteq V$矛盾。
+\end{proof}
+
+\begin{theorem}[幂次变换核像分解] \label{thm:根子空间核像分解}
+  $V = M_n \oplus N_n$，其中$n = dim V$。
+\end{theorem}
+
+\begin{proof}
+  显然由核像性质有$dim M_n + dim N_n = n$，只需证$M_n \cap N_n = \{0\}$。
+  $\forall v \in M_n \cap N_n$，有$\mathcal{A}^n v = 0$，且$\exists u \in V$使得$v = \mathcal{A}^n u$，
+  从而$\mathcal{A}^{2n} u = 0$，而$M_{2n} = M_{2n-1} = \cdots = M_n$，
+  故$\mathcal{A}^n u = 0$，从而$v = 0$。
+\end{proof}
+
+\begin{definition}[广义特征向量与根子空间(广义特征子空间)]
+  \begin{itemize}
+  \item 广义特征向量：线性变换$\mathcal{A}$关于特征值$\lambda$的广义特征向量定义为满足$\exists j \in \mathbb{N}^+, ( \mathcal{A} - \lambda E)^j v = 0$的所有向量。
+  \item  根子空间：线性变换$\mathcal{A}$关于$\lambda$的所有广义特征向量加上零向量组成的空间称为$\mathcal{A}$关于特征值$\lambda$的根子空间，
+    记作$G(\lambda, \mathcal{A})$。
+  \end{itemize}
+\end{definition}
+
+\begin{theorem}[根子空间的具体表达] \label{lemma:根子空间表达式}
+  根子空间$G(\lambda, \mathcal{A})$满足$G(\lambda, \mathcal{A}) = \text{Ker}( \mathcal{A} - \lambda E)^{dim V}$。
+\end{theorem}
+
+\begin{proof}
+  右推左：若$v \in Ker( \mathcal{A} - \lambda E)^{dim V}$，则由$G(\lambda, \mathcal{A})$定义可知$v \in G(\lambda, \mathcal{A})$。
+  左推右：$v \in G(\lambda, \mathcal{A})$即$\exists j \in \mathbb{N} \text{ s.t. }(\mathcal{A} - \lambda E)^j v = 0$，
+  而前面已证明这样的$v$必然满足$v \in Ker( \mathcal{A} - \lambda E)^{dim V}$。
+\end{proof}
+
+\begin{note}
+  为了知识体系的完整，这里补充一下：$\lambda_i$根子空间的次数最低压缩为$\lambda_i$对应Jordan块的最高阶数，即最小多项式中的$\lambda_i$的阶数。
+  其他书也常用特征多项式的代数重数表示(题目中会遇到)，
+  上面引理的dimV明显放缩过大。
+\end{note}
+
+\subsection{空间第一分解定理：根子空间分解}
+
+\begin{theorem}[根子空间的不变性]
+  根子空间$G(\lambda, \mathcal{A})$是$\mathcal{A}$不变的。
+\end{theorem}
+
+\begin{proof}
+  由定理\ref{lemma:根子空间表达式}可知$G(\lambda, \mathcal{A}) = Ker( \mathcal{A} - \lambda E)^n$，
+  $\forall \alpha \in G(\lambda, \mathcal{A})$有$( \mathcal{A} - \lambda E)^n \alpha = 0$，
+  显然$( \mathcal{A} - \lambda E)^n \mathcal{A} \alpha = \mathcal{A}( ( \mathcal{A} - \lambda E)^n \alpha) = 0$，故$\mathcal{A} \alpha \in G(\lambda, \mathcal{A})$。
+\end{proof}
+
+\begin{theorem}[空间第一分解定理：根子空间分解]
+  若$V$是复线性空间，$\mathcal{A}$是线性变换，$\lambda_1,\cdots,\lambda_m$是其特征值，
+  则$V = G(\lambda_1, \mathcal{A}) \oplus \cdots \oplus G(\lambda_m, \mathcal{A})$。
+\end{theorem}
+
+\begin{proof}
+  用归纳法，(1)$n = 1$时显然成立(2)假设对所有小于$n$维空间均成立，由定理\ref{thm:根子空间核像分解}可知$V = G(\lambda_1, \mathcal{A}) \oplus Im ( \mathcal{A} - \lambda_1 E)^n$，
+  若$U = Im ( \mathcal{A} - \lambda_1 E)^n$为空，则显然成立。
+  其他情况首先显然$\mathcal{A}$在$U$上是不变的($\mathcal{A}$与$( \mathcal{A} - \lambda_1 E)$可交换)，
+  去除$\lambda_1$所有对应特征向量后，
+  $\mathcal{A}|_U$在$U$有$\lambda_2,\cdots,\lambda_m$特征值，
+  对$U$用归纳法，$U = G(\lambda_2, \mathcal{A}|_U) \oplus \cdots \oplus G(\lambda_m, \mathcal{A}|_U)$，
+  由于$\forall j \geq 2, G(\lambda_j, \mathcal{A}|_U) = G(\lambda_j, \mathcal{A})$，
+  从而得证。
+\end{proof}
+
+\subsection{Jordan标准形：空间分解法}
+
+% \begin{theorem}[上三角标准型]
+%   若$V$是复线性空间，$\mathcal{A}$是$V$上的线性变换，
+%   若$\lambda_1,\cdots,\lambda_m$是重数为$d_1,\cdots,d_m$的特征值，
+%   则存在一组基使得$\mathcal{A}$在该基下的矩阵为
+%   $\left[
+%   \begin{array}{ccc}
+%     \lambda_j& & *\\
+%              & \ddots & \\
+%     0& &\lambda_j
+%   \end{array}\right] _{d_j \times d_j}
+%   $组成的分块对角矩阵。
+% \end{theorem}
+
+
+\begin{theorem}[幂零变换的Jordan标准型]
+  幂零变换$\mathcal{A}$在循环不变子空间分解基下的矩阵如下。
+  称为幂零变换的Jordan标准形。
+\end{theorem}
+
+\begin{equation*}
+  J=\left[\begin{array}{cccc}
+            J_{1} & & & \\
+                  & J_{2} & & 0 \\
+            0 & & \ddots & \\
+                  & & & J_{s}
+          \end{array}\right], \quad J_{i}=\left[\begin{array}{cccc}
+                                                  0 & 1 & & 0 \\
+                                                    & 0 & \ddots & \\
+                                                    & & \ddots & 1 \\
+                                                  0 & & & 0
+                                                \end{array}\right]_{n_{i} \times n_{i}}
+\end{equation*}
+
+\begin{proof}
+  代入计算显然可得。
+\end{proof}
+
+\begin{theorem}[核限制变换是幂零变换]
+  对于$\forall$线性变换$\mathcal{A}$，
+  令$\mathcal{B} = \mathcal{A} - \lambda E$，
+  则$\mathcal{B}$在$M_k = Ker \mathcal{B}^k$中的限制变换$\mathcal{B}|_{M_k}$是幂零变换。
+\end{theorem}
+
+\begin{proof}
+  由于$M_k = \text{Ker} \mathcal{B}^k$，因此$\forall \alpha \in M_k$有$\mathcal{B}^k \alpha = 0$，
+  故$( \mathcal{B} |_{M_k})^k = 0$。
+\end{proof}
+
+\begin{theorem}[Jordan标准型：空间分解法]
+  对于$\mathbb{C}$上线性变换$\mathcal{A}$而言，
+  其有在先根子空间分解，根子空间再循环不变子空间分解的基下有以下形式。
+  称为线性变换的Jordan标准形。
+\end{theorem}
+
+
+\begin{equation*}
+  J=\left[\begin{array}{cccc}
+            J_{1} & & & 0 \\
+                  & J_{2} & & \\
+                  & & \ddots & \\
+            0 & & & J_{s}
+          \end{array}\right], \quad J_{i}=\left[\begin{array}{cccc}
+                                                  \lambda_{i} & 1 & & 0 \\
+                                                              & \lambda_{i} & \ddots & \\
+                                                              & & \ddots & 1 \\
+                                                  0 & & & \lambda_{i}
+                                                \end{array}\right]_{n_{i} \times n_{i}}
+\end{equation*}
+
+\begin{proof}
+  先由空间分解第一定理将$V$分解为根子空间直和，
+  由于$\mathcal{A} - \lambda E$在$G(\lambda, \mathcal{A})$中的限制变换是幂零变换，
+  因此再对$G(\lambda, \mathcal{A})$进行循环不变子空间分解，再由幂零变换的Jordan标准形可证。
+\end{proof}
+
+
+
+\section{空间分解法：零化多项式角度}
+
+\subsection{根子空间分解：矩阵角度}
+
+\begin{theorem}[解空间分解]
+  $A$是$n$阶方阵，
+  $f(x),f_1(x),f_2(x) \in P[x]$，
+  且$f(x) = f_1(x)f_2(x), (f_1(x),f_2(x)) = 1$，
+  设$f(A)X = 0, f_1(A)X = 0, f_2(A)X = 0$的解空间分别为$V,V_1,V_2$，
+  则
+  \begin{equation*}
+    V = V_1 \oplus V_2
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  由于互素，得到$\exists u(x),v(x)$，使得$E = u(A)f_1(A) + v(A) f_2(A)$，
+  从而$\forall \alpha \in V$有
+  \begin{equation*}
+    \alpha = u(A)f_1(A)\alpha + v(A) f_2(A)\alpha := \alpha_1 + \alpha_2
+  \end{equation*}
+  且满足$f(A)\alpha = f_1(A)f_2(A)\alpha = 0$。
+  故考察$f_2(A)\alpha_1$：
+  \begin{equation*}
+    f_2(A)\alpha_1 = f_2(A) u(A)f_1(A)\alpha = u(A)f_1(A)f_2(A) = 0 \Rightarrow \alpha_1 \in V_2
+  \end{equation*}
+  同理得到$f_1(A)\alpha_2 = 0, \alpha_2 \in V_1$，
+  从而得到$V = V_1 + V_2$。
+
+  下证直和，
+  $\forall \alpha \in V_1 \cap V_2$，
+  则$f_1(A)\alpha = f_2(A) \alpha = 0$，
+  因此
+  \begin{equation*}
+    \alpha = u(A)f_1(A) \alpha + v(A)f_2(A)\alpha = 0
+  \end{equation*}
+  因此结论成立。
+\end{proof}
+
+\begin{theorem}[多空间分解]
+  $A$是数域$P$上$n$阶方阵，
+  $f(x),f_1(x),\cdots, f_s(x) \in P[x]$，
+  $f(x) = f_1(x)f_2(x)\cdots f_s(x)$，
+  且$f_1(x),\cdots,f_s(x)$ \textbf{两两互素}，
+  设$f(A)X = 0, f_1(A)X = 0,\cdots,f_s(A)X = 0$的解空间为$V,V_1,\cdots,V_s$，
+  则
+  \begin{equation*}
+    V = V_1 \oplus V_2 \oplus \cdots \oplus V_s
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  用数学归纳法即可。
+\end{proof}
+
+~
+
+\begin{theorem}[空间分解研究矩阵秩]
+  考虑$f(A) = f_1(A)\cdots f_s(A)$，
+  则
+  \begin{equation*}
+    n - \mathrm{r}(f(A)) = n - \mathrm{r}(f_1(A)) + \cdots + n - \mathrm{r}(f_s(A))
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  设$f(A)X = 0, f_1(A)X = 0,\cdots,f_s(A) X = 0$的解空间为$V,V_1,\cdots,V_s$，
+  根据解空间分解得到$V = V_1 \oplus \cdots \oplus V_s$，
+  因此根据解空间的维数可得到结论。
+\end{proof}
+
+~
+
+\begin{exercise}[空间分解研究矩阵的秩]
+  证明以下命题
+
+  (1)$A^2 = A$当且仅当$r(A) + r(A - E) = n$
+
+  (2)$A^2 = E$当且仅当$r(A+E) + r(A - E) = n$
+
+  (3)$A^3 = E$当且仅当$r(A - E) + r(A^2 + A + E) = n$
+\end{exercise}
+
+
+\begin{proof}
+  (1)$f(A) = A^2 - A = A(A - E)$，
+  因此$n - r(A^2 - A) = n - r(A) + n - r(A - E)$，
+  左侧等于$n$，右侧等于$2n - r(A) - r(A - E)$，
+  因此$r(A) + r(A - E) = n$
+\end{proof}
+
+~
+
+\subsection{根子空间分解：线性变换角度}
+
+\begin{lemma}[零变换的核空间]
+  $V$是$\mathbb{P}$上的线性空间，$\mathcal{O}$是零变换，则其核空间为整个空间：
+  \begin{equation*}
+    \mathrm{Ker}(\mathcal{O}) = V
+  \end{equation*}
+\end{lemma}
+
+\begin{theorem}[核空间分解]
+  $\mathcal{A}$为线性变换，
+  $f(x) = f_1(x)f_2(x)$为多项式，
+  且$(f_1(x),f_2(x)) = 1$，
+  则有如下核空间分解：
+  \begin{equation*}
+    \mathrm{Ker}(f(\mathcal{A})) = \mathrm{Ker}(f_1(\mathcal{A})) \oplus \mathrm{Ker}(f_2(\mathcal{A}))
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  根据$(f_1(x),f_2(x)) = 1$得到$\exists u(x),v(x)$使得$u(x)f_1(x) + v(x)f_2(x) = 1$，
+  因此
+  \begin{equation*}
+    \mathcal{E} = u(\mathcal{A})f_1(\mathcal{A}) + v(\mathcal{A}) f_2(\mathcal{A})
+  \end{equation*}
+  对$\forall \alpha \in \mathrm{Ker}(f(\mathcal{A}))$
+  \begin{equation*}
+    \alpha = \alpha_1 + \alpha _2 := u(\mathcal{A})f_1(\mathcal{A})\alpha + v(\mathcal{A})f_2(\mathcal{A})\alpha
+  \end{equation*}
+  显然$f_2(\mathcal{A})\alpha_1 = u(\mathcal{A})f(\mathcal{A})\alpha = 0$，
+  得到$\alpha_1 \in \mathrm{Ker}(f_1(\mathcal{A}))$，同理有$\alpha_2 \in \mathrm{Ker}(f_2(\mathcal{A}))$，综上得到
+  \begin{equation*}
+    \mathrm{Ker}(f(\mathcal{A})) = \mathrm{Ker}(f_1(\mathcal{A})) + \mathrm{Ker}(f_2(\mathcal{A}))
+  \end{equation*}
+
+  下证直和：对$\forall \alpha \in \mathrm{Ker}(f_1(\mathcal{A})) \cap \mathrm{Ker}(f_2(\mathcal{A}))$，有
+  \begin{equation*}
+    \alpha = u(\mathcal{A})f_1(\mathcal{A})\alpha + v(\mathcal{A})f_2(\mathcal{A})\alpha = 0
+  \end{equation*}
+  因此为直和
+\end{proof}
+
+\begin{theorem}[全空间分解：零化多项式角度]
+  $V$是$\mathbb{P}$上的线性空间，$\mathcal{A}$是$V$上的线性变换，
+  $f(x) = f_1(x) f_2(x) \cdots f_s(x)$为零化多项式，
+  且$f_1(x),\cdots,f_s(x)$两两互素，则
+  \begin{equation*}
+    V = \mathrm{Ker}(f_1(\mathcal{A})) \oplus \cdots \oplus \mathrm{Ker}(f_s(\mathcal{A}))
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  由于$f(A) = \mathcal{O}$，根据零变换的核空间以及核空间分解定理可知。
+\end{proof}
+
+
+\begin{lemma}[Hamilton-Cayley]
+  若$f(\lambda)$是线性变换$\mathcal{A}$的特征多项式，则$f(\lambda)$是$\mathcal{A}$的零化多项式
+\end{lemma}
+
+\begin{proof}
+  该定理在最小多项式一章已经证明过了
+\end{proof}
+
+\begin{theorem}[根子空间分解：零化多项式角度]
+  若$\mathbb{C}$上线性变换$\mathcal{A}$的特征多项式为$f(\lambda) = (\lambda - \lambda_1)^{k_1} \cdots (\lambda - \lambda_s)^{k_s}$，
+  最小多项式为$m(\lambda )= (\lambda - \lambda_1)^{l_1} \cdots (\lambda - \lambda_s)^{l_s}$，则
+  有以下根子空间分解
+  \begin{equation*}
+    V = \mathrm{Ker}(\mathcal{A} - \lambda_1 \mathcal{E})^{k_1}\oplus \cdots \oplus \mathrm{Ker}(\mathcal{A} - \lambda_s \mathcal{E})^{k_s} = \mathrm{Ker}(\mathcal{A} - \lambda_1 \mathcal{E})^{l_1} \oplus \cdots \oplus \mathrm{Ker}(\mathcal{A} - \lambda_s \mathcal{E})^{l_s}
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  根据Hamilton-Cayley定理以及零化多项式全空间分解可知。
+\end{proof}
+
+~
+
+\begin{exercise}[根子空间分解：零化多项式角度]
+  (1)ZJU2021.8：$V$是线性空间，$\varphi$是$V$上线性变换，特征多项式$f(\lambda) = (\lambda - 2)^6(\lambda + 2)^4$，
+  将$V$分解为两个非平凡不变子空间的直和，并证明结论。
+\end{exercise}
+
+~
+
+\begin{theorem}[根子空间分解与Jordan标准型]
+  根子空间分解将Jordan阵按照特征值$\lambda_i$分为若干份，每份由$\lambda_i$为对角的若干个Jordan块组成，
+  对角$\lambda_i$在Jordan阵中的出现次数等于其代数重数。
+\end{theorem}
+
+
+\subsection{Jordan阵与循环不变子空间}
+
+\begin{lemma}[核限制变换是幂零变换]
+  $\lambda_i$为$\mathcal{A}$的特征值，则$(\mathcal{A} - \lambda_i \mathcal{E}) \big|_{\mathrm{Ker}(\mathcal{A} - \lambda_i \mathcal{E})^k}$在$\mathrm{Ker}(\mathcal{A} - \lambda_i \mathcal{E})^k$中为幂零变换
+\end{lemma}
+
+\begin{proof}
+  由于$\forall \alpha \in \mathrm{Ker}(\mathcal{A} - \lambda_i \mathcal{E})^k $满足
+  $(\mathcal{A} - \lambda_i\mathcal{E})^k \alpha = 0$，
+  因此限制变换满足$(\mathcal{A} - \lambda_i\mathcal{E})^k\big|_{\mathrm{Ker}(\mathcal{A} - \lambda_i\mathcal{E})^k} = \mathcal{O}$
+\end{proof}
+
+\begin{theorem}[循环不变子空间分解]
+  对于$V$内的幂零变换$\mathcal{A}$，$\exists v_1,\cdots,v_n \in V$，$m_1,\cdots,m_n \in \mathbb{N}$使得$V = I(v_1) \oplus I(v_2) \oplus \cdots \oplus I(v_n)$。
+  其中$I(v_i) = L( v_i, \mathcal{A}v_i \cdots, \mathcal{A}^{m_i} v_i)$，且$\mathcal{A}^{m_i + 1} v_i = 0$。
+\end{theorem}
+
+\begin{proof}
+  在空间第二分解定理中已经证明过了。
+\end{proof}
+
+\begin{theorem}[Jordan阵与循环不变子空间]
+  线性变换$\mathcal{A}$在根子空间$\mathrm{Ker}(\mathcal{A} - \lambda_i\mathcal{E})^k$下的限制变换$\mathcal{A} \big|_{\mathrm{Ker}(\mathcal{A} - \lambda_i \mathcal{E})^k}$在一组循环不变基$((\mathcal{A} - \lambda_i\mathcal{E})^s\alpha, (\mathcal{A} - \lambda_i \mathcal{E})^{s-1}\alpha,\cdots,\alpha)$下的矩阵为一个Jordan块：
+  \begin{equation*}
+    J_s(\lambda_i) = \left[
+      \begin{array}{ccccc}
+        \lambda_i&1&&& \\
+                 &\lambda_i&1&&\\ 
+                 &&\ddots&\ddots& \\ 
+                 &&&\lambda_i&1\\
+                 &&&&\lambda_i
+      \end{array}
+    \right]
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  直接验证即可。
+\end{proof}
+
+
+\begin{theorem}[Jordan阵与几何重数]
+  特征值$\lambda_i$的代数重数是特征多项式$f(\lambda)$的$\lambda = \lambda_i$根的重数，
+  几何重数($\lambda_i E - A = 0$解空间维数)是$\lambda_i$对应以$\lambda_i$为对角的Jordan块个数。
+\end{theorem}
+
+\begin{proof}
+  根据$\lambda_i E - A = 0$的解空间维数等于$\lambda_i E - J = 0$解空间维数，
+  而每有一个以$\lambda_i$为对角的Jordan块，$\lambda_i E - J$上就有一行全为$0$，
+  因此秩减$1$，从而块数等于几何重数。
+\end{proof}
+
+\begin{note}
+  即以$\lambda_i$为对角的Jordan块个数为$n - r(\lambda E - A)$，
+  反过来写也要分得清。
+\end{note}
+
+
+\section{Jordan标准形：$\lambda$矩阵法}
+
+\subsection{$\lambda$矩阵与相抵}
+
+\begin{definition}[$\lambda$矩阵]
+  $A(\lambda)$是元素为$\lambda$多项式的矩阵，则将$A(\lambda)$称为$\lambda$矩阵。
+\end{definition}
+
+\begin{definition}[$\lambda$矩阵初等变换]
+  $\lambda$矩阵有三种初等变换：
+  \begin{itemize}
+  \item 互换两行/列
+  \item 用常数c乘一行/列(不能乘$\lambda$多项式！)
+  \item 将一行/列乘以一个$\lambda$多项式加到另一行/列上
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[相抵]
+  若可以用初等变换将一个$\lambda$矩阵转换为另一个$\lambda$矩阵，
+  则称两个$\lambda$矩阵相抵。
+\end{definition}
+
+\begin{theorem}[相抵标准形：法式]
+  对于数值矩阵$A$，$\lambda E - A$总是相抵于$\text{diag}\{1,\cdots,1,d_1(\lambda), \cdots, d_m(\lambda)\}$，
+  其中$d_i(\lambda)$是首一多项式，且$d_i(\lambda)|d_{i+1}(\lambda)$。
+\end{theorem}
+
+\begin{lemma}[对角整除化]
+  $A(\lambda)$为非零$\lambda$矩阵，
+  则$A(\lambda)$一定相抵于$B(\lambda)$，
+  满足$b_{11}(\lambda) \neq 0$且$b_{11}(\lambda)$可整除$B(\lambda)$中的所有元素
+\end{lemma}
+
+\begin{proof}
+  先将$A(\lambda)$中次数最低的元素放置于对角$a_{11}(\lambda)$
+  
+  (1)消去第一行、第一列：不妨设$a_{i1}(\lambda)$不被$a_{11}(\lambda)$整除，
+  则做带余除法$a_{i1}(\lambda) = q(\lambda)a_{11}(\lambda) + r(\lambda)$，
+  再将$r(\lambda)$放置于$a_{11}$，直至全部整除，可消去第一列和第一行。
+
+  (2)考虑第一列、第一行外的其他元素，若存在$a_{ij}(\lambda)$不被$a_{11}$整除，
+  则把第$j$列加到第一列上，做带余除法，把余项放到$a_{11}$，以此类推。
+\end{proof}
+
+\begin{theorem}[法式的计算：初等变换法]
+  每次把最低次移动到角上，尝试消除，消除过程按照以下步骤
+  \begin{itemize}
+  \item 通过初等变换将当前对角元素变为所有非零元素中次数最低的$\lambda$多项式
+  \item 将矩阵对角整除化：具体见引理的过程
+  \item 消去一列，再消去一行，重复对角整除化和消去
+  \end{itemize}
+\end{theorem}
+
+\begin{theorem}[相抵与相似]
+$A$与$B$相似当且仅当$\lambda E - A$与$\lambda E - B$相抵。
+\end{theorem}
+
+\begin{proof}
+  (1)左推右：若$B = P^{-1}AP$，则$\lambda E - B = P^{-1}(\lambda E - A)P$，
+  显然右侧两个$\lambda$矩阵相抵。
+
+  (2)右推左：若$\lambda E - B = P(\lambda)(\lambda E - A)Q(\lambda)$，
+  设$Q(\lambda) = Q_k\lambda^k + \cdots + Q_1\lambda + Q_0$，
+  $Q(\lambda)^{-1} = R_m\lambda^m + \cdots + R_1\lambda + R_0$，
+  下记$W = Q(B)$。由$Q(\lambda) Q^{-1}(\lambda) = E$得
+  $R_mQ(\lambda)\lambda^m + \cdots + R_1Q(\lambda)\lambda + R_0Q(\lambda) = E$，
+  代入$B$得到$R_mWB^m + \cdots + R_1WB + R_0W = E$。
+
+  由于$P(\lambda)^{-1}(\lambda E - B) = (\lambda E - A)Q(\lambda) = Q(\lambda)\lambda - A Q(\lambda)$，代入$\lambda = B$得到$Q(B)B = AQ(B)$(前面一式子左=$0$)，
+  即$WB = AW$，从而$WB^l = A^lW$(多作用一个$A$相当于多右乘一个$B$)。
+
+  再由前面的式子得到$(R_mA^m + \cdots + R_0)W = E$，则表明$W$可逆，
+  从而$B = W^{-1}AW$。
+\end{proof}
+
+\subsection{行列式因子、不变因子}
+
+\begin{definition}[行列式$k$阶子式]
+  $|A|$的$k$阶子式是其任选$k$行、$k$列组成的矩阵的行列式。
+\end{definition}
+
+\begin{definition}[行列式因子]
+  $A(\lambda)$是$\lambda$矩阵，若其所有$k$阶子式(行列式)均为$0$，
+  则定义其$k$阶行列式因子$D_k(\lambda) = 0$，
+  否则定义为所有非零$k$阶子式的首一最大公因式。
+\end{definition}
+
+\begin{note}
+  一般行列式因子比初等变换方便，不过一定注意这里的子式是所有子式，
+  而非主子式，甚至可以不连着，$0$的情况也得分开考虑。
+\end{note}
+
+\begin{lemma}[行列式因子的相除性]
+  设$D_1(\lambda),\cdots,D_r(\lambda)$是$A(\lambda)$非零行列式因子，
+  则$D_i(\lambda) | D_{i+1}(\lambda)$。
+\end{lemma}
+
+\begin{proof}
+  设$A_{i+1}$是$A(\lambda)$任意$i+1$阶子式，
+  这个行列式按某一行展开，则其每一展开项都是一个多项式与一个$i$阶子式乘积，
+  而$D_i(\lambda)$是所有$i$阶子式公因子，因此$D_i(\lambda) | A_{i+1}(\forall i)$，
+  而$D_{i+1}(\lambda)$是所有$A_{i+1}$的最大公因式，因此证毕。
+\end{proof}
+
+\begin{definition}[不变因子]
+  定义$d_1(\lambda ) = D_1(\lambda)$，$d_i(\lambda) = \frac{D_i(\lambda)}{D_{i-1}(\lambda)}(\forall i \neq 1)$为$A(\lambda)$的不变因子。
+\end{definition}
+
+\begin{theorem}[行列式因子、不变因子的性质]
+  \begin{itemize}
+  \item 相抵矩阵的因子：相抵的$\lambda$矩阵有相同的行列式因子、不变因子(初等变换不改变行列式、不变因子)
+  \item 法式与不变因子：
+    $\lambda E - A$法式的所有对角元素即$\lambda E - A$的不变因子。
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  (1)只需证明行列式因子在三种初等变换不变即可。
+  而不变因子由行列式因子唯一确定。
+
+  (2)由于不变因子在初等变化中不变，求出法式的不变因子(即对角)，因此$\lambda E - A$的不变因子即其法式对角元素。
+\end{proof}
+
+\begin{theorem}[不变因子与最小多项式]
+  $A$的最小多项式即$\lambda E - A$的最后一个不变因子
+\end{theorem}
+
+\begin{proof}
+  设$A$的互异特征值为$\lambda_1,\cdots,\lambda_s$，
+  因此可以列出所有的初等因子(具体见下一节)，
+  最小多项式即初等因子的最小公倍式，
+  最后一个不变因子也是，
+  因此结论成立
+\end{proof}
+
+\subsection{初等因子与Jordan标准型}
+
+\begin{definition}[初等因子]
+将所有不变因子分解为不可约因子之积，这些不可约因子全体称为初等因子组。
+\end{definition}
+
+\begin{theorem}[对角化计算初等因子] \label{lemma:对角化计算初等因子}
+  $\lambda E - A$经过初等变化变为对角阵(不一定要法式)
+  \begin{equation*}
+    \left(\begin{array}{llll}
+            f_{1}(\lambda) & & & \\
+                           & f_{2}(\lambda) & & \\
+                           & & \ddots & \\
+                           & & & f_{n}(\lambda)
+          \end{array}\right)
+  \end{equation*}
+  其中$f_i(\lambda)$为非零首一多项式，则$A$的初等因子组是所有$f_i(\lambda)$做不可约分解得到的因式组合。
+\end{theorem}
+
+\begin{lemma}[Jordan块、Jordan阵的初等因子]
+  $r$阶$\lambda_0$对角的Jordan块的初等因子组为$(\lambda - \lambda_0)^r$。
+  对角为$J_1,J_2,\cdots,J_k$的Jordan阵的初等因子组为$(\lambda - \lambda_1)^{r_1}, \cdots, (\lambda - \lambda_k)^{r_k}$。
+\end{lemma}
+
+\begin{proof}
+  (1)Jordan块的初等因子组直接用行列式因子计算即可(只有$r$阶非$1$，因此不变因子好算)
+
+  (2)Jordan阵的初等因子进行分块初等变换，将各个Jordan块分块变成法式，
+  再用引理\ref{lemma:对角化计算初等因子}即可。
+\end{proof}
+
+\begin{theorem}[使用初等因子计算Jordan标准型]
+  若$K$上的矩阵$A$有初等因子组$(\lambda - \lambda_1)^{r_1}, \cdots, (\lambda - \lambda_k)^{r_k}$，
+  则$A$相似于Jordan阵$J = \text{diag}\{J_1,\cdots,J_k\}$，
+  其中$J_i$是以$\lambda_i$为对角的$r_i$阶Jordan块。
+\end{theorem}
+
+\begin{theorem}[Jordan标准型存在充要条件]
+  $K$上矩阵$A$有Jordan标准型当且仅当其初等因子都是一次项的幂次乘积。
+\end{theorem}
+
+
+
+\section{$\lambda$矩阵的进一步研究}
+
+\subsection{Jordan标准型的直接计算}
+
+一、初等变换方法：只需要将$\lambda E - A$转换为对角矩阵，对角所有分解即初等因子组，直接构造Jordan标准型
+
+~
+
+\begin{exercise}[无法直接整除的情况]
+  (1)计算下面矩阵$A$的法式：
+  \begin{equation*}
+    A = \left[
+      \begin{array}{ccc}
+        -1&1&3 \\
+          3&0&-4 \\
+          -2&1&4
+      \end{array}
+    \right]
+  \end{equation*}
+\end{exercise}
+
+\begin{solution}
+  (1)进行到下面步骤的时候无法整除，即发现不整除列上的多项式，要进行对角整除化
+  \begin{equation*}
+    \left[
+      \begin{array}{ccc}
+        1&0&0 \\
+         0&\lambda-1&-\lambda+1 \\
+         0&\lambda^2 + \lambda - 3&-3\lambda + 4
+      \end{array}
+    \right] \rightarrow \left[
+      \begin{array}{ccc}
+        1&0&0 \\
+         0&\lambda - 1&- \lambda + 1 \\
+         0&(\lambda^2 + \lambda - 3) - (\lambda-1)(\lambda+2)&(-3\lambda + 4) - (\lambda+2)(-\lambda + 1)
+      \end{array}
+    \right] = \left[
+      \begin{array}{ccc}
+        1&0&0 \\
+         0&\lambda - 1&-\lambda + 1 \\
+         0&-1&\lambda^2 - 2\lambda +2
+      \end{array}
+    \right]
+  \end{equation*}
+  因此最终可以化简为：
+  \begin{equation*}
+    \left[
+      \begin{array}{ccc}
+        1&& \\
+         &1& \\
+         &&(\lambda-1)^3
+      \end{array}
+    \right]
+  \end{equation*}
+\end{solution}
+
+~
+
+\begin{exercise}[初等变换方法计算Jordan标准型]
+  计算$A = \left[
+    \begin{array}{ccc}
+      1&-1&2\\
+      3&-3&6\\
+      2&-2&4
+    \end{array}
+  \right]$的Jordan标准型
+\end{exercise}
+
+\begin{solution}
+  通过初等变换得到$\lambda E - A$的法式为$\left[
+    \begin{array}{ccc}
+      1&0&0\\
+      0&\lambda&0\\
+      0&0&-\lambda^2 + 2\lambda
+    \end{array}
+  \right]$，
+  因此初等因子为$\lambda,\lambda,(\lambda - 2)$，
+  对应Jordan阵为：
+  \begin{equation*}
+    J = \left[
+      \begin{array}{ccc}
+        0&& \\
+         &0& \\
+         &&2
+      \end{array}
+    \right]
+  \end{equation*}
+\end{solution}
+
+~
+
+二、行列式因子方法：求一般矩阵的Jordan阵用行列式因子可能比较麻烦，但是对于抽象的$n$阶矩阵却有很大的作用，
+原因在于只要有两个子式互素，则行列式因子就为$1$。
+
+~
+
+\begin{exercise}[经典而重要的题目]
+  $a,b \in \mathbb{C}$，求下面矩阵$A$的Jordan标准型
+  \begin{equation*}
+    A = \left[
+      \begin{array}{ccccc}
+        a&b&\cdots&b&b \\
+         &a&\cdots&b&b \\
+         &&\ddots&\vdots&\vdots \\
+         &&&a&b \\
+         &&&&a
+      \end{array}
+    \right]
+  \end{equation*}
+\end{exercise}
+
+\begin{solution}
+  若$b = 0$，则Jordan标准型即$aE$。
+  若$b \neq 0$，则考虑$\lambda E - A$：
+  \begin{equation*}
+    \lambda E - A = 
+    \left[
+      \begin{array}{ccccc}
+        \lambda - a&-b&\cdots&-b&-b \\
+         &\lambda - a&\cdots&-b&-b \\
+         &&\ddots&\vdots&\vdots \\
+         &&&\lambda - a&-b \\
+         &&&&\lambda - a
+      \end{array}
+    \right]
+  \end{equation*}
+  考虑$n-1$阶子式，右下子式行列式为$(\lambda - a)^{n-1}$，
+  右上子式在$\lambda = a$时显然不是$0$(根据余数定理)，
+  因此互素，即初等因子为$(\lambda - a)^n$，因此Jordan阵为一个$n$阶的以$a$为对角的Jordan块
+\end{solution}
+
+~
+
+\begin{exercise}[行列式因子应用相关练习]
+  求不变因子：
+  (1)$A = \left[
+    \begin{array}{cccc}
+      &&1&\lambda+2 \\
+      &1&\lambda+2& \\
+      1&\lambda+2&& \\
+      \lambda+2&&&
+    \end{array}
+  \right]$
+  (2)$A = \left[
+    \begin{array}{cccc}
+      \lambda&-1&& \\
+             &\lambda&-1& \\
+             &&\lambda&-1 \\
+             5&4&3&\lambda+2
+    \end{array}
+  \right]$
+\end{exercise}
+
+\begin{solution}
+  (1)左上行列式因子为$-1$，
+  因此不变因子为$1,1,1,(\lambda+2)^4$
+
+  (2)右上行列式因子为$-1$，
+  因此不变因子$1,1,1,|A|$
+\end{solution}
+
+~
+
+\begin{theorem}[重要$\lambda$矩阵]
+  下面$\lambda$矩阵$A$的不变因子为$1,1,\cdots,\lambda^n + a_1\lambda^{n-1}+a_2\lambda^{n-2} + \cdots + a_{n-1}\lambda + a_n$
+  \begin{equation*}
+    A = \left[
+      \begin{array}{cccccc}
+        \lambda&&&&&a_n \\
+               -1&\lambda&&&&a_{n-1} \\
+               &-1&\lambda&&&a_{n-2} \\
+               &&\ddots&\ddots&&\vdots \\
+               &&&-1&\lambda&a_2 \\
+               &&&&-1&\lambda+a_1
+      \end{array}
+    \right]
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  考虑左下方行列式因子，其值为$1$，因此不变因子为$1,1,\cdots,1,|A|$，
+  而计算出$|A| = \lambda^n + a_1 \lambda^{n-1} + \cdots + a_n $，因此结论成立
+\end{proof}
+
+\begin{corollary}
+  下列矩阵$A$在$\mathbb{C}$可对角化当且仅当$\lambda^n + a_1\lambda^{n-1}+a_2\lambda^{n-2} + \cdots + a_{n-1}\lambda + a_n$在$\mathbb{C}$上无重根
+  \begin{equation*}
+    A = \left[
+      \begin{array}{cccccc}
+        0&&&&&a_n \\
+        -1&0&&&&a_{n-1} \\
+               &-1&0&&&a_{n-2} \\
+               &&\ddots&\ddots&&\vdots \\
+               &&&-1&0&a_2 \\
+               &&&&-1&a_1
+      \end{array}
+    \right]
+  \end{equation*}
+\end{corollary}
+
+~
+
+\begin{exercise}[一些用行列式因子计算方便的特殊矩阵]
+  计算Jordan标准型
+  (1)$A = \left[
+    \begin{array}{cccc}
+      1&2&3&4 \\
+       &1&2&3 \\
+       &&1&2 \\
+       &&&1
+    \end{array}
+  \right]$
+  (2)$A = \left[
+    \begin{array}{cccc}
+      a&&& \\
+       a&a&& \\
+       \vdots&\vdots&\ddots& \\
+       a&a&\cdots&a
+    \end{array}
+  \right]$
+  (3)$A = \left[
+    \begin{array}{cccc}
+      a&&& \\
+       b_1&a&& \\
+       &\ddots&\ddots& \\
+       &&b_{n-1}&a
+    \end{array}
+  \right]$
+  (4)$A = \left[
+    \begin{array}{ccccc}
+      a&a_{12}&a_{13}&\cdots&a_{1n} \\
+       &a&a_{23}&\cdots&a_{2n} \\
+       &&\ddots&&\vdots \\
+       &&&a&a_{n-1,n} \\
+       &&&&a
+    \end{array}
+  \right]$，
+  $a_{12}a_{23}\cdots a_{n-1,n} \neq 0$
+\end{exercise}
+
+\begin{solution}
+  (1)$\lambda E - A$左上行列式为$(\lambda - 1)^3$，
+  右上在$\lambda = 1$是显然非零，因此不变因子$1,1,1,|\lambda E - A|$
+
+  (2)左上行列式$(\lambda - a)^{n-1}$，
+  左下在$\lambda = a$显然非零，因此不变因子$1,1,\cdots,1,|\lambda E - A|$
+
+  (3)(4)显然
+\end{solution}
+
+\begin{note}
+  如果对角相等，则用行列式因子计算可能会比较方便
+\end{note}
+
+\subsection{$k$阶Jordan块的个数}
+
+\begin{theorem}[$k$阶Jordan块个数]
+  $n$阶复矩阵$A$的Jordan标准型为$J$，
+  则$J$中对角元$\lambda$的$k$阶Jordan块$J_k(\lambda)$的个数如下。这里约定$r((A - \lambda E_n)^0) = n$
+  \begin{equation*}
+    r((A - \lambda E_n)^{k-1}) - 2r((A - \lambda E_n)^k) + r((A - \lambda E_n)^{k+1})
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  考虑零对角Jordan块的幂次：
+  \begin{equation*}
+    r(J_r(0)^k) =
+    \begin{cases}
+      r - k, & 0 \leq k < r\\
+      0, & k \geq r
+    \end{cases} \quad
+    r(J_r(0)^k) - r(J_r(0)^{k+1}) =
+    \begin{cases}
+      1, & 0 \leq k < r\\
+      0, & k \geq r
+    \end{cases}
+  \end{equation*}
+  而非零对角Jordan块的幂次满足
+  $r(J_r(a)^k) - r(J_r(a)^{k+1}) = 0$。
+  
+  设$A$的Jordan标准型为$J = \text{diag}\{J_{r_1}(\lambda_1),\cdots,J_{r_s}(\lambda_s)\}$，
+  $(A - \lambda E)^k, (J - \lambda E)^k$相似。
+  根据$J$是分块对角的性质可知$r((A - \lambda E)^k) = r((J - \lambda E)^k) = \sum\limits_{i = 1}^s r(J_{r_i}(\lambda_i - \lambda)^k)$，
+  因此得到：
+  \begin{equation*}
+     r((A - \lambda E)^k) - r((A - \lambda E)^{k+1}) = \sum\limits_{i = 1}^s [r(J_{r_i}(\lambda_i - \lambda)^k) - r(J_{r_i}(\lambda_i - \lambda)^{k+1})]
+  \end{equation*}
+  根据前面的分析，$r((A - \lambda E)^k) - r((A - \lambda E)^{k+1})$等于$\lambda_i = \lambda$的且阶数大于$k$那些块个数，
+  同理$r((A - \lambda E)^{k-1}) - r((A - \lambda E)^k)$等于对角为$\lambda$的且阶数大于$k - 1$的块个数，
+  相减即可得到阶数为$k$的块个数。
+\end{proof}
+
+~
+
+\begin{exercise}[上述定理的应用]
+  计算$A$的Jordan标准型
+  \begin{equation*}
+    A = \left[
+      \begin{array}{ccccc}
+        a&0&1&& \\
+         &a&0&\ddots& \\
+         &&a&\ddots&1 \\
+         &&&\ddots&0 \\
+         &&&&a
+      \end{array}
+    \right]
+  \end{equation*}
+\end{exercise}
+
+~
+
+\begin{exercise}
+  $A,B$是两个$n$阶矩阵，证明$A,B$相似的充要条件是$\forall \lambda \in \mathbb{C}$，$k = 1,2,\cdots,n$，
+  均有$r((A - \lambda E)^k) = r((B - \lambda E)^k)$
+\end{exercise}
+
+\begin{proof}
+  直接用结论即可
+\end{proof}
+
+\subsection{分块矩阵的Jordan阵}
+
+\begin{theorem}[分块矩阵的Jordan标准型]
+  $P$上$n$阶矩阵$A,B$无公共复特征值，
+  且$A,B$的Jordan标准型分别为$J_1,J_2$，则对任意$C \in P^{m \times n}$，
+  则：
+  \begin{equation*}
+    \left[
+      \begin{array}{cc}
+        A&C\\
+        O&B
+      \end{array}
+    \right] \sim \text{diag}\{J_1,J_2\}
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  当$A,B$无公共特征值时，根据$AX - XB$的矩阵方程结论可知，
+  对任意矩阵$C$，$AX - XB = C$都有唯一解$X_0$使得$AX_0 - X_0B = C$，因此：
+  \begin{equation*}
+    \left[
+      \begin{array}{cc}
+        E_m&X_0\\
+        O&E_n
+      \end{array}
+    \right] \left[
+      \begin{array}{cc}
+        A&C\\
+        O&B
+      \end{array}
+    \right] \left[
+      \begin{array}{cc}
+        E_m&-X_0\\
+        O&E_n
+      \end{array}
+    \right] = \left[
+      \begin{array}{cc}
+        A&C - (AX_0 - X_0B )\\
+        O&B
+      \end{array}
+    \right] = \left[
+      \begin{array}{cc}
+        A&O\\
+        O&B
+      \end{array}
+    \right]
+  \end{equation*}
+  因此得到：
+  \begin{equation*}
+    \left[
+      \begin{array}{cc}
+        A&C\\
+        O&B
+      \end{array}
+    \right] \sim \left[
+      \begin{array}{cc}
+        A&O\\
+        O&B
+      \end{array}
+    \right] \sim \left[
+      \begin{array}{cc}
+        J_1&O\\
+        O&J_2
+      \end{array}
+    \right]
+  \end{equation*}
+\end{proof}
+
+\begin{proof}
+  第二种证明：直接看Jordan标准型，
+  $\lambda_i$为对角的$k$阶Jordan块结论直接往上套即可。
+\end{proof}
+
+~
+
+\begin{corollary}
+  对于分块上三角矩阵$A$，$A_{11},A_{22},\cdots,A_{ss}$两两无公共特征值，
+  $A_{ii}$的Jordan标准型为$J_i$，则$A$的Jordan标准型为$\text{diag}\{J_1,\cdots,J_s\}$
+  \begin{equation*}
+    A = \left[
+      \begin{array}{cccc}
+        A_{11}&A_{12}&\cdots&A_{1s} \\
+              &A_{22}&\cdots&A_{2s} \\
+              &&\ddots&\vdots \\
+              &&&A_{ss}
+      \end{array}
+    \right]
+  \end{equation*}
+\end{corollary}
+
+~
+
+\begin{exercise}[分块矩阵应用]
+  求$A$的Jordan标准型：
+  \begin{equation*}
+    A = \left[
+      \begin{array}{cccc}
+        1&5&-1&2\\
+        0&2&4&3 \\
+         0&0&-3&0 \\
+         0&0&4&-3
+      \end{array}
+    \right]
+  \end{equation*}
+\end{exercise}
+
+\begin{solution}
+  $\text{diag}\{1,2,J_2(-3)\}$
+\end{solution}
+
+\subsection{过渡矩阵的计算}
+
+\begin{theorem}[过渡矩阵计算总结]
+  若已知$A$的Jordan标准型为$J$，要计算$P$使得$P^{-1}AP = J$，则可以按照以下步骤：
+  \begin{enumerate}
+  \item 对于非一阶，以$\lambda$为对角的Jordan块，设对应的$P$位置为$[X_1,\cdots,X_k]$，
+    则满足
+    \begin{equation*}
+      AX_1 = \lambda X_1, AX_2 = \lambda X_2 + X_1, \cdots, AX_k = \lambda X_k + X_{k-1}
+    \end{equation*}
+    设右端项为$b = [b_1,\cdots,b_n]^T$(未知量)，
+    统一对增广矩阵做初等变换$[A - \lambda E,b] \rightarrow [A^{\prime}, b^{\prime}]$，
+    选取顺序为$X_1,\cdots,X_k$。
+    $X_1$要保证不能选$[0,\cdots,0]^T$，且选的$X_k$要保证$X_{k+1}$有解。
+  \item 对于一阶：即$AX = \lambda X$特征向量，先求完非一阶再求，不要选$[0,\cdots,0]^T$，
+    保证与其他列向量线性无关。
+  \end{enumerate}
+\end{theorem}
+
+
+
+\begin{exercise}
+  已知矩阵$A$及其Jordan标准型$J$，求过渡矩阵$P$使得$P^{-1}AP = J$
+  \begin{equation*}
+    A = \left[
+      \begin{array}{ccc}
+        2&3&2 \\
+         1&8&2 \\
+         -2&-14&-3
+      \end{array}
+    \right] \quad
+    J = \left[
+      \begin{array}{ccc}
+        1&0&0 \\
+         0&3&1 \\
+         0&0&3
+      \end{array}
+    \right]
+  \end{equation*}
+\end{exercise}
+
+\begin{solution}
+  设$P = (X_1,X_2,X_3)$，
+  根据$P^{-1}AP = J$得到$(AX_1,AX_2,AX_3) = (X_1,X_2,X_3)J$，
+  因此$AX_1 = X_1, AX_2 = 3X_2, AX_3 = X_2 + 3X_3$，
+  即$(A - E)X_1 = 0, (A - 3E)X_2 = 0, (A - 3E)X_3 = X_2$。
+  先算后面非一阶，
+  做初等变换得到：
+  \begin{equation*}
+    [A - 3E | b] \rightarrow
+    \left[
+      \begin{array}{cccc}
+        -1&3&2&b_1 \\
+          0&8&4&b_1 + b_2 \\
+          0&8&4&\frac{1}{2}b_1 + \frac{5}{2}b_2 + b_3
+      \end{array}
+    \right]
+  \end{equation*}
+  有解必须满足$\frac{1}{2}b_1 + \frac{5}{2}b_2 + b_3 = 0$，
+  因此$AX_2 = 0$等价于：
+  \begin{equation*}
+    \left[
+      \begin{array}{ccc}
+        -1&3&2 \\
+          0&8&4 \\
+          \frac{1}{2}&\frac{5}{2}&1
+      \end{array}
+    \right]X_2 = 0  
+  \end{equation*}
+  而最后一个条件显然可以被前两行消掉，因此可以无视，
+  随便取$X_2 = [1,-1,2]^T$，因此$X_3$满足
+  \begin{equation*}
+    \left[
+      \begin{array}{ccc}
+        -1&3&2 \\
+          0&8&4 \\
+          0&0&0
+      \end{array}
+    \right]X_3 = \left[
+      \begin{array}{c}
+        1 \\
+        0\\
+        0
+      \end{array}
+    \right]
+  \end{equation*}
+  $X_3$取法无所谓，因此取$X_3 = [-1,0,0]^T$。
+  而$X_1$取线性无关即可，如$X_1 = [-2,0,1]^T$
+\end{solution}
+
+
+~
+
+\begin{exercise}
+  已知矩阵$A$及其Jordan标准型$J$，求过渡矩阵$P$使得$P^{-1}AP = J$
+  \begin{equation*}
+    A = \left[
+      \begin{array}{ccc}
+        0&1&0 \\
+         -4&4&0 \\
+         -2&1&2
+      \end{array}
+    \right],
+    J = \left[
+      \begin{array}{ccc}
+        2&& \\
+         &2&1 \\
+         &&2
+      \end{array}
+    \right]
+  \end{equation*}
+\end{exercise}
+
+\begin{solution}
+  设$P = [X_1,X_2,X_3]$，
+  则$(AX_1,AX_2,AX_3) = (2X_1,2X_2,X_2 + 2X_3)$，
+  得到方程组$(A - 2E)X_1 = 0, (A - 2E)X_2 = 0, (A - 2E)X_3 = X_2$。
+  做初等变换后：
+  \begin{equation*}
+    [A|b] \rightarrow
+    \left[
+      \begin{array}{cccc}
+        -2&1&0&b_1 \\
+          0&0&0&b_2 - 2b_1 \\
+          0&0&0&b_3 - b_1
+      \end{array}
+    \right]
+  \end{equation*}
+  因此要使$AX_3 = X_2$有解，
+  $X_2$必须满足$b_3 = b_1$，
+  先选取$X_2 = [1,2,1]^T$，
+  解出$X_3 = [-\frac{1}{2},0,0]^T$，
+  $X_1$要线性无关，取$[0,0,1]^T$即可。
+\end{solution}
+
+
+
+
+

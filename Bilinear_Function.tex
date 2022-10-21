@@ -1,0 +1,1385 @@
+
+
+
+
+\chapter{双线性函数与二次型}
+
+
+\section{双线性函数}
+
+\subsection{双线性函数概念}
+
+\begin{definition}[线性函数]
+  $V$是$K$上的线性空间，$f : V \rightarrow K$且满足
+  $f(\alpha + \beta) = f(\alpha) + f(\beta), f(k\alpha) = kf(\alpha)$，
+  则称$f$是$V$上的线性函数。
+\end{definition}
+
+\begin{definition}[双线性函数]
+  $V$是$K$上的线性空间，$f: V \times V \rightarrow K$，且满足
+  $f(k_1\alpha_1 + k_2\alpha_2,\beta) = k_1f(\alpha_1,\beta) + k_2 f(\alpha_2,\beta), f(\alpha, l_1\beta_1 + l_2\beta_2) = l_1f(\alpha,\beta_1) + l_2 f(\alpha, \beta_2)$，
+  则称$f$是$V$上的双线性函数
+\end{definition}
+
+\subsection{双线性函数度量矩阵}
+
+\begin{definition}[度量矩阵]
+  $V$是$K$上的$n$维线性空间，$\epsilon_1,\cdots,\epsilon_n$是$V$的一组基，
+  $f$为$V$上的双线性函数，
+  则$f$的度量矩阵$G$定义如下：
+  \begin{equation*}
+    G = \left[
+      \begin{array}{cccc}
+        f(\epsilon_1,\epsilon_1)&f(\epsilon_1,\epsilon_2)&\cdots & f(\epsilon_1,\epsilon_n) \\
+                                f(\epsilon_2,\epsilon_1)&f(\epsilon_2,\epsilon_2)&\cdots&f(\epsilon_2,\epsilon_n)\\
+                                \vdots&\vdots&&\vdots \\
+                                f(\epsilon_n,\epsilon_1)&f(\epsilon_n,\epsilon_2)&\cdots&f(\epsilon_n,\epsilon_n)
+      \end{array}
+    \right]
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}[双线性函数度量矩阵唯一确定]
+  若$x,y \in V$在$\epsilon_1,\cdots,\epsilon_n$下的坐标为$X,Y$，
+  则$f(\alpha,\beta) = X^TGY$
+\end{theorem}
+
+\subsection{双线性函数不同基下的矩阵：合同}
+
+\begin{definition}[合同]
+  $A,B$是$K$上的$n$阶方阵，若存在$K$上的可逆$n$阶方阵$T$使得$B = T^TAT$，则称$A,B$合同。
+\end{definition}
+
+\begin{note}
+  从矩阵角度来看，合同相当于$A$通过一系列相同的行与列变换变为$B$
+\end{note}
+
+\begin{theorem}[不同基下度量矩阵关系]
+  矩阵$A,B$合同当且仅当它们是双线性函数两组基下的矩阵。
+\end{theorem}
+
+\begin{theorem}[分块矩阵合同]
+  这里只考虑$A$为$n$阶实对称矩阵，希望对$A$整体或者一部分做合同变换：
+  \begin{itemize}
+  \item $A = \left(
+      \begin{array}{cc}
+        A_1&\alpha\\
+        \alpha^T& a_{nn}
+      \end{array}
+    \right)$，若$A_1$可逆，则取$P = \left(
+      \begin{array}{cc}
+        E_{n-1}&-A_1^{-1}\alpha\\
+        0&1
+      \end{array}
+    \right)$(用列变换记忆)，得到
+    \begin{equation*}
+      P^T AP = \left(
+        \begin{array}{cc}
+          E_{n-1}&0\\
+          0&a_{nn} - \alpha^T A_1^{-1}\alpha
+        \end{array}
+      \right)
+    \end{equation*}
+  \item $A = \left(
+      \begin{array}{cc}
+        a_{11}&\alpha^T\\
+        \alpha&A_{n-1}
+      \end{array}
+    \right)$，若$a_{11} \neq 0$，取$P = \left(
+      \begin{array}{cc}
+        1&- \frac{1}{a_{11}}\alpha^T\\
+        0&E_{n-1}
+      \end{array}
+    \right)$，则
+    \begin{equation*}
+      P^TAP = \left(
+        \begin{array}{cc}
+          a_{11}&0\\
+          0&A_{n-1} - \frac{1}{a_{11}}\alpha \alpha^T
+        \end{array}
+      \right)
+    \end{equation*}
+  \item 若想对上面的右下角分块$A_{n-1} - \frac{1}{a_{11}}\alpha \alpha^T$做合同变换，
+    变为$P_1^T \left( A_{n-1} - \frac{1}{a_{11}}\alpha \alpha^T\right)P_1$，
+    则$Q = P \left(
+      \begin{array}{cc}
+        1&0\\
+        0&P_1
+      \end{array}
+    \right)$(用列变换记忆)，得到
+    \begin{equation*}
+      Q^TAQ = \left(
+        \begin{array}{cc}
+          a_{11}&0\\
+          0&P_1^T \left( A_{n-1} - \frac{1}{a_{11}}\alpha \alpha^T \right) P_1
+        \end{array}
+      \right)
+    \end{equation*}
+  \end{itemize}
+\end{theorem}
+
+
+\section{二次型}
+
+\subsection{二次型概念及其矩阵}
+
+\begin{definition}[二次型]
+  定义多元二次多项式$f(x_1,x_2,\cdots,x_n) = \sum\limits_{i = 1}^n a_{ii}x_i^2 + \sum\limits_{1 \leq i < j \leq n} 2a_{ij}x_ix_j$为二次型
+\end{definition}
+
+\begin{definition}[二次型的矩阵]
+  对于任意二次型$f(x_1,x_2,\cdots,x_n)$，
+  总能找到一个对称矩阵$A$，使得$f(x_1,\cdots,x_n) = x^T Ax$，
+  称矩阵$A$为二次型的矩阵
+\end{definition}
+
+\begin{note}
+  对于一个二次型$f(x_1,\cdots,x_n)$，
+  存在不止一个$A$使得$f(x_1,\cdots,x_n) = x^TAx$，
+  但是二次型的矩阵特指那个对称矩阵。
+\end{note}
+
+~
+
+\begin{exercise}[二次型的矩阵]
+  (1)给定二次型$f(x_1,x_2,x_3) = 2x_1x_2 + 2x_1x_3 - 6x_2x_3$，计算二次型的矩阵
+  
+  (2)给定二次型$f(X)$，计算二次型的矩阵：
+  \begin{equation*}
+    f(x_1,x_2) = \left(
+      \begin{array}{cc}
+        x_1&x_2
+      \end{array}
+    \right) \left(
+      \begin{array}{cc}
+        2&1\\
+        3&1
+      \end{array}
+    \right) \left(
+      \begin{array}{c}
+        x_1\\
+        x_2
+      \end{array}
+    \right)
+  \end{equation*}
+
+  (3)重点：求$f(x_1,\cdots,x_n) = \sum\limits_{i = 1}^m (a_{i1}x_1 + \cdots + a_{in}x_n)^2$的矩阵
+\end{exercise}
+
+\begin{solution}
+  (1)$A = \left(
+    \begin{array}{ccc}
+      0&1&1 \\
+       1&0&-3 \\
+       1&-3&0
+    \end{array}
+  \right)$
+
+  (2)展开得到$f(x_1,x_2) = 2x_1^2 + 4x_1x_2 + x_2^2$，
+  因此矩阵为
+  \begin{equation*}
+    \left(
+      \begin{array}{cc}
+        2&2\\
+        2&1
+      \end{array}
+    \right)
+  \end{equation*}
+
+  (3)令$A = (a_{ij})$，则
+  \begin{align*}
+    f &= \sum\limits_{i = 1}^m (a_{i1}x_1 + \cdots + a_{in}x_n)^2 = \sum\limits_{i = 1}^m \left[
+        \left(
+        \begin{array}{ccc}
+          x_1&\cdots&x_n
+        \end{array}
+        \right)
+                      \left(
+                      \begin{array}{c}
+                        a_{i1}\\
+                        \vdots\\
+                        a_{in}
+                      \end{array}
+                      \right)
+    \right]^2\\
+      &= \sum\limits_{i = 1}^m \left[ \left(
+        \begin{array}{ccc}
+          x_1&\cdots&x_n
+        \end{array}
+                      \right)
+                      \left(
+                      \begin{array}{c}
+                        a_{i1}\\
+                        \vdots\\
+                        a_{in}
+                      \end{array}
+    \right)
+    \left(
+    \begin{array}{ccc}
+      a_{i1}&\cdots&a_{in}
+    \end{array}
+    \right)
+                     \left(
+                     \begin{array}{c}
+                       x_1\\
+                       \vdots\\
+                       x_n
+                     \end{array}
+                     \right)
+                      \right] = X^T(A^TA)X
+  \end{align*}
+  其中计算出$A^TA$的过程为
+  \begin{equation*}
+    A = \left[
+      \begin{array}{c}
+        A_1\\
+        A_2\\
+        \vdots\\
+        A_m
+      \end{array}
+    \right] \Rightarrow A^TA = \left[
+      \begin{array}{cccc}
+        A_1^T&A_2^T&\cdots&A_m^T
+      \end{array}
+    \right] \left[
+      \begin{array}{c}
+        A_1\\
+        A_2\\
+        \vdots\\
+        A_m
+      \end{array}
+    \right] = \sum\limits_{i = 1}^m A_i^T A_i
+  \end{equation*}
+\end{solution}
+
+~
+
+\begin{definition}[二次型等价]
+  给定二次型$f = x^T A x,g = y^TBy$，
+  若存在可逆矩阵$T$，使得$x = Ty$，且$f = y^T(T^TAT)y = y^TBy = g$，
+  则称二次型$f,g$等价(即$A,B$合同)
+\end{definition}
+
+\begin{theorem}[合同的性质]
+  若$A = C^TBC$，则
+  \begin{itemize}
+  \item 秩不变：$r(A) = r(B)$
+  \item $C$不一定唯一
+  \item 分块合同：若$A_1,A_2$分别与$B_1,B_2$合同，则$\mathrm{diag}\{A_1,A_2\}$与$\mathrm{diag}\{B_1,B_2\}$合同
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  (1)由于$C$是满秩矩阵，相当于一系列初等变换，因此不改变秩
+
+  (2)例如$\left(
+    \begin{array}{cc}
+      1&0\\
+      0&-1
+    \end{array}
+  \right), \left(
+    \begin{array}{cc}
+      1&0\\
+      0&1
+    \end{array}
+  \right)$在$\mathbb{C}$上合同，但是
+  \begin{equation*}
+    \left(
+      \begin{array}{cc}
+        1&0\\
+        0&-1
+      \end{array}
+    \right) = \left(
+      \begin{array}{cc}
+        1&0\\
+        0&i
+      \end{array}
+    \right) \left(
+      \begin{array}{cc}
+        1&0\\
+        0&1
+      \end{array}
+    \right) \left(
+      \begin{array}{cc}
+        1&0\\
+        0&i
+      \end{array}
+    \right)
+    =
+   \left(
+    \begin{array}{cc}
+      -1&0\\
+      0&i
+    \end{array}
+  \right) \left(
+    \begin{array}{cc}
+      1&0\\
+      0&1
+    \end{array}
+  \right) \left(
+    \begin{array}{cc}
+      -1&0\\
+      0&i
+    \end{array}
+  \right)
+  \end{equation*}
+\end{proof}
+
+~
+
+\begin{exercise}[反对称矩阵的二次型]
+  证明：$A$是反对称矩阵当且仅当$\forall X, X^TAX = 0$
+\end{exercise}
+
+\begin{proof}
+  左推右显然。右推左根据$X^TAX = X^TA^TX = -X^TAX = 0$可知
+\end{proof}
+
+\subsection{二次型的标准型存在与配方法}
+
+\begin{theorem}[二次型标准型的存在性]
+  对数域$P$上任意对称矩阵$A$，其都合同于一个对角矩阵，且对角矩阵不唯一。
+\end{theorem}
+
+\begin{proof}
+  $n = 1$则显然。
+  设$n - 1$时成立，则考虑$n$阶矩阵$A = \left(
+    \begin{array}{cc}
+      a_{11}&\alpha^T\\
+      \alpha & A_1
+    \end{array}
+  \right)$，这里$A_1$对称。
+  若$a_{11} \neq 0$，则根据前面分块矩阵合同结论，
+  取$P = \left(
+    \begin{array}{cc}
+      1&- \frac{1}{a_{11}}\alpha^T\\
+      0&E_{n-1}
+    \end{array}
+  \right)$，
+  得到
+  \begin{equation*}
+    P^TAP = \left(
+      \begin{array}{cc}
+        a_{11}&0\\
+        0&A_1 - \frac{1}{a_{11}}\alpha\alpha^T
+      \end{array}
+    \right) := \left(
+      \begin{array}{cc}
+        a_{11}&0\\
+        0&B_1
+      \end{array}
+    \right)
+  \end{equation*}
+  根据归纳假设，存在$Q_1$使得$Q_1^TB_1Q_1$为对角阵，
+  则取$Q = \left(
+    \begin{array}{cc}
+      1&0\\
+      0&Q_1
+    \end{array}
+  \right)$，则
+  \begin{equation*}
+    Q^TP^T APQ = \left(
+      \begin{array}{cc}
+        a_{11}&\\
+        &Q_1^TB_1Q_1
+      \end{array}
+    \right)
+  \end{equation*}
+
+  若$a_{11} = 0$，但$a_{kk} \neq 0$，
+  则取$P(1,k)$为$E_n$第一列与第$k$列互换的矩阵，
+  则$P^T(1,k)AP(1,k)$的$a^{\prime}_{11} \neq 0$，且两个矩阵合同，转换为第一种情况。
+
+  若对角全为$0$，
+  讨论$A$第一行，若$A$第一行全为$0$，则显然。
+  否则不妨设$a_{12} \neq 0$，则$A$如下，
+  做相同行列变换变为：
+  \begin{equation*}
+    A = \left(
+      \begin{array}{ccc}
+        0&a_{12}&\ast \\
+         a_{12}&0&\ast \\
+         \ast&\ast&\ast
+      \end{array}
+    \right) \rightarrow \left(
+      \begin{array}{ccc}
+        2a_{12}&a_{12}&\ast\\
+        a_{12}&a_{22}&\ast\\
+        \ast&\ast&\ast
+      \end{array}
+    \right)
+  \end{equation*}
+  转换为第一种类型
+\end{proof}
+
+\begin{note}
+  要特别注意，如果对角均为零，则将同行的非零元素加到对角上！
+\end{note}
+
+
+\begin{definition}[二次型标准型]
+  对于二次型$f = x^TAx$，
+  若$A$与对角阵$D$合同，
+  则称$g = z^T Dz$为$f$的标准型
+\end{definition}
+
+\begin{theorem}[配方法]
+  配方法按照以下步骤进行：
+  \begin{enumerate}
+  \item 若无$x_1$的平方项，但有$x_1x_2$交叉项，则用$x_1 = y_1 + y_2,x_2 = y_1 - y_2$换元。
+  \item 把$x_1$的项放在一起，全部配方。
+  \item 把凑成的$(x_1 + \cdots)^2$设为新变量
+  \item 以此类推
+  \end{enumerate}
+\end{theorem}
+
+\begin{note}
+  配方法一般算过渡矩阵不太方便，不过算标准型还行
+\end{note}
+
+~
+
+\begin{exercise}[配方法]
+  (1)用配方法计算$f(x_1,x_2,x_3) = 2x_1x_2 + 2x_1x_3 - 6x_2x_3$的标准型
+\end{exercise}
+
+\begin{solution}
+  (1)无$x_1^2$项，因此令$x_1 = y_1 + y_2, x_2 = y_1 - y_2, x_3 = y_3$，得到
+  \begin{equation*}
+    f = 2(y_1 - y_3)^2 - 2y_2^2 - 2y_3^2 + 8y_2y_3
+  \end{equation*}
+  令$x_1 = y_1 - y_3, x_2 = y_2, x_3 = y_3$得到
+  $f = 2x_1^2 - 2(x_2^2 - 4x_2x_3 + 4x_3^2) + 6x_3^2$，
+  再做换元$y_1 = x_1, y_2 = x_2 - 2x_3, y_3 = x_3$，得到
+  \begin{equation*}
+    f = 2y_1^2 - 2y_2^2 + 6y_3^2
+  \end{equation*}
+\end{solution}
+
+
+\subsection{二次型的标准型：初等变换法}
+
+
+\begin{theorem}[标准型的计算：初等变换法]
+  对于对称矩阵$A$使用以下格式计算初等变换(注意这不一定得出正交矩阵)：
+  \begin{equation*}
+    \left(
+      \begin{array}{c}
+        A\\
+        E
+      \end{array}
+    \right) \rightarrow \left(
+      \begin{array}{c}
+        C^TAC\\
+        C
+      \end{array}
+    \right)\quad \text{对A行变换和对应列变换，对I只列变换}
+  \end{equation*}
+  具体的步骤就是证明标准型存在性中的过程：若$A$首对角为零，存在非零对角，则互换位置。
+  若对角均为零，则找到第一行非零的元素加到首对角位置(下面的题目马上会用)
+\end{theorem}
+
+\begin{note}
+  做同样的行列变换一定要小心，两种变换并非“同时”做的，
+  而是先后做的，即做行变换时的矩阵已经是列变换后的，而非原本的矩阵！
+\end{note}
+
+~
+
+\begin{exercise}[标准型计算：初等变换法]
+  (1)简单：计算$f = x_1^2 +2x_1x_2 + 2x_2^2 + 4x_2x_3 + 4x_3^2$的标准型
+  
+  (2)对角均零：计算$f(x_1,x_2,x_3) = 2x_1x_2 + 2x_1x_3 - 6x_2x_3$，计算其标准型，并求出过渡矩阵$C$
+\end{exercise}
+
+\begin{solution}
+  (1)结果为$f = y_1^2 + y_2^2$，千万小心别行列变换错了
+  
+  (2)首先显然$A = \left(
+    \begin{array}{ccc}
+      0&1&1 \\
+       1&0&-3 \\
+       1&-3&0
+    \end{array}
+  \right)$，列出$\left(
+    \begin{array}{c}
+      A\\
+      E
+    \end{array}
+  \right)$并做行列初等变换，
+  由于$A$对角均为$0$，因此将第二列和第二行加到首对角位置：
+  \begin{equation*}
+    \left(
+      \begin{array}{ccc}
+        0&1&1 \\
+         1&0&-3 \\
+         1&-3&0 \\
+         1&0&0 \\
+         0&1&0 \\
+         0&0&1
+      \end{array}
+    \right) \rightarrow \left(
+      \begin{array}{ccc}
+        2&1&-2 \\
+         1&0&-3 \\
+         -2&-3&0 \\
+         1&0&0 \\
+         1&1&0 \\
+         0&0&1
+      \end{array}
+    \right) \rightarrow \left(
+      \begin{array}{ccc}
+        2&1&0 \\
+         1&0&-2 \\
+         0&-2&-2 \\
+         1&0&1 \\
+         1&1&1 \\
+         0&0&1
+      \end{array}
+    \right) \rightarrow \cdots
+  \end{equation*}
+  最终变为结果为：
+  \begin{equation*}
+    \left(
+      \begin{array}{ccc}
+        2&0&0 \\
+         0&- \frac{1}{2}&0 \\
+         0&0&6 \\
+         1&- \frac{1}{2}&3 \\
+         1& \frac{1}{2}&-1 \\
+         0&0&1
+      \end{array}
+    \right) = \left(
+      \begin{array}{c}
+        C^TAC\\
+        C
+      \end{array}
+    \right)
+  \end{equation*}
+\end{solution}
+
+
+\subsection{二次型的标准型：正交变换法}
+
+\begin{theorem}[正交对角化的可行性]
+  任何实对称矩阵$A$一定正交相似于对角阵。
+\end{theorem}
+
+\begin{proof}
+  做数学归纳法，$n = 1$显然，假设$n - 1$成立，
+  任取特征值$\lambda$，对应单位特征向量$\alpha_1$，
+  将$\alpha_1$扩充为$\mathbb{R}^n$的一组标准正交基$\alpha_1,\cdots,\alpha_n$，令$T = (\alpha_1,\cdots,\alpha_n)$，
+  则
+  \begin{equation*}
+    AT = T \left(
+      \begin{array}{cc}
+        \lambda&\alpha^T\\
+        0&A_{n-1}
+      \end{array}
+    \right) \Rightarrow T^T AT = \left(
+      \begin{array}{cc}
+        \lambda&\alpha^T \\
+        0&A_{n-1}
+      \end{array}
+    \right)
+  \end{equation*}
+  由于$T^TAT$对称，因此$\alpha^T = 0$，再根据归纳假设，
+  存在正交矩阵$P_1$使得$P_1^TA_{n-1}P_1$为对角阵，
+  因此令$P = \mathrm{diag}(1, P_1)$，
+  此时
+  \begin{equation*}
+    P^TT^TATP = \left(
+      \begin{array}{cc}
+        \lambda&0\\
+        0&P^TA_{n-1}P
+      \end{array}
+    \right)
+  \end{equation*}
+  显然$TP = Q$，则$Q$也是正交阵。
+\end{proof}
+
+
+
+\begin{theorem}[标准型计算：正交变换]
+  正交变换计算标准型过程如下：
+  \begin{itemize}
+  \item 计算$A$的特征值$\lambda_1,\cdots,\lambda_n$
+  \item 计算$\lambda_i$对应的特征向量$\mathbf{v}_i$，
+    不同特征值的特征向量必正交，同一特征值的特征向量需正交化
+  \item 将特征向量单位化，组成$T = [\mathbf{v}_1,\cdots,\mathbf{v}_n]$
+  \end{itemize}
+\end{theorem}
+
+~
+
+\begin{exercise}[正交变换法]
+  (1)已知矩阵$A$如下，
+  (a)若$tE + A$为正定矩阵，求$t$的取值范围
+  (b)求正交矩阵$T$使得$T^TAT$为对角矩阵
+  \begin{equation*}
+    A = \left[
+      \begin{array}{ccc}
+        2&2&-1 \\
+         2&5&-4 \\
+         -2&-4&5
+      \end{array}
+    \right]
+  \end{equation*}
+\end{exercise}
+
+\begin{solution}
+  (1)$|\lambda E - A| = (\lambda - 1)^2 (\lambda - 10)$，特征值为$1, 10$，
+  正定要求$t > -1$。
+
+  先求$(E - A)X = 0$，得到：
+  \begin{equation*}
+    \left[
+      \begin{array}{ccc}
+        1&2&-2 \\
+         0&0&0 \\
+         0&0&0
+      \end{array}
+    \right]X = 0 \Rightarrow X = k_1 \left(
+      \begin{array}{c}
+        -2\\
+        1\\
+        0
+      \end{array}
+    \right) + k_2 \left(
+      \begin{array}{c}
+        2\\
+        0\\
+        1
+      \end{array}
+    \right)
+  \end{equation*}
+  单位化得到$\frac{1}{\sqrt{5}}(-2,1,0)^T, \frac{1}{\sqrt{5}}(2,0,1)^T$
+
+  再求$(10E - A)X = 0$：
+  \begin{equation*}
+    \left[
+      \begin{array}{ccc}
+        2&4&5 \\
+         0&1&1 \\
+         0&0&0
+      \end{array}
+    \right]X = 0 \Rightarrow X = k_1 \left(
+      \begin{array}{c}
+        1 \\
+        2\\
+        -2
+      \end{array}
+    \right)
+  \end{equation*}
+  单位化得到$\frac{1}{3}(1,2,-2)$。
+
+  最终结果为：
+  \begin{equation*}
+    T = \left[
+      \begin{array}{ccc}
+        -\frac{2}{\sqrt{5}}&\frac{2}{3 \sqrt{5}}&\frac{1}{3} \\
+                           - \frac{1}{\sqrt{5}}&\frac{4}{3 \sqrt{5}}&\frac{2}{3} \\
+                           0&\frac{5}{3 \sqrt{5}}&- \frac{2}{3}
+      \end{array}
+    \right], T^T AT = \left[
+      \begin{array}{ccc}
+        1&& \\
+         &1& \\
+         &&10
+      \end{array}
+    \right]
+  \end{equation*}
+\end{solution}
+
+~
+
+\begin{theorem}[二次型与特征值]
+  设$n$阶实对称矩阵$A$的全部特征值排序为：$\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n$，则
+  \begin{equation*}
+    \max \limits_{X \in \mathbb{R}^n} \frac{X^TAX}{X^TX} = \lambda_1, \min \limits_{X \in \mathbb{R}^n} \frac{X^TAX}{X^TX} = \lambda_n
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  由于$\lambda_1E - A$的特征值均非负，故$\lambda_1E - A$半正定，
+  因此$\forall X \in \mathbb{R}^n$有$X^T(\lambda_{} E - A)X \geq 0$，
+  得到$X^TAX \leq \lambda_1X^TX$，
+  且$\lambda_1$是$\lambda_1 E - A$的特征值，
+  故$\exists X_0 \neq 0$使得$X_0^T(\lambda_1 E - A)X_0 = 0$
+\end{proof}
+
+~
+
+\begin{exercise}[二次型的特征值研究]
+  (1)重点：$A,B$是$n$阶实对称矩阵，$A$的特征值都大于$a$，$B$的特征值都大于$b$，证明$A+B$的特征值都大于$a+b$
+
+  (2)$B$是$n$阶实矩阵，$B^TB$的全部特征值按照大小顺序排为$\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n$，证明：$B$的任意实特征值$\mu$满足$\sqrt{\lambda_n} \leq |\mu| \leq \sqrt{\lambda_1}$
+\end{exercise}
+
+\begin{proof}
+  (1)根据前面定理可知$X^TAX > aX^TX, X^TBX > bX^TX$，
+  从而$X^T(A+B)X > (a+b)X^TX$，
+  因此$A+B$的特征值大于$a+b$
+
+  (2)由于$B \alpha = \mu \alpha$，因此$\alpha^T B^T = \mu \alpha^T$，
+  得到
+  \begin{equation*}
+    \alpha^TB^T B \alpha = \mu^2 \alpha^T \alpha \in [\lambda_n\alpha^T \alpha, \lambda_1\alpha^T \alpha] \Rightarrow \lambda_n \leq \mu^2 \leq \lambda_1
+  \end{equation*}
+\end{proof}
+
+
+\subsection{$\mathbb{R},\mathbb{C}$上的规范型}
+
+前面根据标准型对二次型进行分类，但是可以发现二次型的标准型是不唯一的，
+因此在$\mathbb{R},\mathbb{C}$上可以进一步划分，
+即每个规范型表示一个类。
+
+\begin{theorem}[$\mathbb{C}$上的规范型]
+  $\mathbb{C}$上任一二次型$f$都等价于
+  \begin{equation*}
+    g = u_1^2 + \cdots + u_r^2
+  \end{equation*}
+\end{theorem}
+
+\begin{corollary}[$\mathbb{C}$上合同充要条件]
+  $\mathbb{C}$上两个对称矩阵合同的充要条件为它们的秩相同。
+\end{corollary}
+
+\begin{theorem}[$\mathbb{R}$上的规范型]
+  $\mathbb{R}$上每个二次型$f$都等价于一个如下二次型。将$p$称为正惯性指数，$r - p$称为负惯性指数
+  \begin{equation*}
+    g = u_1^2 + \cdots + u_p^2 - u_{p+1}^2 - \cdots - u_r^2
+  \end{equation*}
+\end{theorem}
+
+\begin{corollary}[$\mathbb{R}$上合同充要条件]
+  $\mathbb{R}$上两个对称矩阵充要条件是它们有相同的正负惯性指数。
+\end{corollary}
+
+\begin{exercise}[规范型的应用]
+  (1)设$A$是$n$阶实对称矩阵，$|A| < 0$，证明：$\exists X \in \mathbb{R}^n$满足$X^TAX < 0$
+
+  (2)$f(X) = X^TAX$为实二次型，若存在$X_1,X_2$使得$X_1^TAX_1 > 0, X_2^T AX_2 < 0$，
+  证明：$\exists X_0 \neq 0$使得$X_0^TAX_0 = 0$
+\end{exercise}
+
+\begin{proof}
+  (1)由于$|A| < 0$，可知$A$满秩且负惯性指数个数不为零，
+  做非退化线性替换$X = CY$即可得到$Y^TC^TACX$，
+  这里
+  \begin{equation*}
+    C^TAC = \mathrm{diag}\{1,1,\cdots,1,-1,-1,\cdots,-1\}
+  \end{equation*}
+  取$Y = e_n$时$Y^TC^TACY = -1$
+
+  (2)正负惯性指数均非零，因此可转换为规范型$f(X) = y_1^2 + \cdots +y_p^2 - y_{p+1}^2 - \cdots - y_n^2$，
+  取$Y = e_1 + e_{p+1}$即可
+\end{proof}
+
+
+\section{(半)正定二次型的研究}
+
+\subsection{正定二次型的概念与判别}
+
+正定二次型是$\mathbb{R}$中二次型中的特殊等价类，
+其代表为$y^TEy$
+
+\begin{definition}[正定二次型]
+  给定实数域上的二次型$f(x_1,x_2,\cdots,x_n)$，
+  若对任意不全为$0$的$x_1,\cdots,x_n$有$f(x_1,\cdots,x_n) > 0$，
+  则称$f(x_1,\cdots,x_n)$为正定矩阵。
+\end{definition}
+
+\begin{theorem}[正定二次型的规范型]
+  正定二次型的规范型是$y^TEy = y_1^2 + y_2^2 + \cdots + y_n^2$
+\end{theorem}
+
+
+\begin{figure}[htp]
+  \centering
+  \includegraphics[width=0.4\textwidth]{二次型分类.png}
+  \caption{二次型分类示意图}
+\end{figure}
+
+\begin{theorem}[正定充要条件]
+  $f = x^TAx$是正定二次型当且仅当：
+  \begin{itemize}
+  \item $A$合同于矩阵$E$
+  \item 存在可逆矩阵$C$，使得$A = C^T C$，也可以分解为非方阵$
+    A  = \left(
+      \begin{array}{cc}
+        C^T&O^T
+      \end{array}
+    \right) \left(
+      \begin{array}{c}
+        C\\
+        O
+      \end{array}
+    \right)
+    $
+  \item 所有特征值都大于$0$
+  \item $A$的各阶顺序主子式/所有主子式行列式大于$0$
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  等价于顺序主子式大于$0$需要证明：
+  对$A$做如下分块：
+  \begin{equation*}
+    A = \left[
+      \begin{array}{cc}
+        A_1&\alpha\\
+        \alpha^T& a_{nn}
+      \end{array}
+    \right]
+  \end{equation*}
+
+  正定推顺序主子式：若$A$正定，则$A_1$正定，
+  因此$A_1$特征值均为正，$|A_1| > 0, |A| > 0$，
+  根据归纳法成立。
+
+  顺序主子式推正定：
+  $n = 1$时显然成立，
+  $A$是$n$阶矩阵时，
+  $A_1$是$n-1$阶矩阵且顺序主子式均正，
+  根据归纳假设$A_1$正定，
+  故存在$P_1$使得$P_1^TA_1P_1 = E_{n-1}$，
+  因此令：
+  \begin{equation*}
+    P_2 = \left[
+      \begin{array}{cc}
+        P_1&\\
+        &1
+      \end{array}
+    \right],
+    P_3 = \left[
+      \begin{array}{cc}
+        E_{n-1}&-P_1^T\alpha \\
+               &1
+      \end{array}
+    \right]
+  \end{equation*}
+  得到：
+  \begin{equation*}
+    P_3^TP_2^TAP_2P_3 = \left[
+      \begin{array}{cc}
+        E_{n-1}& \\
+               &a_{nn} - \alpha^TP_1P_1^T\alpha
+      \end{array}
+    \right]
+  \end{equation*}
+  而根据乘积矩阵的行列式性质得到
+  \begin{equation*}
+    a_{nn} - \alpha^TP_1P_1^T \alpha  = |A||P_2|^2 |P_3|^2 > 0
+  \end{equation*}
+  令$P = P_2P_3 \mathrm{diag}\{E_{n-1}, \frac{1}{\sqrt{a_{nn} - \alpha^TP_1P_1^T\alpha}}\}$得到
+  \begin{equation*}
+    P^TAP = E
+  \end{equation*}
+  因此正定
+\end{proof}
+
+~
+
+\begin{exercise}[正定二次型的判定]
+  (1)$t$为何值时，$f = x_1^2 + x_2^2 + 5x_3^2 + 2tx_1x_2 - 2x_1x_3 + 4x_2x_3$为正定的？
+
+  (2)$A$为实对称矩阵，则$\exists M, \forall t > M$有$tE + A$为正定矩阵
+\end{exercise}
+
+\begin{solution}
+  (1)算顺序主子式即可，得到$1 - t^2 > 0, -5t^2 - 4t > 0$，
+  因此$- \frac{4}{5} < t < 0$
+
+  (2)看特征值即可
+\end{solution}
+
+~
+
+\begin{exercise}[正定矩阵性质的简单应用]
+  (1)$A$为$n$阶正定矩阵，证明：任意$n$阶实矩阵$B$有$r(B^TAB) = r(B)$
+
+  (2)$A$为$n$阶正定矩阵，$B$为$n \times m$实矩阵，证明：若$r(B) = m$，则$C = B^TAB$为正定矩阵
+\end{exercise}
+
+\begin{proof}
+  (1)由于$A$正定，存在满秩矩阵$C$使得$A = C^TC$，
+  因此$B^TAB = (CB)^T(CB)$，
+  而根据$A^TA$的结论可知$r((CB)^T(CB)) = r(CB) = r(B)$，因此$r(B^{T}AB) = r(B)$
+
+  (2)由于$A$正定，因此$B^TAB$实对称，
+  $\forall X, X^TCX = (BX)^TABX$，根据$A$的正定性可知其大于$0$，
+  因此为正定矩阵
+\end{proof}
+
+~
+
+
+\begin{theorem}[正定矩阵对角性质]
+  $A$为$n$阶正定矩阵，则
+  \begin{enumerate}
+  \item $a_{ii} > 0, \forall i = 1,2,\cdots,n$
+  \item $2|a_{ij}| < a_{ii} + a_{jj}(i \neq j)$
+  \item $A$的所有元素中，绝对值最大的元素一定是在主对角线上，且一定是正数
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  (1)不妨取$X = e_i$，则$X^TAX = a_{ii} > 0$
+
+  (2)取$X = e_i + e_j$，则$X^TAX = a_{ii} + a_{jj} + 2a_{ij} > 0$，
+  取$X = e_i - e_j$，则$X^TAX = a_{ii} + a_{jj} - 2a_{ij} > 0$，
+  综上得到结论成立。
+
+  (3)根据(2)可知$\forall i,j$，有$|a_{ij}| < \max \{a_{ii},a_{jj}\}$，
+  因此结论成立
+\end{proof}
+
+
+\subsection{半正定二次型的概念与判别}
+
+\begin{definition}[半正定二次型]
+  若对任意$x_1,\cdots,x_n$均有$f(x_1,\cdots,x_n) \geq 0$，
+  则称$f(x_1,\cdots,x_n)$为半正定二次型，
+  对应矩阵$A$为半正定矩阵。
+\end{definition}
+
+\begin{theorem}[半正定二次型的基础充要条件]
+  $f(x_1,\cdots,x_n) = X^T AX$为半正定二次型当且仅当：
+  \begin{itemize}
+  \item $A$和$\left(
+      \begin{array}{cc}
+        E_r&O\\
+        O&O
+      \end{array}
+    \right)$合同，$A$的正惯性指数与$A$的秩相同
+  \item $A$的特征值都大于等于$0$
+  \item $A$的所有主子式(不等价于顺序主子式)大于等于$0$
+  \end{itemize}
+\end{theorem}
+
+\begin{note}
+  半正定不等价于顺序主子式大于等于$0$，
+  例如$A = \left(
+    \begin{array}{cc}
+      0&0\\
+      0&-1
+    \end{array}
+  \right)$，顺序主子式都为$0$，但是半负定。
+\end{note}
+
+\begin{theorem}[半正定矩阵的$C^TC$分解]
+  $f(x_1,\cdots,x_n) = X^T AX$为半正定二次型等价于下面两个命题
+  \begin{itemize}
+  \item 存在不列满秩的$n \times n$矩阵$C$，使得$A = C^TC$
+  \item 存在行满秩(列不满秩)的$r \times n$($r < n$)矩阵$C$，使得$A = C^TC$
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  根据$A = C^T \left(
+    \begin{array}{cc}
+      E_r&O\\
+      O&O
+    \end{array}
+  \right) C$以及
+  \begin{equation*}
+    \left(
+      \begin{array}{cc}
+        E_r&O\\
+        O&O
+      \end{array}
+    \right) =
+    \left(
+      \begin{array}{cc}
+        E_r&O\\
+        O&O
+      \end{array}
+    \right)
+    \left(
+      \begin{array}{cc}
+        E_r&O\\
+        O&O
+      \end{array}
+    \right)
+    =
+    \left(
+      \begin{array}{c}
+        E_r\\
+        O
+      \end{array}
+    \right)
+    \left(
+      \begin{array}{cc}
+        E_r&O
+      \end{array}
+    \right)
+  \end{equation*}
+  可以得到两种分解：
+  \begin{equation*}
+    \begin{cases}
+      C_1 = \left(
+        \begin{array}{cc}
+          E_r&O\\
+          O&O
+        \end{array}
+      \right)C \Rightarrow A = C_1^T C_1\\
+      C_2 = \left(
+        \begin{array}{cc}
+          E_r&O
+        \end{array}
+      \right)C \Rightarrow A = C_2^T C_2
+    \end{cases}
+  \end{equation*}
+  无论哪种分解列均不满秩。
+\end{proof}
+
+~
+
+\begin{theorem}[半正定矩阵的$CC^T$分解]
+  $f(x_1,\cdots,x_n) = X^T AX$为半正定二次型等价于下面两个命题
+  \begin{itemize}
+  \item 存在不行满秩的$n \times n$矩阵$C$，使得$A = CC^T$
+  \item 存在列满秩(行不满秩)的$n \times r$($r < n$)矩阵$C$，使得$A = CC^T$
+  \end{itemize}
+\end{theorem}
+
+\begin{proof}
+  右推左：直接$X^TCC^TX = (C^TX)^T(C^TX)$，
+  该多项式是$C^TX$列向量中元素的平方和，因此大于等于$0$。
+
+  左推右：合同的$A = B^T \mathrm{diag}\{E_r,O\}B$也可以写为$A = C \mathrm{diag}\{E_r,O\}C^T$，
+  因此把中间的分解了即可。
+\end{proof}
+
+\begin{note}
+  特别的可以取$A = \alpha^T \alpha$，$\alpha$为列向量(列满秩)，此时$A$是半正定的。
+\end{note}
+
+~
+
+\begin{exercise}[半正定矩阵$CC^T$分解]
+  (1)$\alpha \in \mathbb{R}^n$，证明：$\alpha \alpha^T$一定是半正定矩阵
+
+  (2)重点：$A$的元素$a_{ij} = (i \times j)$，
+  $B$的元素$b_{ij} = \left( \frac{1}{i \times j} \right)$，
+  则$A,B$都是半正定矩阵
+\end{exercise}
+
+\begin{proof}
+  (1)显然$\alpha\alpha^T$是实对称矩阵，
+  从而$X^T\alpha \alpha^TX = (\alpha^TX)^T(\alpha^TX) = (\alpha^TX)^2 \geq 0$
+
+  (2)$A,B$可进行如下分解，根据(1)的结论可证是半正定矩阵
+  \begin{equation*}
+    A = \left[
+      \begin{array}{c}
+        1\\
+        2\\
+        \vdots\\
+        n
+      \end{array}
+    \right] \left[
+      \begin{array}{cccc}
+        1&2&\cdots&n
+      \end{array}
+    \right], \quad B = \left[
+      \begin{array}{c}
+        1\\
+        \frac{1}{2}\\
+        \vdots\\
+        \frac{1}{n}
+      \end{array}
+    \right] \left[
+      \begin{array}{cccc}
+        1&\frac{1}{2}&\cdots&\frac{1}{n}
+      \end{array}
+    \right]
+  \end{equation*}
+\end{proof}
+
+~
+
+\begin{theorem}[半正定矩阵对角性质]
+  半正定矩阵$A$有以下性质：
+  \begin{enumerate}
+  \item 对角元素非负
+  \item $2|a_{ij}| \leq a_{ik} + a_{ki}$
+  \item 若$a_{ii} = 0$，则$\forall k, a_{ik} = a_{ki} = 0$
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  (1)只需要取$x = e_i$，$x^TAx \geq 0$即可
+
+  (2)取$x = e_i + e_j$，
+  得到$a_{ii} + a_{jj} + 2a_{ij} \geq 0$，
+  同理取$x = e_i - e_j$，
+  得到$a_{ii} + a_{jj} - 2a_{ij} \geq 0$，
+  因此$2|a_{ij}| \leq a_{ik} + a_{ki}$
+
+  (3)根据(2)可以得到
+\end{proof}
+
+
+\subsection{$C^TC$的(半)正定性}
+
+$C^TC$对应着特殊的二次型$f(X) = \sum\limits_{i = 1}^n(a_{i1}x_1 + \cdots + a_{in}x_n)^2$，
+且有着特殊的正定性，是正定二次型中特殊的一类。
+
+\begin{lemma}[$r(A^TA)$与$r(A)$]
+  $A$为实数域上的$m \times n$的矩阵，则
+  \begin{equation*}
+    r(A^TA) = r(A)
+  \end{equation*}
+\end{lemma}
+
+\begin{proof}
+  在最小二乘法一节中已经给出了证明
+\end{proof}
+
+\begin{theorem}[$A^TA$的正定性]
+  考虑$A$为实数域上的$m \times n$的矩阵，则
+  \begin{enumerate}
+  \item $A^TA, AA^T$是半正定矩阵
+  \item 
+    $A^TA$是正定矩阵当且仅当$A$列满秩，$AA^T$正定当且仅当$A$行满秩
+  \end{enumerate}
+  且$A^TA$对应的二次型为$f(X) = \sum\limits_{i = 1}^n (a_{i1}x_1 + a_{i2}x_2 + \cdots + a_{in}x_n)^2$
+\end{theorem}
+
+\begin{proof}
+  (半)正定性：显然$A^TA$实对称，因此$X^TA^TAX = (AX)^2 \geq 0$，
+  显然$A^TA$半正定。
+  而$A^TA$正定当且仅当$r(A^TA) = n$，根据(1)当且仅当$r(A) = n$，
+  这里$n$等于$A$的列数，因此等价于$A$列满秩
+
+  二次型表达式：在二次型矩阵一节已经作为练习给出。
+\end{proof}
+
+\subsection{正定矩阵同时对角化}
+
+
+\begin{theorem}[同时合同对角化]
+  若$A,B$是$n$阶半正定矩阵，则存在一个$n$阶可逆矩阵$P$，
+  使得$P^TAP, P^TBP$同时为对角矩阵
+\end{theorem}
+
+\begin{proof}
+  由于$A,B$半正定，因此$A+B$半正定，
+  存在可逆矩阵$M$使得
+  \begin{equation*}
+    M^T (A+B)M = \left(
+      \begin{array}{cc}
+        E_r&O \\
+           O&O
+      \end{array}
+    \right) = M^TAM + M^TBM
+  \end{equation*}
+  由于$M^TAM, M^TBM$半正定，因此根据半正定矩阵的对角性质，
+  当$r+1 \leq i \leq n$，
+  其第$i$个对角元都非负，
+  因此$r+1 \sim n$的对角元都必须为$0$。
+  再根据对角性质可知$r+1 \sim n$行、列元素均为$0$，因此
+  \begin{equation*}
+    M^TAM = \left(
+      \begin{array}{cc}
+        H_r&O \\
+           O&O
+      \end{array}
+    \right),
+    M^T BM = \left(
+      \begin{array}{cc}
+        E_r - H_r&O \\
+                 O&O
+      \end{array}
+    \right)
+  \end{equation*}
+  存在正交矩阵$T$使得$T^TH_rT = \Lambda = \mathrm{diag}\{\lambda_1,\cdots,\lambda_r\}$，
+  令$P = M \mathrm{diag}\{T,E_{n-r}\}$，此时有
+  \begin{equation*}
+    P^TAP = \left(
+      \begin{array}{cc}
+        \Lambda&O \\
+              O&O
+      \end{array}
+    \right),
+    P^TBP = \left(
+      \begin{array}{cc}
+        E_r - \Lambda&O \\
+                    O&O
+      \end{array}
+    \right)
+  \end{equation*}
+  同时为对角矩阵
+\end{proof}
+
+
+\begin{theorem}[$AB = BA$同时相似对角化]
+  若$A,B$可相似对角化，且
+  $AB = BA$，则存在可逆矩阵$P$，使得
+  \begin{equation*}
+    P^{-1}AP, P^{-1}BP
+  \end{equation*}
+  同时为对角矩阵
+\end{theorem}
+
+\begin{proof}
+  由于$A$可相似对角化，因此存在$M$，使得$M^{-1}AM = \mathrm{diag}\{\lambda_1E, \lambda_2 E,\cdots, \lambda_rE\}$，
+  而
+  \begin{equation*}
+    M^{-1}ABM = (M^{-1}AM)(M^{-1}BM) = M^{-1}BAM = (M^{-1}BM)(M^{-1}AM)
+  \end{equation*}
+  将$M^{-1}BM$以同样的形式进行分块，得到$M^{-1}BM = (B_{ij})_{r \times r}$，
+  对于每个$B_{ii}$，$\exists Q_i$使得$Q_i^{-1}B_{ii}Q_i = \Lambda_i$，
+  因此令
+  \begin{equation*}
+    T = M \mathrm{diag}\{Q_1,\cdots,Q_r\}
+  \end{equation*}
+  可以得到
+  \begin{equation*}
+    T^{-1}AT = \mathrm{diag}\{\lambda_1E, \cdots, \lambda_rE\},
+    T^{-1}BT = \mathrm{diag}\{\Lambda_1,\cdots,\Lambda_r\}
+  \end{equation*}
+  同时为对角矩阵。
+\end{proof}
+
+
+\subsection{正定矩阵的四则运算性质}
+
+
+\begin{theorem}[正定的四则运算]
+  若$A,B$是正定矩阵，
+  则$A^{-1}, A^k, A+B, A^{\ast}$都是正定矩阵，但$AB$不一定正定(原因在于不一定对称)，
+  若$AB$实对称，则$AB$是正定矩阵
+\end{theorem}
+
+\begin{proof}
+  (1)$A^{-1}, A^k, A^{\ast}$：由于$A$正定，
+  因此$A$的特征值$\lambda_i$均大于$0$，
+  $A^{-1}$的特征值$\lambda_i^{-1} > 0$，
+  $A^{\ast}$的特征值$\prod \limits_{j \neq i}\lambda_j > 0$，
+  $A^k$的特征值$\lambda_i^k > 0$，因此均正定。
+
+  (2)$A+B$不能用特征值，只能用合同，
+  显然$A+B$实对称，而任意非零$ x \in \mathbb{R}^n$，
+  有$X^T (A + B)X = X^T AX + X^T BX > 0$，
+  因此$A+B$实对称。
+
+  (3)$AB$正定：
+  由于$AB$实对称，此时$(AB)^T = B^TA^T = BA$。
+  由于$A,B$正定，故存在可逆$P,Q$使得$A = P^TP, B = Q^TQ$，
+  $AB = P^TPQ^TQ$，而
+  \begin{equation*}
+    QABQ^{-1} = QP^TPQ^T(QQ^{-1}) = (PQ^T)^T(PQ^T)
+  \end{equation*}
+  因此$AB$与$(PQ^T)^T(PQ^T)$相似，而后者正定(因为列满秩)，因此$AB$为正定矩阵。
+\end{proof}
+
+\subsection{正定矩阵分解进阶}
+
+\begin{theorem}[正定矩阵平方分解]
+$A$是$n$阶正定矩阵，则存在实对称矩阵$C_1$，使得$A = C_1^2$
+\end{theorem}
+
+\begin{proof}
+  由于$\exists P$使得$P^TAP = \Lambda =  \mathrm{diag}\{\lambda_1,\cdots,\lambda_n\}$，
+  根据正定，所有特征值都为正，因此取
+  \begin{equation*}
+    C_1 = P^T \sqrt{\Lambda} P
+  \end{equation*}
+  即可得到$A = C_1^2$
+\end{proof}
+
+\begin{note}
+  上述$A = C_1^2$也是正定矩阵分解！且是唯一的。
+\end{note}
+
+\begin{theorem}[正定矩阵三角分解]
+  $A$是$n$阶正定矩阵，则存在可逆上三角阵$R$，使得$A = R^TR$
+\end{theorem}
+
+\begin{proof}
+  首先$A = C^TC$，$C$为可逆矩阵，
+  再对$C$做$QR$分解得到$C = QR$，
+  因此$A = R^TQ^TQR = R^TR$，即所求。
+\end{proof}
+
+~
+
+\begin{theorem}[极分解定理]
+  对任一可逆矩阵$A$，一定存在一个正交矩阵$T$和两个正定矩阵$S_1,S_2$使得
+  \begin{equation*}
+    A = TS_1 = S_2T
+  \end{equation*}
+  且这种分解是唯一的。
+\end{theorem}
+
+\begin{proof}
+  (1)存在性：由于$A$可逆，因此$A^TA$正定，根据前面结论存在正定矩阵$S_1$，满足$A^TA = S_1^2$，
+  设$T = (A^T)^{-1}S_1$，则
+  \begin{equation*}
+    A = (A^T)^{-1}S_1^2 = TS_1
+  \end{equation*}
+  经过验证可发现$TT^T = (A^T)^{-1}S_1S_1^TA^{-1} = (A^T)^{-1}S_1^2A^{-1} = (A^T)^{-1}A^TAA^{-1} = E$，因此为正交矩阵。
+
+  另一方面，$A = TS_1T^{-1}T$，记$S_2 = TS_1T^{-1}$，则$A = S_2T$，$S_2$正定。
+
+  (2)唯一性：设$A = TS_1 = \tilde{T}\tilde{S}_1$，则
+  \begin{equation*}
+    \begin{cases}
+      A^TA = S_1^2\\
+      A^TA = \tilde{S}_1^2
+    \end{cases}
+  \end{equation*}
+  根据前面正定矩阵分解唯一性可知唯一。
+\end{proof}
+
+
+~
+
+% \begin{exercise}[(半)正定矩阵分解的应用]
+%   (1)$A,B$为$n$阶半正定方阵，且$A^{2022} = B^{2022}$，证明：$A = B$
+% \end{exercise}
+
+% \begin{proof}
+%   (1)由于$A,B$半正定，$A,B$有相同特征值，
+%   从而
+%   \begin{equation*}
+%     T_1^TAT_1 = T_2^T BT_2 = \mathrm{diag}\{\lambda_1E_{r_1},\cdots,\lambda_sE_{r_s}\}
+%   \end{equation*}
+%   则代入$A^{2022} = B^{2022}$得到
+%   \begin{equation*}
+%     T_1 \mathrm{ diag}\{\lambda_1^{2022}E_{r_1},\cdots,\lambda_s^{2022}E_{r_s}\} T_1^T = T_2 \mathrm{diag}\{\lambda_1^{2022}E_{r_1},\cdots,\lambda_s^{2022}E_{r_s}\}T_2^T
+%   \end{equation*}
+% \end{proof}
+
+
+
+
+\subsection{负定二次型}
+
+\begin{definition}[负定二次型]
+  若对于任意不全为零的$x_1,\cdots,x_n$，满足$f(x_1,\cdots,x_n) < 0$，
+  则称$f(x_1,\cdots,x_n)$为负定二次型
+\end{definition}
+
+\begin{theorem}[负定二次型的充要条件]
+  $A$负定当且仅当$-A$正定，
+  因此充要条件为：
+  $A$的所有奇数阶顺序主子式小于$0$，
+  偶数阶顺序主子式大于$0$。
+\end{theorem}
+
+\begin{proof}
+  用特征值判断即可。
+\end{proof}
+
+
+
+
+
+
+
+

@@ -1,0 +1,427 @@
+
+
+\chapter{内积空间}
+
+
+\section{Euclid空间}
+
+\subsection{Euclid空间与正交}
+
+\begin{definition}[欧式空间]
+  $V$是$\mathbb{R}$上线性空间，定义内积$(\alpha,\beta)$满足：
+  \begin{itemize}
+  \item 线性性：$(k_1\alpha_1 + k_2 \alpha_2,\beta) = k_1(\alpha_1,\beta) + k_2(\alpha_2,\beta)$
+  \item 对称性：$(\alpha,\beta) = (\alpha,\beta)$
+  \item 正定性：$(\alpha,\alpha) = 0$当且仅当$\alpha = 0$
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[度量矩阵]
+  给定Euclid空间$V$的一组基$\epsilon_1,\cdots,\epsilon_n$，则定义这组基对应的度量矩阵为
+  \begin{equation*}
+    A = \left[
+      \begin{array}{cccc}
+        (\epsilon_1,\epsilon_1)&(\epsilon_1,\epsilon_2)&\cdots&(\epsilon_1,\epsilon_n) \\
+                               (\epsilon_2,\epsilon_1)&(\epsilon_2,\epsilon_2)&\cdots&(\epsilon_2,\epsilon_n) \\
+                               \vdots&\vdots&&\vdots \\
+                               (\epsilon_n,\epsilon_1)&(\epsilon_n,\epsilon_2)&\cdots&(\epsilon_n,\epsilon_n)
+      \end{array}
+    \right]
+  \end{equation*}
+\end{definition}
+
+\begin{theorem}[内积的度量矩阵表示]
+  若Euclid空间中的向量$\alpha,\beta$在基$(\epsilon_1,\cdots,\epsilon_n)$中的坐标分别为$X,Y$，
+  $(\epsilon_1,\cdots,\epsilon_n)$对应的度量矩阵为$A$，
+  则
+  \begin{equation*}
+    (\alpha,\beta) = X^TAY
+  \end{equation*}
+\end{theorem}
+
+~
+
+\begin{exercise}[度量矩阵]
+  已知Euclid空间$V$的一组基为：
+  \begin{equation*}
+    \epsilon_1 = e_1 + e_2, \epsilon_2 = e_1 + e_3, \epsilon_3 = e_4 - e_1,\epsilon_4 = e_1 - e_2 - e_3 + e_4
+  \end{equation*}
+  向量$\alpha,\beta$在$(\epsilon_1,\cdots,\epsilon_4)$下的坐标分别为$(1,2,3,4)^T,(2,0,1,0)^T$，
+  计算$(\epsilon_1,\cdots,\epsilon_4)$的度量矩阵$A$，以及$(\alpha,\beta)$
+\end{exercise}
+
+\begin{solution}
+  把$\epsilon_1,\cdots,\epsilon_4$看成$\mathbb{R}^n$中的坐标：
+  \begin{equation*}
+    \begin{cases}
+      \epsilon_1 = (1,1,0,0)\\
+      \epsilon_2 = (1,0,1,0)\\
+      \epsilon_3 = (-1,0,0,1)\\
+      \epsilon_4 = (1,-1,-1,1)
+    \end{cases}
+  \end{equation*}
+  因此根据向量的坐标内积公式可以得到度量矩阵为：
+  \begin{equation*}
+    A = \left[
+      \begin{array}{cccc}
+        2&1&-1&0 \\
+         1&2&-1&0 \\
+         -1&-1&2&0 \\
+         0&0&0&4
+      \end{array}
+    \right], (\alpha,\beta) = 5
+  \end{equation*}
+\end{solution}
+
+~
+
+\begin{theorem}[正交向量线性无关]
+  若Eulid空间$V$中的向量$\alpha_1,\cdots,\alpha_s$彼此正交，
+  则它们线性无关。
+\end{theorem}
+
+\begin{proof}
+  不妨设$c_1\alpha_1 + \cdots + c_s \alpha_s = 0$，
+  则两侧与$\alpha_i$做内积得到：
+  \begin{equation*}
+    (c_1 \alpha_1 + \cdots + c_s \alpha_s, \alpha_i) = (0,\alpha_i) = 0
+  \end{equation*}
+  根据正交定义可知左侧等于$c_i(\alpha_i,\alpha_i)$，
+  而$(\alpha_i,\alpha_i) \neq 0$，因此$c_i = 0$，
+  根据$i$的任意性可知线性无关。
+\end{proof}
+
+
+
+\subsection{标准正交基}
+
+\noindent 一、标准正交基的概念与存在性
+
+\begin{definition}[标准正交基]
+  将$n$维Eulid空间中$n$个两两正交的单位向量称为标准正交基
+\end{definition}
+
+
+\noindent 二、标准正交基之间的过渡矩阵
+
+\begin{theorem}[标准正交基的过渡矩阵]
+  $\epsilon_1,\cdots,\epsilon_n$是$n$维Euclid空间$V$的一组基，
+  若$\eta_1,\cdots,\eta_n$下述等式，
+  则$\eta_1,\cdots,\eta_n$是标准正交基当且仅当$T$是正交矩阵。
+  \begin{equation*}
+    (\eta_1,\cdots,\eta_n) = (\epsilon_1,\cdots,\epsilon_n)T
+  \end{equation*}
+\end{theorem}
+
+\noindent 三、标准正交基的计算：Schmidt正交化
+
+\begin{theorem}[Schmidt正交化]
+  给定一组线性无关的向量$\alpha_1,\cdots,\alpha_s$，
+  要求做出一组相互正交的向量(单位化单独进行)$\epsilon_1,\cdots,\epsilon_s$，可以按照以下步骤：
+  \begin{equation*}
+    \begin{array}{l}
+      \epsilon_1 = \alpha_1\\
+      \epsilon_2 = \alpha_2 - \frac{(\alpha_2,\epsilon_1)}{(\epsilon_1,\epsilon_1)}\epsilon_1\\
+      \quad \quad \quad\vdots\\
+      \epsilon_s = \alpha_s - \sum\limits_{i = 1}^{s-1}\frac{(\alpha_s, \epsilon_i)}{(\epsilon_i,\epsilon_i)}\epsilon_i
+    \end{array}
+  \end{equation*}
+\end{theorem}
+
+~
+
+\begin{exercise}[Schmidt正交化]
+  已知$\epsilon_1 = (1,2,-1)^T, \epsilon_2 = (-1,3,1)^T,\epsilon_3 = (4,-1,0)^T$，
+  用Schmidt正交化将其化为标准正交基
+\end{exercise}
+
+\begin{solution}
+  最终结果为$\eta_1 = \frac{1}{\sqrt{6}}(1,2,-1)^T, \eta_2 = \frac{1}{\sqrt{3}}(-1,1,1)^T, \eta_3 = \frac{1}{\sqrt{2}}(1,0,1)^T$
+\end{solution}
+
+~
+
+\begin{theorem}[QR分解]
+  任意实可逆矩阵可分解为正交矩阵以及主对角元为正的上三角矩阵的乘积，且这种分解是唯一的
+\end{theorem}
+
+\begin{proof}
+  假设原本的矩阵$A$的列向量为$\alpha_1,\cdots,\alpha_n$，
+  经过Schmidt正交化后得到$\beta_1,\cdots,\beta_n$，
+  则满足：
+  \begin{equation*}
+    \begin{cases}
+      \alpha_1 = \beta_1\\
+      \alpha_2 = a_{12}\beta_1 + \beta_2\\
+      \quad \quad \vdots\\
+      \alpha_n = a_{1n}\beta_1 + a_{2n}\beta_2 + \cdots + \beta_n
+    \end{cases}
+  \end{equation*}
+  再将$\beta$进行单位化得到$\eta_i = \frac{\beta_i}{|\beta_i|}$，此时写为
+  \begin{equation*}
+    (\alpha_1,\cdots,\alpha_n) = (\eta_1,\cdots,\eta_n) \left(
+      \begin{array}{cccc}
+        b_{11}&b_{12}&\cdots&b_{1n} \\
+              &b_{22}&\cdots&b_{2n} \\
+              &&\ddots&\vdots \\
+              &&&b_{nn}
+      \end{array}
+    \right)
+  \end{equation*}
+  此时对角$b_{11} = |\beta_1|,\cdots,b_{nn} = |\beta_n|$，
+  而$(\eta_1,\cdots,\eta_n)$是标准正交基。
+  因此是正交矩阵乘上三角阵
+\end{proof}
+
+~
+
+\begin{exercise}[QR分解]
+  将下面的矩阵$A$分解为正交矩阵$T$与对角都是正数的上三角矩阵$B$的乘积
+  \begin{equation*}
+    A = \left[
+      \begin{array}{ccc}
+        1&1&1 \\
+         1&0&1 \\
+         1&2&0
+      \end{array}
+    \right]
+  \end{equation*}
+\end{exercise}
+
+\begin{solution}
+  先进行$\alpha_1,\alpha_2,\alpha_3$正交化到$\beta_1,\beta_2,\beta_3$：
+  \begin{equation*}
+    \begin{cases}
+      \beta_1 = \alpha_1 = (1,1,1)^T, |\beta_1| = \sqrt{3}\\
+      \beta_2 = \alpha_2 - \frac{3}{3} (1,1,1)^T = (0,-1,1)^T, |\beta_2| = \sqrt{2}\\
+      \beta_3 = \alpha_3 +  \frac{1}{2}\beta_2 - \frac{2}{3}\beta_1 = (\frac{1}{3}, -\frac{1}{6}, - \frac{1}{6}), |\beta_3| = \sqrt{\frac{1}{6}}
+    \end{cases}
+  \end{equation*}
+  进行单位化得到
+    \begin{equation*}
+      \begin{cases}
+        \eta_1 = (\frac{\sqrt{3}}{3}, \frac{\sqrt{3}}{3}, \frac{\sqrt{3}}{3})\\
+        \eta_2 = (0, - \frac{\sqrt{2}}{2}, \frac{\sqrt{2}}{2})\\
+        \eta_3 = (\frac{\sqrt{6}}{3}, - \frac{\sqrt{6}}{6}, - \frac{\sqrt{6}}{6})
+      \end{cases}
+    \end{equation*}
+    反向得到
+    \begin{equation*}
+      \begin{cases}
+        \alpha_1 = \beta_1\\
+        \alpha_2 = \beta_1 + \beta_2\\
+        \alpha_3 = \frac{2}{3}\beta_1 - \frac{1}{2}\beta_2 + \beta_3
+      \end{cases}
+    \end{equation*}
+    因此
+    \begin{equation*}
+      (\alpha_1,\alpha_2,\alpha_3) = (\beta_1,\beta_2,\beta_3) \left(
+        \begin{array}{ccc}
+          1&1&\frac{2}{3} \\
+           0&1&- \frac{1}{2} \\
+           0&0&1
+        \end{array}
+      \right) = (\eta_1,\eta_2,\eta_3) \left(
+        \begin{array}{ccc}
+          |\beta_1|&& \\
+                   &|\beta_2|& \\
+                   &&|\beta_3|
+        \end{array}
+      \right) \left(
+        \begin{array}{ccc}
+          1&1&\frac{2}{3} \\
+           0&1&- \frac{1}{2} \\
+           0&0&1
+        \end{array}
+      \right)
+    \end{equation*}
+\end{solution}
+
+
+\subsection{正交和与正交补}
+
+\begin{definition}[正交和、正交补]
+  $V_1,\cdots,V_s$为一列子空间，若$\forall i,j $有$V_i \perp V_j$，
+  则称$V_1 + \cdots + V_s$为正交和。
+  若$V = V_1 + V_2$且为正交和，则$V_1,V_2$互为正交补。
+\end{definition}
+
+\begin{theorem}[正交和必为直和]
+  若$V_1 + \cdots + V_s$为正交和，
+  则其必为直和。
+\end{theorem}
+
+\begin{proof}
+  设$0 = \alpha_1 + \cdots + \alpha_s$，
+  两侧与$\alpha_i$做内积可知
+  \begin{equation*}
+    0 = (\alpha_i,\alpha_i)
+  \end{equation*}
+  因此$\alpha_i = 0$，故零元素分解唯一，为直和。
+\end{proof}
+
+\begin{theorem}[正交补的唯一性]
+  Euclid空间$V$的任一子空间$V_1$有唯一的正交补$W^{\perp}$
+\end{theorem}
+
+\begin{proof}
+  $V_1 = \{0\}$时，即$V_1^{\perp} = V$。
+  否则设$V_1 = L(\epsilon_1,\cdots,\epsilon_s)$为标准正交基，
+  将其扩充为$V$的标准正交基：
+  \begin{equation*}
+    V = L(\epsilon_1,\cdots,\epsilon_n)
+  \end{equation*}
+  则$V_1^{\perp} = L(\epsilon_{s+1},\cdots,\epsilon_n)$为正交补
+
+  唯一性：若$V_1$有正交补$V_2,V_3$，
+  则$\forall \alpha \in V_2 \subset V_1 \oplus V_3$，
+  $\exists \alpha_1 \in V_1, \alpha_3 \in V_3$使得$\alpha = \alpha_1 + \alpha_3$，
+  而$\alpha \perp \alpha_1, \alpha_1 \perp \alpha_3$，因此
+  \begin{equation*}
+    0 = (\alpha,\alpha_1 )= (\alpha_1,\alpha_1) + (\alpha_3,\alpha_1) = (\alpha_1,\alpha_1)
+  \end{equation*}
+  即$\alpha_1 = 0, \alpha = \alpha_3 \in V_3$，
+  得到$V_2 \subseteq V_3, V_3 \subseteq V_2$，因此$V_2 = V_3$
+\end{proof}
+
+\begin{theorem}[正交补的具体表达式]
+  $V_1$是线性空间$V$的子空间，则$V_1^{\perp}$恰由所有与$V_1$正交的向量组成，即
+  \begin{equation*}
+    V_1^{\perp} = \{\alpha \in V, \alpha \perp V_1\}
+  \end{equation*}
+\end{theorem}
+
+\begin{proof}
+  令$W = \{\alpha \in V: \alpha \perp V_1\}$，
+  下面证明$V_1^{\perp} = W$。
+  首先$V_1 \perp V_1^{\perp}$，因此$V_1^{\perp} \subseteq W$。
+
+  反之，$\forall \alpha \in W$，根据$V = V_1 \oplus V_1^{\perp}$，
+  因此可分解$\alpha = \alpha_1 + \alpha_2$，得到
+  \begin{equation*}
+    (\alpha_1,\alpha_1) = (\alpha - \alpha_2, \alpha_1) = (\alpha,\alpha_1) - (\alpha_2,\alpha_1) = 0
+  \end{equation*}
+  因此$\alpha_1 = 0$，即$\alpha \in V_1^{\perp}$
+\end{proof}
+
+\begin{theorem}[正交补的性质]
+  (1)$(U^{\perp})^{\perp} = U$
+  (2)$(U_1 + U_2)^{\perp} = U_1^{\perp} \cap U_2^{\perp}$
+  (3)$(U_1 \cap U_2)^{\perp} = U_1^{\perp} + U_2^{\perp}$
+\end{theorem}
+
+\begin{proof}
+  (1)根据正交补的具体表达式一下得出
+
+  (2)显然$(U_1 + U_2)^{\perp} \subseteq U_1^{\perp}$，
+  $(U_1 + U_2)^{\perp} \subseteq U_2^{\perp}$，
+  因此$(U_1 + U_2)^{\perp} \subseteq U_1^{\perp} \cap U_2^{\perp}$。
+
+  另一方面，$\forall \alpha \in U_1^{\perp} \cap U_2^{\perp}, \beta \in U_1 + U_2$，
+  有$\beta = \beta_1 + \beta_2$，
+  因此
+  \begin{equation*}
+    (\alpha,\beta) = (\alpha, \beta_1 + \beta_2) = (\alpha, \beta_1) + (\alpha, \beta_2) = 0
+  \end{equation*}
+  因此$U_1^{\perp} \cap U_2^{\perp} \subseteq (U_1+U_2)^{\perp}$
+  
+  (3)可转换为(2)
+  % (3)$\forall \alpha \in U_1 \cap U_2, \beta \in U_1^{\perp} + U_2^{\perp}$，
+  % 有$\beta = \beta_1 + \beta_2$，
+  % 因此
+  % \begin{equation*}
+  %   (\alpha, \beta) = (\alpha, \beta_1) + (\alpha, \beta_2) = 0
+  % \end{equation*}
+  % 因此$  U_1^{\perp} + U_2^{\perp}\subseteq (U_1 \cap U_2)^{\perp}$
+
+  % 而$\forall \alpha \in (U_1 \cap U_2)^{\perp}$，
+\end{proof}
+
+\subsection{正交变换}
+
+\begin{definition}[正交变换]
+  $V$是$n$维Eulid空间，
+  $\mathcal{A}$是$V$上线性变换，
+  若$\forall \alpha, \beta \in V$有$(\mathcal{A} \alpha, \mathcal{A} \beta) = (\alpha, \beta)$，
+  则称$\mathcal{A}$为正交变换
+\end{definition}
+
+\begin{theorem}[正交变换充要条件]
+  $\mathcal{A}$是正交变换与下面几个命题等价：
+  \begin{itemize}
+  \item $\mathcal{A}$在标准正交基下矩阵为正交矩阵
+  \item 标准正交基在$\mathcal{A}$的作用下仍为标准正交基
+  \item $\mathcal{A}$保持向量长度不变
+  \item 若$\epsilon_1,\cdots,\epsilon_n$是$V$的标准正交基，
+    则$\mathcal{A}(\epsilon_1),\cdots,\mathcal{A}(\epsilon_n)$也是$V$的标准正交基
+  \end{itemize}
+\end{theorem}
+
+
+\subsection{镜面反射}
+
+\begin{definition}[镜面反射]
+  若对$\forall \alpha \in V$，$\mathcal{A}:V \rightarrow V$满足
+  \begin{equation*}
+    \mathcal{A} \alpha = \alpha - 2(\eta, \alpha)\eta
+  \end{equation*}
+  其中$\eta$是单位向量
+\end{definition}
+
+\begin{lemma}[镜面反射是正交变换]
+  镜面反射是正交变换
+\end{lemma}
+
+\begin{proof}
+  
+\end{proof}
+
+\begin{theorem}[镜面反射的特征]
+  
+\end{theorem}
+
+
+
+
+
+\section{Unitary空间}
+
+\subsection{Unitary空间概念}
+
+\begin{definition}[Unitary空间]
+  $V$是$\mathbb{C}$上内积空间，
+  其上定义内积$(\alpha,\beta)$满足$\forall k_1,k_2 \in \mathbb{C}$
+  \begin{itemize}
+  \item $(k_1 \alpha_1 + k_2 \alpha_2, \beta) = k_1(\alpha_1,\beta) + k_2(\alpha_2,\beta)$
+  \item $(\alpha,\beta) = \overline{(\beta,\alpha)}$
+  \item $(\alpha,\alpha) \geq 0$且$(\alpha,\alpha) = 0$当且仅当$\alpha = 0$
+  \end{itemize}
+\end{definition}
+
+\begin{definition}[酉矩阵]
+  $\mathbb{C}$上矩阵$U^{-1} = \overline{U}^T$，
+  则称$U$为酉矩阵。
+\end{definition}
+
+\begin{definition}[酉变换]
+  $\mathcal{U}$满足$(\mathcal{U}\alpha, \mathcal{U} \beta) = (\alpha,\beta)$，
+  则称$\mathcal{U}$为酉变换
+\end{definition}
+
+\begin{definition}[共轭变换]
+  $\mathcal{A}$是酉空间$V$的线性变换，
+  若$\mathcal{A}^{*}$满足$(\mathcal{A}\alpha, \beta) = (\alpha, \mathcal{A}^{*}\beta)$，
+  则称$\mathcal{A}^{*}$是$\mathcal{A}$的共轭变换
+\end{definition}
+
+\begin{definition}[正规变换]
+  若酉空间$V$的线性变换$\mathcal{A}$与其共轭变换$\mathcal{A}^{*}$可交换，
+  则称$\mathcal{A}$为正规变换。
+\end{definition}
+
+\begin{definition}[Hermite变换]
+  若酉空间$V$的线性变换$\mathcal{A}$满足$\mathcal{A} = \mathcal{A}^{*}$，
+  则称$\mathcal{A}$为Hermite变换
+\end{definition}
+
+
