@@ -8,6 +8,7 @@ pdf 下载：[Releases · ReichtumQian/NotesOnAdvancedAlgebra (github.com)](http
 
 主要参考的资料：
 
+- 《高等代数简明教程》：北京大学出版社（致敬蓝以中教授，是他让我理解了高等代数）
 - 《高等代数》：浙江大学出版社
 - 《高等代数学习指导书》：清华大学出版社
 - 《高等代数学》：复旦大学出版社
